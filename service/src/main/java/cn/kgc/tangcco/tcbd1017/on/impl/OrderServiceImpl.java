@@ -11,7 +11,11 @@ import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.OrderService;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
-
+/**
+ * 
+ * @author 廖斌
+ *
+ */
 public class OrderServiceImpl implements OrderService{
 	static OrderDao orderDaoIml = null;
 	static {
