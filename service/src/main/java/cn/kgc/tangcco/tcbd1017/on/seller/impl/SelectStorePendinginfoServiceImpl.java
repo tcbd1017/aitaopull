@@ -3,9 +3,10 @@ package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import cc.SelectStorePendinginfoService;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.seller.SelectStorePendinginfoDao;
-import cn.kgc.tangcco.tcbd1017.on.seller.SelectStorePendinginfoService;
+
 
 public class SelectStorePendinginfoServiceImpl implements SelectStorePendinginfoService {
 
