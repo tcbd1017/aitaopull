@@ -22,7 +22,7 @@ public interface OrderDao {
 		 * @return int
 		 * 	修改订单，修改订单
 		 */
-		public int updateByOrder( Map<String,Object> map )throws SQLException;
+		public int updateByOrder( Map<String,Object> map )throws Exception;
 		/**
 		 * @return int
 		 * 	新增订单
