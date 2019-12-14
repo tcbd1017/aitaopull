@@ -38,4 +38,10 @@ public class Dept {
 	 * 部门的状态 1删除  2正常
 	 */
 	private int dept_status;
+	public Dept(int dept_id, String dept_name) {
+		super();
+		this.dept_id = dept_id;
+		this.dept_name = dept_name;
+	}
+	
 }
