@@ -2,4 +2,6 @@
 	<beans>
 		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl"/>
 		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl"/>
+		<bean id = "SellerOrderDeliveryAndInquiryDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryDaoImpl"/>
+		<bean id = "ReceiptService" class = "cn.kgc.tangcco.tcbd1017.on.impl.ReceiptServiceImpl"/>	
 	</beans>
