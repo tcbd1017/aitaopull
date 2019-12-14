@@ -69,7 +69,13 @@ public class OrderAction extends BaseServlet{
 		 //响应值
 		printJson(response, map1);
 	}
-	
+	/**
+	 * 
+	 *  更新订单表
+	 * @param request
+	 * @param response
+	 * @param string
+	 */
 	public void updateByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
 				Map map =JSON.parseObject(string,Map.class);
