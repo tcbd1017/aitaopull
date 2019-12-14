@@ -1,6 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.text;
 
 import java.sql.SQLException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +24,12 @@ import cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
+
+/**
+ * 
+ * @author Administrator
+ *
+ */
 
 public class SelectByOrderTest {
 	static OrderService orderService =null;
