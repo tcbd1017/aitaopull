@@ -8,4 +8,6 @@
 		<bean id = "RecordDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordDaoImpl"/>
 		<bean id = "RecordService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordServiceImpl"/>
 	
+		<bean id = "PostageInfoDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoDaoImpl"/>
+		<bean id = "PostageInfoService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoServiceImpl"/>
 	</beans>
