@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.seller.Impl;
+package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

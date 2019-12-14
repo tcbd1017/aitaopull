@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.buyer;
+package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 
 import java.util.Map;
 
@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
+import cn.kgc.tangcco.tcbd1017.on.buyer.RecordService;
 
 /**
 *@author 作者：肖越

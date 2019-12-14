@@ -54,5 +54,9 @@ public class PostageInfo {
 	/**
 	 * 收货信息的状态 1失效 2正常 3默认
 	 */
-	private Date postage_info_status;
+	private int postage_info_status;
+	/**
+	 * 收件人信息唯一标识符 uuid
+	 */
+	private String postage_info_uuid;
 }

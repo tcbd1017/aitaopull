@@ -1,7 +1,6 @@
-package cn.kgc.tangcco.tcbd1017.on.seller.Impl;
+package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;

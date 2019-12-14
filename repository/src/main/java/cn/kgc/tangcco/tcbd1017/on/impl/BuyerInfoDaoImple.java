@@ -11,13 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.net.nntp.NewsgroupInfo;
 import org.junit.Test;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.tcbd1017.on.BuyerInfoDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.BuyerInfo;
-import kotlin.NoWhenBranchMatchedException;
 
 public class BuyerInfoDaoImple implements BuyerInfoDao  {
 	/**
