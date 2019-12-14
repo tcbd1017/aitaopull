@@ -86,4 +86,26 @@ public class Goods {
 	 * 商品重量
 	 */
 	private double goods_weight;
+
+	public Goods(int goods_id, String goods_type, String goods_brand, String goods_name, double goods_price,
+			String goods_presentation) {
+		super();
+		this.goods_id = goods_id;
+		this.goods_type = goods_type;
+		this.goods_brand = goods_brand;
+		this.goods_name = goods_name;
+		this.goods_price = goods_price;
+		this.goods_presentation = goods_presentation;
+	}
+
+	@Override
+	public String toString() {
+		return "Goods [goods_id=" + goods_id + ", goods_uuid=" + goods_uuid + ", goods_create_time=" + goods_create_time
+				+ ", goods_update_time=" + goods_update_time + ", goods_status=" + goods_status
+				+ ", goods_picture_url_id=" + goods_picture_url_id + ", goods_name=" + goods_name + ", goods_price="
+				+ goods_price + ", goods_brand=" + goods_brand + ", goods_type=" + goods_type + ", goods_width="
+				+ goods_width + ", goods_height=" + goods_height + ", goods_length=" + goods_length
+				+ ", goods_presentation=" + goods_presentation + ", seller_id=" + seller_id + ", storage_id="
+				+ storage_id + ", goods_weight=" + goods_weight + "]";
+	}
 }
