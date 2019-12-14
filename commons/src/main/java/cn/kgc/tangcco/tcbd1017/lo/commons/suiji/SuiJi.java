@@ -1,5 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.lo.commons.suiji;
-
+ 
 import java.util.Random;
 
 public class SuiJi {

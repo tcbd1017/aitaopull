@@ -1,5 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.lo.commons.jdbc;
-
+ 
 /**
  * @author Cui
  * @version 1.0 时间�?2019�?11�?14�?  下午6:12:40

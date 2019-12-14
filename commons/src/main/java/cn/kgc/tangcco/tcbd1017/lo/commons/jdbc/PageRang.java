@@ -1,6 +1,6 @@
 package cn.kgc.tangcco.tcbd1017.lo.commons.jdbc;
 
-
+ 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

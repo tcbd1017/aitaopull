@@ -9,7 +9,7 @@ import cn.kgc.tangcco.tcbd1017.lo.commons.jdbc.MyDBUtil;
 import cn.kgc.tangcco.tcbd1017.lo.pojo.Logistics;
 import cn.kgc.tangcco.tcbd1017.lo.pojo.LogisticsLogisticsStatus;
 
-
+ 
 public class LogisticsDaoImpl implements LogisticsDao{
 
 	@Override

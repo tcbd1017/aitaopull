@@ -10,7 +10,7 @@ import cn.kgc.tangcco.tcbd1017.lo.commons.jdbc.MyDBUtil;
 import cn.kgc.tangcco.tcbd1017.lo.commons.jdbc.ResultSetUtil;
 import cn.kgc.tangcco.tcbd1017.lo.pojo.Logistics;
 
-
+ 
 
 public class UserAndLogisticsDaoImpl implements UserAndLogisticsDao {
 
