@@ -18,15 +18,6 @@ import cn.kgc.tangcco.tcbd1017.on.system.SuperManagerSelectSystemAllMessage;
  *
  */
 public class SuperManagerSelectSystemAllMessageImpl implements SuperManagerSelectSystemAllMessage {
-//	private static Connection conn;
-//	static {
-//		try {
-//			conn = BaseDBUtils.getConnection();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 	@Override
 	public Map<String, Object> selectSystemAllMessage(Connection conn) throws SQLException {
@@ -39,7 +30,5 @@ public class SuperManagerSelectSystemAllMessageImpl implements SuperManagerSelec
 		return null;
 	}
 
-
-	
 
 }
