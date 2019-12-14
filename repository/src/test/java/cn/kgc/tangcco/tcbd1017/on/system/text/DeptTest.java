@@ -31,6 +31,7 @@ public class DeptTest {
 	@Test
 	public void selectTest() {
 		Map map=new HashMap();
+		int a;
 		try {
 			List<EmpAllInfo> list = deptdao.selectByDept(map);
 			for (EmpAllInfo empAllInfo : list) {
