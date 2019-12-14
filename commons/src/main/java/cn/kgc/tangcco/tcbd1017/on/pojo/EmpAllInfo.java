@@ -2,9 +2,11 @@ package cn.kgc.tangcco.tcbd1017.on.pojo;
 
 import java.util.Date;
 
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 
 /**
  * 
@@ -12,9 +14,12 @@ import lombok.Setter;
  * @version	2019年12月14日	下午2:04:40
  *
  */
+
+
 @Data
 @Setter
 @Getter
+
 public class EmpAllInfo {
 	
 	/**
