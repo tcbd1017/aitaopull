@@ -44,5 +44,12 @@ public interface CashVoucherDao {
 	 * @throws SQLException			sql异常
 	 */
 	public List<Map<String, Object>> selectByBuerIdAndStatus(Map<String, Object> map)throws SQLException;
+	/**
+	 * 								查询通过店名
+	 * @param map					查询条件的集合
+	 * @return						返回信息的集合
+	 * @throws SQLException			sql异常
+	 */
+	public List<Map<String, Object>> selectByIdAndStatusAndStoreName(Map<String, Object> map) throws SQLException;
 	
 }

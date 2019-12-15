@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
+      ackage cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -11,8 +11,7 @@ import cn.kgc.tangcco.tcbd1017.on.buyer.CashVoucherDao;
 import cn.kgc.tangcco.tcbd1017.on.buyer.CashVoucherService;
 
 /**
- * @author 赵瑞涛<br>
- * @
+ * @author 赵瑞涛
  * @version v1.0<br>
  * 	创建时间:	2019年12月9日	上午11:15:12<br>
  * 	类描述:
@@ -77,8 +76,11 @@ public class CashVoucherServiceImpl implements CashVoucherService{
 		
 		return map1;
 	}
-
+	
 	@Override
+	/**
+	 * 	删除一个优惠券
+	 */
 	public Map<String, Object> removeByUuid(Map<String, Object> map) {
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		map1.put("status","feild");
@@ -93,13 +95,20 @@ public class CashVoucherServiceImpl implements CashVoucherService{
 				return map1;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return map1;
 	}
 
 	@Override
+	/**
+	 * 	查询并分页
+	 */
 	public Map<String, Object> queryByIdAndStatusAndPagereng(Map<String, Object> map) {
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		map1.put("status","feild");
@@ -119,6 +128,31 @@ public class CashVoucherServiceImpl implements CashVoucherService{
 			e.printStackTrace();
 		}
 		return map1;
+	}
+
+	@Override
+	/**
+	 * 	通过店名查询
+	 */
+	public Map<String, Object> queryByIdAndStatusAndStoreName(Map<String, Object> map) {
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("status", "feild");
+		List<Map<String, Object>> list;
+		try {
+			list = cashVoucherDao.selectByIdAndStatusAndStoreName(map);
+			BaseDBUtils.closeAll();
+			if (list.size()>0) {
+				map2.put("info",list);
+				map2.put("status","success");
+				return map2;
+			}else {
+				return map2;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return map2;
 	}
 	
 	

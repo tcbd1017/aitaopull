@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<beans>
-		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl"/>
-		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl"/>
+		<bean id = "CashVoucherDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherDaoImpl"/>
+		<bean id = "CashVoucherService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherServiceImpl"/>
 	</beans>

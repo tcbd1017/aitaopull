@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.buyer;
+， -package cn.kgc.tangcco.tcbd1017.on.buyer;
 
 import java.util.Map;
 
@@ -33,5 +33,11 @@ public interface CashVoucherService {
 	 * @return			参数的状态
 	 */
 	public Map<String, Object> queryByIdAndStatusAndPagereng(Map<String, Object>map);
+	/**
+	 * 					通过店名查询
+	 * @param map		map查询参数的集合
+	 * @return			返回的结果的集合
+	 */
+	public Map<String, Object> queryByIdAndStatusAndStoreName(Map<String, Object> map);
 	
 }

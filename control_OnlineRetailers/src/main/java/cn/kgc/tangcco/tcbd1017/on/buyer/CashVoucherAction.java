@@ -117,6 +117,22 @@ public class CashVoucherAction extends BaseServlet{
 		System.out.println("返回参数"+map);
 		printJson(response, map);
 	}
-	
-	
+	/**
+	 * 					通过名称查询
+	 * @param request	HttpServletRequest
+	 * @param response	HttpServletResponse
+	 * @param json		json字符串
+	 */
+	public void queryByIdAndStatusAndStoreName(HttpServletRequest request ,HttpServletResponse response ,String json) {
+		Map map = null;
+		map = JSON.parseObject(json,Map.class);
+		System.out.println("通过买家查询：");
+		System.out.println("返回的json"+json);
+		System.out.println("买家id："+map.get("buyer_id"));
+		System.out.println("优惠券的状态："+map.get("cash_voucher_status"));
+		System.out.println("店铺名称："+map.get("store_name"));
+		map = cashVoucherService.queryByIdAndStatusAndStoreName(map);
+		System.out.println("返回的参数："+map);
+		printJson(response, map);
+	}
 }
