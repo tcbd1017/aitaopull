@@ -3,12 +3,11 @@ package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import cc.SelectStorePendinginfoService;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.seller.SelectStorePendinginfoDao;
 
 
-public class SelectStorePendinginfoServiceImpl implements SelectStorePendinginfoService {
+public class SelectStorePendinginfoServiceImpl implements SelectStorePendinginfoDao{
 
 	private static SelectStorePendinginfoDao dao;
 	private static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -30,7 +29,6 @@ public class SelectStorePendinginfoServiceImpl implements SelectStorePendinginfo
 	 *         maps.put("status","success");查询成功 map.put("msg", "");提示词
 	 *         map.put("code", 0);固定返回值 @throws
 	 */
-	@Override
 	public Map<String, Object> findStorePending() {
 		System.out.println("？？？？？？？");
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -47,6 +45,24 @@ public class SelectStorePendinginfoServiceImpl implements SelectStorePendinginfo
 		}
 
 		return map;
+	}
+
+	@Override
+	public int selectOrder() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateOrder() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int selectOrderPending() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
