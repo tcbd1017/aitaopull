@@ -37,11 +37,12 @@ public class ShoppingCartDaoTest {
     @Test
     public void selectShoppingCartInfoByBuyerIdTest() {
     	Map<String, Object> map = new HashMap<String, Object>();
-    	map.put("buyer_id", 1);
-    	map.put("enableFuzzySelect", 1);
+    	map.put("buyer_id", 4);
+    	map.put("enableFuzzySelect", 0);
     	map.put("goods_name", "米");
     	
     	List<Map<String, Object>> list = spd.selectShoppingCartInfoByBuyerId(map);
+    	int count = spd.getShoppingCartCount();
     	Iterator<Map<String, Object>> it = list.listIterator();
     	while (it.hasNext()) {
 			Map<String, Object> result = (Map<String, Object>) it.next();
@@ -54,6 +55,7 @@ public class ShoppingCartDaoTest {
 			}
 			System.out.println();
 		}
+    	System.out.println(count);
     }
     
     @Test

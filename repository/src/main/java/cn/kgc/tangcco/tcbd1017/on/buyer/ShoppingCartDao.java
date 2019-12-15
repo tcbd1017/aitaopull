@@ -21,6 +21,11 @@ public interface ShoppingCartDao {
 	public abstract List<Map<String ,Object>> selectShoppingCartInfoByBuyerId(Map<String, Object> map);
 	
 	/**
+	 * 获取上面查询方法的总记录数
+	 * @return 查询方法获得的总记录数
+	 */
+	public abstract int getShoppingCartCount();
+	/**
 	 * 新增当前购物车的信息
 	 * @param shoppingCart 需要插入的购物车对象 (在service层组装)
 	 * @return 方法执行的结果 0 失败 1 成功

@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd10107.on.buyer;
+package cn.kgc.tangcco.tcbd1017.on.buyer;
 /**
  * @author 赵瑞涛
  * @version v1.0<br>

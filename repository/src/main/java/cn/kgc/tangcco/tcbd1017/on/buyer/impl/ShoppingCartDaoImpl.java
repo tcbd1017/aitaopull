@@ -22,6 +22,7 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.ShoppingCart;
 
 public class ShoppingCartDaoImpl implements ShoppingCartDao{
 	QueryRunner qr = new QueryRunner();
+	private int count = 0;
 	
 	@Override
 	public List<Map<String ,Object>> selectShoppingCartInfoByBuyerId(Map<String, Object> map) {
@@ -60,7 +61,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 				Connection conn = BaseDBUtils.getConnection();
 				PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString().trim());
 				ResultSet rs = BaseDBUtils.executeQuery(pst, param);
-				
+				// 进入方法前重置记录数
+				count = 0;
 				list = this.rsToList(rs);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -69,6 +71,12 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 		return list;
 	}
 
+	@Override
+	public int getShoppingCartCount() {
+		
+		return count;
+	}
+	
 	@Override
 	public int insertShoppingCart(ShoppingCart shoppingCart) {
 		StringBuilder sql = new StringBuilder(" insert into 0108_shopping_cart ");
@@ -176,6 +184,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 			int columnCount = rs.getMetaData().getColumnCount();
 			while(rs.next()){
 				Map<String, Object> map = new HashMap<String, Object>();
+				count ++;
 				// 遍历每一列,拿出列名和数据
 				for (int i = 1; i <= columnCount; i++) {
 					String columnLabel = rs.getMetaData().getColumnLabel(i);
