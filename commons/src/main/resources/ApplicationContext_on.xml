@@ -3,4 +3,7 @@
 		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl"/>
 		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl"/>
 		<bean id = "DeptDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.DeptDaoImpl"/>
+		
+		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
+		<bean id = "SetMealService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealServiceImpl"/>
 	</beans>
