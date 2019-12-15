@@ -15,5 +15,8 @@
 	
 		<bean id = "PostageInfoDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoDaoImpl"/>
 		<bean id = "PostageInfoService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoServiceImpl"/>
+		
+		<bean id = "CashVoucherDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherDaoImpl"/>
+		<bean id = "CashVoucherService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherServiceImpl"/>
 
 	</beans>
