@@ -127,4 +127,34 @@ public class CashVoucherServiceTest {
 				System.out.println("没有记录");
 		}
 	}
+	
+	@Test
+	/**
+	 * 	通过店名查询
+	 */
+	public void queryByIdAndStatusAndStoreName(){
+		int id = 1;
+		int status = 2;
+		String	name = "111";
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("buyer_id", id);
+		map.put("cash_voucher_status",status);
+		map.put("store_name", name);
+		map = cashVoucherService.queryByIdAndStatusAndStoreName(map);
+		if (map.get("status").toString().equals("success")) {
+			List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("info");
+			Iterator<Map<String, Object>> iterator = list.iterator();
+			while (iterator.hasNext()) {
+				Map<String,Object> map2 = (Map<String,Object>) iterator.next();
+				System.out.println("店铺名称"+map2.get("store_name"));
+				System.out.println("图片地址"+map2.get("voucher_type_picture_url"));
+				System.out.println("开始使用的时间"+map2.get("cash_voucher_acailable_begin_time"));
+				System.out.println("停止使用的时间"+map2.get("cash_voucher_available_time"));
+				System.out.println("使用条件"+map2.get("voucher_type_condition"));
+				System.out.println("见面金额"+map2.get("voucher_type_money"));
+			}
+		}else {
+				System.out.println("没有记录");
+		}
+	}
 }

@@ -108,14 +108,46 @@ public class CashVoucherDaoTest {
 	 */
 	public void chaallfen() {
 		int id = 1;
-		int status = 3;
-		PageRang pageRang = new PageRang(1, 3);
+		int status =2;
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("buyer_id", id);
 		map.put("cash_voucher_status", status);
-		map.put("pagerang", pageRang);
+		map.put("pageNumber", 1);
+		map.put("pageSize", 2);
 		try {
 			List<Map<String, Object>> list = cashVoucherDao.selectByBuerIdAndStatus(map);
+			Iterator<Map<String, Object>> iterator = list.iterator();
+			while (iterator.hasNext()) {
+				Map<String,Object> map2 = (Map<String,Object>) iterator.next();
+				BaseDBUtils.closeAll();
+				System.out.println("cash_voucher_id"+map2.get("cash_voucher_id"));
+				System.out.println("店铺名称"+map2.get("store_name"));
+				System.out.println("图片地址"+map2.get("voucher_type_picture_url"));
+				System.out.println("开始使用的时间"+map2.get("cash_voucher_acailable_begin_time"));
+				System.out.println("停止使用的时间"+map2.get("cash_voucher_available_time"));
+				System.out.println("使用条件"+map2.get("voucher_type_condition"));
+				System.out.println("见面金额"+map2.get("voucher_type_money"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	/**
+	 * 	通过店名查询
+	 */
+	public void chaming(){
+		int id = 1;
+		int status = 2;
+		String name = "111";
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("buyer_id", id);
+		map.put("cash_voucher_status", status);
+		map.put("store_name", name);
+		try {
+			List<Map<String, Object>> list = cashVoucherDao.selectByIdAndStatusAndStoreName(map);
 			Iterator<Map<String, Object>> iterator = list.iterator();
 			while (iterator.hasNext()) {
 				Map<String,Object> map2 = (Map<String,Object>) iterator.next();

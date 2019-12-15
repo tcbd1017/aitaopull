@@ -1,5 +1,8 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer;
 
+
+import java.sql.SQLException;
+
 import java.util.Map;
 
 /**
@@ -23,4 +26,25 @@ public interface RecordService {
 	 */
 	public Map<String,Object> removeRecordByRecord_id(String record_id);
 	
+
+	
+	/**
+	 * 根据传过来的买家id 和商品名称（支持模糊查询）
+	 * 所对应的商品
+	 */
+	public  Map<String,Object> queryRecordAllByBuyerIdAndGoodsName(String buyer_Id,String goods_name);
+	
+	/**
+	 * 
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * 
+	 * 
+	 */
+	public Map<String,Object> addRecordByBuyer_idAndGoods_id(String buyer_id,String goods_id);
+	
+	
+	
+	
+
 }

@@ -14,7 +14,11 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Record;
 
 /**
+
+*@author 作者：肖越，
+
 *@author 作者：肖越
+
 *@version 1.0 创建时间:2019年12月14日上午9:00:38
 */
 public class RecordServiceImpl implements RecordService {
@@ -96,6 +100,85 @@ public class RecordServiceImpl implements RecordService {
 
 
 	
+
+	
+	
+	
+	
+	/**
+	 * 根据传过来的买家id 和商品名称（支持模糊查询）
+	 * 所对应的商品
+	 */
+	@Override
+	public Map<String, Object> queryRecordAllByBuyerIdAndGoodsName(String buyer_Id, String goods_name) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectRecordAllByBuyerIdAndGoodsName(buyer_Id, goods_name);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+
+
+	
+	
+	/**
+	 * 
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * 
+	 * 
+	 */
+	@Override
+	public Map<String, Object> addRecordByBuyer_idAndGoods_id(String buyer_id, String goods_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Record>());
+		map.put("status", "failed");
+		try {
+			int count = recordDao.insertRecordByBuyer_idAndGoods_id(buyer_id, goods_id);
+			if (count !=0) {
+				map.put("status", "success");
+				map.put("data",count);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+
+	
+
 
 	
 	

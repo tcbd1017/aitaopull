@@ -26,4 +26,27 @@ public interface RecordDao {
 	 * 
 	 */
 	public  int deleteRecordByRecord_id(String record_id) throws SQLException;
+
+	
+	
+	
+	/**
+	 * 根据传过来的买家id 和商品名称（支持模糊查询）
+	 * 查询所对应的商品
+	 */
+	public  List<Map> selectRecordAllByBuyerIdAndGoodsName(String buyer_Id,String goods_name) throws SQLException;
+	
+	
+	/**
+	 * 
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * @return 受影响的行数
+	 * @throws SQLException
+	 */
+	public  int insertRecordByBuyer_idAndGoods_id(String buyer_id,String goods_id) throws SQLException;
+	
+	
+	
+
 }
