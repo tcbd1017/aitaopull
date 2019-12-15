@@ -129,8 +129,8 @@ public class EmpAllInfo {
 	private int emppower_status;
 	/**
 	 * 员工性别 默认1男 2女
-	 */
-	private int gender;
+	 */	
+	private int emp_info_gender;
 	/**
 	 * 员工身份证号
 	 */
