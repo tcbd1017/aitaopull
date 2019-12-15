@@ -15,14 +15,22 @@ public interface GoodsService {
 	 * 查詢所有物品
 	 * @return
 	 */
+
+	public  Map<String,Object> queryAllGoods();
+
 	public  Map<String,Object> queryAllGoods() ;
+
 	
 	/**
 	 * 根据商品类型查询商品
 	 * @param goodsType 商品类型名称
 	 * @return map类型
 	 */
+
+	public  Map<String,Object> queryByGoodsType(String goodsType);
+
 	public  Map<String,Object> queryByGoodsType(String goodsType) ;
+
 
 
 	/**
