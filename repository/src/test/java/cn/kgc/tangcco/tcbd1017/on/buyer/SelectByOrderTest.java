@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on;
+package cn.kgc.tangcco.tcbd1017.on.buyer;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -13,10 +13,10 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
-import com.mysql.fabric.xmlrpc.base.Data;
 
 import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
+import cn.kgc.tangcco.tcbd1017.on.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
@@ -83,6 +83,9 @@ public class SelectByOrderTest {
 			System.out.println(selectByOrder);
 		} catch (ParseException | SQLException e1) {
 			e1.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	@Test

@@ -63,28 +63,6 @@ public class GoodsDaoImpl implements GoodsDao {
 		 * 返回的结果集
 		 */
 		ResultSet rs;
-		try {
-			/**
-			 * 获取链接
-			 */
-			conn = BaseDBUtils.getConnection();
-			/**
-			 * 预编译SQK语句
-			 */
-			pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
-			/**
-			 * 返回的结果集
-			 */
-			rs = BaseDBUtils.executeQuery(pst, param);
-			/**
-			 * 集合遍历存储到List集合
-			 */
-			while (rs.next()) {
-				newList.add(new Goods(rs.getInt("goods_id"), rs.getString("goods_type"), rs.getString("goods_brand"),
-						rs.getString("goods_name"), rs.getDouble("goods_price"), rs.getString("goods_presentation")));
-			}
-		} catch (Exception e) {
-		}
 		return newList;
 	}
 
@@ -205,8 +183,8 @@ public class GoodsDaoImpl implements GoodsDao {
 			 * 集合遍历存储到List集合
 			 */
 			while (rs.next()) {
-				newList.add(new Goods(rs.getInt("goods_id"), rs.getString("goods_type"), rs.getString("goods_brand"),
-						rs.getString("goods_name"), rs.getDouble("goods_price"), rs.getString("goods_presentation")));
+//				newList.add(new Goods(rs.getInt("goods_id"), rs.getString("goods_type"), rs.getString("goods_brand"),
+//						rs.getString("goods_name"), rs.getDouble("goods_price"), rs.getString("goods_presentation")));
 			}
 		} catch (Exception e) {
 		}
