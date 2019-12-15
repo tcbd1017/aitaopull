@@ -5,11 +5,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.lang3.ObjectUtils;
+
+import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
+import cn.kgc.tangcco.tcbd1017.on.pojo.Deptpower;
+
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
+
 import cn.kgc.tangcco.tcbd1017.on.pojo.Emp;
 import cn.kgc.tangcco.tcbd1017.on.system.SelectEmpPower;
 

@@ -11,6 +11,11 @@
 
 		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
 
+		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
+		<bean id = "PersonnelMattersDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl"/>
+	</beans>
+
+
 
 		<bean id = "GoodsDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsDaoImpl"/>
 		<bean id = "GoodsService" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsServiceImpl"/>
@@ -31,5 +36,6 @@
 		<bean id = "CashVoucherService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherServiceImpl"/>
 
 	</beans>
+
 
 
