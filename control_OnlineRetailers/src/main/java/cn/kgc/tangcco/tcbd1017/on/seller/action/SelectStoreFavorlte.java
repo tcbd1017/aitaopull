@@ -14,8 +14,10 @@ import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.seller.SelectStoreFavorlteinfoService;
 
+
+
 /**
- * 
+ * @江岛
  */
 @WebServlet("/SelectStoreFavorlte.action")
 public class SelectStoreFavorlte extends BaseServlet {

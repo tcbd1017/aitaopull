@@ -11,13 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.net.nntp.NewsgroupInfo;
-import org.junit.Test;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.tcbd1017.on.BuyerInfoDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.BuyerInfo;
-import kotlin.NoWhenBranchMatchedException;
 
 public class BuyerInfoDaoImple implements BuyerInfoDao  {
 	/**
@@ -196,7 +193,6 @@ public class BuyerInfoDaoImple implements BuyerInfoDao  {
 	
 	
 	//测试查询
-	@Test	
 	public void test() {
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("buyer_id", 313 );
@@ -206,7 +202,6 @@ public class BuyerInfoDaoImple implements BuyerInfoDao  {
 		
 	}
 	//测试添加
-	@Test
 	public void test01() {
 		Map<String, Object> map=new HashMap<String, Object>();
 		

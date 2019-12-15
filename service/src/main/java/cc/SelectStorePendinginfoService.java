@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.seller;
+package cc;
 
 import java.util.Map;
 
