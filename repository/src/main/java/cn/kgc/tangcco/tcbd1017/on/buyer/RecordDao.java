@@ -26,6 +26,7 @@ public interface RecordDao {
 	 * 
 	 */
 	public  int deleteRecordByRecord_id(String record_id) throws SQLException;
+
 	
 	
 	
@@ -47,4 +48,5 @@ public interface RecordDao {
 	
 	
 	
+
 }

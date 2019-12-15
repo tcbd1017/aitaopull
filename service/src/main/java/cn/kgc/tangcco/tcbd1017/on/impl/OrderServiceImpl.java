@@ -82,7 +82,13 @@ public class OrderServiceImpl implements OrderService{
 		map1.put("code", 0);
 		if (!map.isEmpty()&&map.containsKey("object")&&map.containsKey("data")) {
 			try {
-				 int rs = orderDaoIml.updateByOrder(map);
+				 int rs = 0;
+				try {
+					rs = orderDaoIml.updateByOrder(map);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				map1.put("data",rs );
 				if (rs>0) {
 					map1.put("status", "success");

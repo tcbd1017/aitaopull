@@ -1,6 +1,8 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer;
 
+
 import java.sql.SQLException;
+
 import java.util.Map;
 
 /**
@@ -24,6 +26,7 @@ public interface RecordService {
 	 */
 	public Map<String,Object> removeRecordByRecord_id(String record_id);
 	
+
 	
 	/**
 	 * 根据传过来的买家id 和商品名称（支持模糊查询）
@@ -43,4 +46,5 @@ public interface RecordService {
 	
 	
 	
+
 }

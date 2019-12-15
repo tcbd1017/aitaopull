@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,11 @@ public class RecordDaoImpl implements RecordDao {
 		List<Map> list=new ArrayList<Map>();
 		try {
 			Connection conn=BaseDBUtils.getConnection();
+
 			String sql="SELECT  * FROM 0203_goods g INNER JOIN 0103_record r ON g.goods_id=r.goods_id INNER JOIN  0101_buyer b ON r.buyer_id=b.buyer_id WHERE b.buyer_id=? AND buyer_status=2 AND record_status=2 AND goods_status=2 ORDER BY record_create_time DESC ";
+
+			String sql="SELECT  * FROM 0203_goods g INNER JOIN 0103_record r ON g.goods_id=r.goods_id INNER JOIN  0101_buyer b ON r.buyer_id=b.buyer_id WHERE b.buyer_id=?  ORDER BY record_create_time DESC ";
+
 			PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 			ResultSet rs=BaseDBUtils.executeQuery(pstmt,buyer_Id);
 			while(rs.next()) {
@@ -123,6 +129,7 @@ public class RecordDaoImpl implements RecordDao {
 		}
 		return count;
 	}
+
 
 	
 	/**
@@ -240,12 +247,14 @@ public class RecordDaoImpl implements RecordDao {
 	
 	
 	
+
 	
 	
 	
 	//测试
 //	public static void main(String[] args) {
 //		try {
+
 //			int i=new RecordDaoImpl().insertRecordByBuyer_idAndGoods_id("4", "6");
 ////		for (int i = 0; i < list.size(); i++) {
 ////			Map map=list.get(i);
@@ -254,6 +263,14 @@ public class RecordDaoImpl implements RecordDao {
 //			if(i>0) {
 //				System.out.println("添加数据成功！！");
 //			}
+
+//			List<Map> list=new RecordDaoImpl().selectRecordAllBybuyer_id("1");
+//		for (int i = 0; i < list.size(); i++) {
+//			Map map=list.get(i);
+//			System.out.println(map);
+//		}
+//			
+
 //			
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
@@ -261,7 +278,12 @@ public class RecordDaoImpl implements RecordDao {
 //		}
 //	}
 
+
 	
+
+////
+//	
+
 	
 	
 }
