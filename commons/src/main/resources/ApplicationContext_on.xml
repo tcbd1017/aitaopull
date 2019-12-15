@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<beans>
+		
+		
 		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl"/>
 		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl"/>
 
