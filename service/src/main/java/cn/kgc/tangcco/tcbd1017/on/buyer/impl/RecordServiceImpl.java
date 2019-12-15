@@ -14,7 +14,7 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Record;
 
 /**
-*@author 作者：肖越
+*@author 作者：肖越，
 *@version 1.0 创建时间:2019年12月14日上午9:00:38
 */
 public class RecordServiceImpl implements RecordService {
