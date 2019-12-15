@@ -1,4 +1,4 @@
-      ackage cn.kgc.tangcco.tcbd1017.on.buyer.impl;
+package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
