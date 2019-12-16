@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.action;
+package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
