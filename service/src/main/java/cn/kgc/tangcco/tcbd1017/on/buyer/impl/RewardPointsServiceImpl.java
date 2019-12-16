@@ -110,12 +110,7 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 			// 将连接归还给数据源
 			return info;
 		} catch (SQLException e) {
-			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			BaseDBUtils.rollbackAndClose();
 			e.printStackTrace();
 		}
 		return info;
