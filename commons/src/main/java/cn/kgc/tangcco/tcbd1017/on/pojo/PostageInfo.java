@@ -1,3 +1,4 @@
+
 package cn.kgc.tangcco.tcbd1017.on.pojo;
 
 import java.util.Date;
@@ -6,11 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** 
-* @author 作者 Your-Name: 刘煜
-* @version 创建时间：2019年12月10日 上午11:02:41 
-*    类说明 ：收获信息表
-*/
+/**
+ * @author 作者 Your-Name: 刘煜
+ * @version 创建时间：2019年12月10日 上午11:02:41 类说明 ：收获信息表
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,5 +54,15 @@ public class PostageInfo {
 	/**
 	 * 收货信息的状态 1失效 2正常 3默认
 	 */
-	private Date postage_info_status;
+	private int postage_info_status;
+	/**
+	 * 收件人信息唯一标识符 uuid
+	 */
+	private String postage_info_uuid;
+	
+	/**
+	 * 收件人邮编
+	 */
+	private String postage_info_postcode;
 }
+

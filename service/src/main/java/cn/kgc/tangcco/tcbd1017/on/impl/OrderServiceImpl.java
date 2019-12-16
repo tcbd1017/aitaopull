@@ -11,7 +11,11 @@ import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.OrderService;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
-
+/**
+ * 
+ * @author 廖斌
+ *
+ */
 public class OrderServiceImpl implements OrderService{
 	static OrderDao orderDaoIml = null;
 	static {
@@ -78,7 +82,13 @@ public class OrderServiceImpl implements OrderService{
 		map1.put("code", 0);
 		if (!map.isEmpty()&&map.containsKey("object")&&map.containsKey("data")) {
 			try {
-				 int rs = orderDaoIml.updateByOrder(map);
+				 int rs = 0;
+				try {
+					rs = orderDaoIml.updateByOrder(map);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				map1.put("data",rs );
 				if (rs>0) {
 					map1.put("status", "success");

@@ -11,7 +11,7 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
  *
  */
 
-public interface OrderDao7 {
+public interface OrderDao111 {
 		/**
 		 * @return List<Order>
 		 * 	查询订单 

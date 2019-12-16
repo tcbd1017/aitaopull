@@ -38,6 +38,8 @@ public class OrderAction extends BaseServlet{
 			e.printStackTrace();
 		}
 	}
+	
+	
 	/**
 	 * 	data ： dao层返回的数据
 	 * 	status : 查询是否成功信息
@@ -70,6 +72,14 @@ public class OrderAction extends BaseServlet{
 		printJson(response, map1);
 	}
 	
+	
+	/**
+	 * 
+	 *  更新订单表
+	 * @param request
+	 * @param response
+	 * @param string
+	 */
 	public void updateByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
 				Map map =JSON.parseObject(string,Map.class);
@@ -88,6 +98,40 @@ public class OrderAction extends BaseServlet{
 				 if (map!=null&&map.size()>0) {
 					 //处理值；
 					 map1=orderServiceImpl.updateByOrder(map);
+					 String status = (String)map1.get("status");
+					 System.out.println(status);
+				}
+				 //响应值
+				printJson(response, map1);
+		
+	}
+	
+
+	/**
+	 * 
+	 *  	新增订单表
+	 * @param request
+	 * @param response
+	 * @param string
+	 */
+	public void insertByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
+		//接收值
+				Map map =JSON.parseObject(string,Map.class);
+				if (map.get("object").toString().contains("seller")) {
+					Seller seller = JSON.parseObject(map.get("object").toString(),Seller.class);
+					map.put("object", seller);
+				}else if(map.get("object").toString().contains("buyer")){
+					Buyer buyer = JSON.parseObject(map.get("object").toString(),Buyer.class);
+					map.put("object", buyer);
+				}
+				//解析order
+				Order order = JSON.parseObject(map.get("data").toString(),Order.class);
+				map.put("data", order);
+				 Map map1 = null;
+				 
+				 if (map!=null&&map.size()>0) {
+					 //处理值；
+					 map1=orderServiceImpl.insertByOrder(map);
 					 String status = (String)map1.get("status");
 					 System.out.println(status);
 				}
