@@ -42,12 +42,6 @@ public interface PostageInfoDao {
 	 */
 	public List<Address> selectAllAddress(Map<String, Object> map) throws SQLException;
 
-	
-	
-	
-	
-	
-	
 	/**
 	 * 新增收件人信息
 	 * 
@@ -67,15 +61,6 @@ public interface PostageInfoDao {
 	public int insertbuyerAndPostageInfo(Map<String, Object> map) throws SQLException;
 
 
-	
-	
-	/**
-	 * 查询收件人信息是否为默认收件地址
-	 * @return
-	 * @throws SQLException
-	 */
-	public int selectCountByStatus(Map<String, Object> map) throws SQLException;
-	
 	/**
 	 * 查询为默认收件地址的收件人信息
 	 * @return
