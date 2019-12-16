@@ -13,10 +13,9 @@
 		<bean id = "DeptDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.DeptDaoImpl"/>
 
 		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
-                <bean id = "ShoppingCartService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl"/>
+        <bean id = "ShoppingCartService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl"/>
 		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
 
-		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
 		<bean id = "PersonnelMattersDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl"/>
 	
 
