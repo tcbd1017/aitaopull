@@ -92,7 +92,7 @@ public class RewardPointsDaoImpl implements RewardPointsDao{
 		return list;
 	}
 	 /**
-	  * 添加积分
+	  * 添加积分,
 	  * @param map
 	  * @return
 	  * @throws SQLException
