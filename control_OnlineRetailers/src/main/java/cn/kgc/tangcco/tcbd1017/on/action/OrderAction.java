@@ -1,5 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.on.action;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
+import cn.kgc.tangcco.lihaozhe.commons.okhttp.OkHttpUtil;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.OrderDao;
@@ -21,6 +24,13 @@ import cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
+import cn.kgc.tangcco.tcbd1017.on.pojo.ShoppingCart;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
 * @author 作者 : 廖斌
@@ -103,6 +113,7 @@ public class OrderAction extends BaseServlet{
 	public void updateByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
 				Map map =JSON.parseObject(string,Map.class);
+				//获得修改对象
 				if (map.get("object").toString().contains("seller")) {
 					Seller seller = JSON.parseObject(map.get("object").toString(),Seller.class);
 					map.put("object", seller);
@@ -110,10 +121,10 @@ public class OrderAction extends BaseServlet{
 					Buyer buyer = JSON.parseObject(map.get("object").toString(),Buyer.class);
 					map.put("object", buyer);
 				}
-				//解析order
+				//解析order，获得修改订单信息
 				Order order = JSON.parseObject(map.get("data").toString(),Order.class);
 				map.put("data", order);
-				 Map map1 = null;
+				 Map map1 = new HashMap();
 				 
 				 if (map!=null&&map.size()>0) {
 					 //处理值；
@@ -125,11 +136,76 @@ public class OrderAction extends BaseServlet{
 				printJson(response, map1);
 		
 	}
+	/**
+	 *  通过购物车，联动新增订单，则调用此接口
+	 *  前台给后台格式:
+	 * 	 Map :
+	 * 			key:"shopping", 至少需要包含买家id，购物车id
+	 *  		
+	 *  
+	 */
+	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {
+		Map map = new HashMap();
+		//接收购物车订单号
+		ShoppingCart shoppingCart=(ShoppingCart)JSON.parseObject(string,ShoppingCart.class);
+		System.out.println(shoppingCart);
+		//调用杜明action接口，获得购物车信息
+		OkHttpClient client = new OkHttpClient();
+		//杜明接口地址： 根据Buyer_id返回购物车信息
+		String url0 = "http://localhost:8080/control_OnlineRetailers/shoppingCart.action?methodName=queryAllShoppingCartInfoByBuyerId";
+		//标明接口地址：根据BuyerId和GoodsId,删除物品
+		String url1 = "http://localhost:8080/control_OnlineRetailers/shoppingCart.action?methodName=removeShoppingCart";
+		//获得请求体
+		 final MediaType json=MediaType.parse("application/json; charset=utf-8");
+		 Map map1 = new HashMap();
+		 map1.put("buyerId", shoppingCart.getBuyer_id());
+		 map1.put("goodsId", shoppingCart.getGoods_id());
+		 String json2 = JSON.toJSON(map1).toString();
+		 RequestBody queryBody = RequestBody.create(json, json2 );
+		 RequestBody removeBody = RequestBody.create(json, json2);
+		//查询购物车http请求
+		Request queryCart = new Request.Builder().url(url0).post(queryBody).build();
+		//删除购物车http请求 
+		Request removeCart = new Request.Builder().url(url1).post(removeBody).build();
+		
+		Response queryResponse = null;
+		Response removeResponse = null;
+		try {
+			//获取查询购物车信息响应
+			 queryResponse = client.newCall(queryCart).execute();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//解析响应,并获得响应数据；
+		String queryRs=null;
+		String removeRs=null;
+		try {
+			queryRs=queryResponse.body().string();
+			
+			System.out.println("响应体的字符串："+queryRs);
+			System.out.println("响应体的字符串："+removeRs);
+			Map<String,String> map2=new HashMap();
+			map2.put("query", queryRs);
+			//调用service,添加订单；
+			Map<String, Object> map3 = orderServiceImpl.insertByOrderByShoppingCart(map2);
+			//获取删除购物车信息响应 
+			 removeResponse = client.newCall(removeCart).execute();
+			//获取购物车删除信息； 
+			 removeRs=removeResponse.body().string();
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		printJson(response, removeRs);
+		
+	}
 	
 
 	/**
 	 * 
-	 *  	新增订单表
+	 *  	直接 新增订单表 ，调用此接口
 	 * @param request
 	 * @param response
 	 * @param string
@@ -152,6 +228,7 @@ public class OrderAction extends BaseServlet{
 				 if (map!=null&&map.size()>0) {
 					 //处理值；
 					 map1=orderServiceImpl.insertByOrder(map);
+					 //输出是否增加成功
 					 String status = (String)map1.get("status");
 					 System.out.println(status);
 				}

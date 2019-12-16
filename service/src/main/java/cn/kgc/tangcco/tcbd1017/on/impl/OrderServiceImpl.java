@@ -1,10 +1,14 @@
 package cn.kgc.tangcco.tcbd1017.on.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
@@ -120,30 +124,55 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Map<String,Object> insertByOrder(Map<String,Object> map)   {
 		try {
+			//开启事务
 			BaseDBUtils.startTransaction();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		//给map设置初始值
 		Map map1 = new HashMap();
 		map1.put("msg", "");
 		map1.put("status", "failed");
 		map1.put("code", 0);
+		//判断map是否为空，并且要包含两个key
 		if (!map.isEmpty()&&map.containsKey("object")&&map.containsKey("data")) {
 			try {
+				//向数据库增加订单；
 				int rs = orderDaoIml.insertByOrder(map);
 				map1.put("data", rs) ;
+				//如果返回结果大于0，则代表增加成功，并关闭连接
 				if (rs>0) {
 					map1.put("status", "success");
 					BaseDBUtils.commitAndClose();
 				}else {
+					//否则增加失败，并回滚事务，并关闭连接
 					BaseDBUtils.rollbackAndClose();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			map1.put("status", "success");
 		}
+		//返回增加结果
 		return map1;
+	}
+
+	/**
+	 *  从购物车新增订单
+	 * 
+	 */
+	@Override
+	public Map<String, Object> insertByOrderByShoppingCart(Map<String,String> map) throws SQLException {
+		String json = map.get("query");
+		Map map1 = (Map)JSON.parseObject(json);
+		String status = (String)map1.get("status");
+		if (status.equals("success")) {
+			List<Map<String ,Object>> list = (ArrayList)map1.get("data");
+			for (Map<String, Object> map2 : list) {
+				
+			}
+			
+		}
+		return null;
 	}
 
 
