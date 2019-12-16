@@ -37,9 +37,9 @@ public class ShoppingCartAction extends BaseServlet{
 	 * 根据用户Id查询购物车信息 包含模糊查询
 	 * 传入map 需包含物品Id int "goodsId" 用户Id int "buyerId" 可选物品名称(开启模糊查询)String "goodsName"
 	 * 返回值 	"status"	成功 "success" 失败 "failed"
-	 * 		"msg"		String 类型的一些message信息
-	 * 		"count"		本次查询总记录数
-	 * 		"data"		List<Map<String, Object>>类型的本次查询的数据
+	 * 			"msg"		String 类型的一些message信息
+	 * 			"count"		本次查询总记录数
+	 * 			"data"		List<Map<String, Object>>类型的本次查询的数据
 	 * 					包含物品的所有信息和购物车的所有信息（两表联查）
 	 * @param request
 	 * @param response
@@ -51,7 +51,51 @@ public class ShoppingCartAction extends BaseServlet{
 		Map<String, Object> result = shoppingCartService.queryAllShoppingCartInfoByBuyerId(map);
 		printJson(response, result);
 	}
+	/**
+	 * 根据传入的用户id和物品id增加购物车信息
+	 * 如已存在于购物车，则自动调用更改数量方法去更新数量
+	 * 传入map 需包含int buyerId, int goodsId 和int amountOfGoods
+	 * 返回值 	"status"	成功 "success" 失败 "failed"
+	 * 			"msg"		String 类型的一些message信息
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void addShoppingCart(HttpServletRequest request, HttpServletResponse response, String json) {
+		Map map = JSON.parseObject(json, Map.class);
+		Map<String, Object> result = shoppingCartService.addShoppingCart(map);
+		printJson(response, result);
+	}
 	
+	/**
+	 * 根据传入的用户的物品新数量 更改购物车物品数量
+	 * 传入map 需包含int buyerId, int goodsId 和int amountOfGoods
+	 * 返回值 	"status"	成功 "success" 失败 "failed"
+	 * 			"msg"		String 类型的一些message信息
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void modifyShoppingCart(HttpServletRequest request, HttpServletResponse response, String json) {
+		Map map = JSON.parseObject(json, Map.class);
+		Map<String, Object> result = shoppingCartService.modifyShoppingCart(map);
+		printJson(response, result);
+	}
+	
+	/**
+	 * 根据传入的用户的物品删除信息 删除物品
+	 * 传入map 需包含int buyerId, int goodsId 
+	 * 返回值 	"status"	成功 "success" 失败 "failed"
+	 * 			"msg"		String 类型的一些message信息
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void removeShoppingCart(HttpServletRequest request, HttpServletResponse response, String json) {
+		Map map = JSON.parseObject(json, Map.class);
+		Map<String, Object> result = shoppingCartService.removeShoppingCart(map);
+		printJson(response, result);
+	}
 //	public static void main(String[] args) {
 //		Map<Object, Object> map = new HashMap<>();
 //		map.put("goodsId", 1);
