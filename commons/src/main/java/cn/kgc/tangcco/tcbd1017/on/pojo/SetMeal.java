@@ -22,10 +22,7 @@ public class SetMeal {
 	 * 平台套餐主键id
 	 */
 	private int set_meal_id;
-	/**
-	 * 套餐的更新时间
-	 */
-	private Date set_meal_update_time;
+	
 	/**
 	 * 套餐名称
 	 */
@@ -34,6 +31,10 @@ public class SetMeal {
 	 * 套餐的创建时间
 	 */
 	private Date set_meal_creat_time;
+	/**
+	 * 套餐的更新时间
+	 */
+	private Date set_meal_update_time;
 	/**
 	 * 套餐价格
 	 */
@@ -45,5 +46,9 @@ public class SetMeal {
 	/**
 	 * 套餐的持续时间
 	 */
-	private int set_meal_duration;
+	private long set_meal_duration;
+	/**
+	 * 套餐的状态
+	 */
+	private int set_meal_status;
 }
