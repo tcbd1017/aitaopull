@@ -22,12 +22,11 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.ShoppingCart;
 
 public class ShoppingCartDaoImpl implements ShoppingCartDao{
 	QueryRunner qr = new QueryRunner();
-	int count = 0;
+	private int count = 0;
 	
 	@Override
 	public List<Map<String ,Object>> selectShoppingCartInfoByBuyerId(Map<String, Object> map) {
 		List<Map<String ,Object>> list = null;
-		
 		// 判空说明有问题 直接返回空集
 		if (map.isEmpty()) {
 			return list;
@@ -62,23 +61,22 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 				Connection conn = BaseDBUtils.getConnection();
 				PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString().trim());
 				ResultSet rs = BaseDBUtils.executeQuery(pst, param);
-				
-				// 进入逻辑前清空计数器
+				// 进入方法前重置记录数
 				count = 0;
 				list = this.rsToList(rs);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
 		return list;
 	}
-	
+
 	@Override
 	public int getShoppingCartCount() {
+		
 		return count;
 	}
-
+	
 	@Override
 	public int insertShoppingCart(ShoppingCart shoppingCart) {
 		StringBuilder sql = new StringBuilder(" insert into 0108_shopping_cart ");
@@ -186,7 +184,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 			int columnCount = rs.getMetaData().getColumnCount();
 			while(rs.next()){
 				Map<String, Object> map = new HashMap<String, Object>();
-				count++;
+				count ++;
 				// 遍历每一列,拿出列名和数据
 				for (int i = 1; i <= columnCount; i++) {
 					String columnLabel = rs.getMetaData().getColumnLabel(i);
