@@ -49,4 +49,19 @@ public interface PostageInfoService {
 	 */
 	public Map<String, Object> removePostageInfosByStatus(Map<String, Object> map);
 
+
+	/**
+	 * 根据id查询地址
+	 * @param map
+	 * @return
+	 */
+	public Map<String, Object> findAddressById(Map<String, Object> map);
+
+	/**
+	 * 根据pid查询地址集合
+	 * @param map
+	 * @return
+	 */
+	public Map<String, Object> queryAddressesByPid(Map<String, Object> map);
+
 }
