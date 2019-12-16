@@ -89,11 +89,9 @@ public class PostageInfoServiceImpl implements PostageInfoService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
+			
 				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
 		}
 		return info;
 	}
@@ -123,11 +121,9 @@ public class PostageInfoServiceImpl implements PostageInfoService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
+			
 				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
 		}
 		return info;
 	}
@@ -161,11 +157,9 @@ public class PostageInfoServiceImpl implements PostageInfoService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
+			
 				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
 		}
 		return info;
 	}
@@ -195,11 +189,9 @@ public class PostageInfoServiceImpl implements PostageInfoService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
+			
 				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			
 		}
 		return info;
 	}
