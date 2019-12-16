@@ -18,8 +18,7 @@ public interface GoodsService {
 
 	public  Map<String,Object> queryAllGoods();
 
-	public  Map<String,Object> queryAllGoods() ;
-
+	
 	
 	/**
 	 * 根据商品类型查询商品
@@ -29,7 +28,7 @@ public interface GoodsService {
 
 	public  Map<String,Object> queryByGoodsType(String goodsType);
 
-	public  Map<String,Object> queryByGoodsType(String goodsType) ;
+	
 
 
 

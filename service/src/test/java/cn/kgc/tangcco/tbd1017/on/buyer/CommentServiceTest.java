@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.buyer;
+package cn.kgc.tangcco.tbd1017.on.buyer;
 
 import java.util.HashMap;
 import java.util.Map;

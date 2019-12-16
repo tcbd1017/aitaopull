@@ -31,7 +31,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
 		String sql="SELECT * FROM 0203_goods WHERE goods_status=2";
 
-		String sql="SELECT * FROM 0203_goods";
+		
 
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt);
@@ -95,7 +95,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
 		String sql="SELECT * FROM 0203_goods WHERE goods_type=? AND goods_status=2";
 
-		String sql="SELECT * FROM 0203_goods WHERE goods_type=?";
+		
 
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt,goodsType);
@@ -163,7 +163,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
 		String sql="SELECT * FROM 0203_goods WHERE goods_name LIKE ? OR goods_brand LIKE ? OR goods_presentation LIKE ? AND goods_status =2";
 
-		String sql="SELECT * FROM 0203_goods WHERE goods_name LIKE ? OR goods_brand LIKE ? OR goods_presentation LIKE ?";
+		
 
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt,"%"+vague+"%","%"+vague+"%","%"+vague+"%");
