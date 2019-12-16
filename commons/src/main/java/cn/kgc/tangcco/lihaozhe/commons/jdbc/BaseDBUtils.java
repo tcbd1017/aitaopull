@@ -274,9 +274,14 @@ public abstract class BaseDBUtils {
 	 * @param rs  ResultSet
 	 * @throws SQLException
 	 */
-	public static void rollbackAndClose() throws SQLException {
+	public static void rollbackAndClose()  {
 		// 事务回滚关闭连接
-		DbUtils.rollbackAndClose(getConnection());
+		try {
+			DbUtils.rollbackAndClose(getConnection());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// 从当前线程中移除Connection
 		t.remove();
 	}
