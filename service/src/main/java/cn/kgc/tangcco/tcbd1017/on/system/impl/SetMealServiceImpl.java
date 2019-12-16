@@ -121,11 +121,7 @@ public class SetMealServiceImpl implements SetMealService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			BaseDBUtils.rollbackAndClose();
 		}
 		return info;
 	}
@@ -147,11 +143,7 @@ public class SetMealServiceImpl implements SetMealService {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			BaseDBUtils.rollbackAndClose();
 		}
 		return info;
 	}
@@ -172,11 +164,7 @@ public class SetMealServiceImpl implements SetMealService {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+			BaseDBUtils.rollbackAndClose();
 		}
 		return info;
 	}

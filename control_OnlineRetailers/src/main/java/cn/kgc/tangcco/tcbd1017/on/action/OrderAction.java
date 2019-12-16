@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 
-
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.OrderDao;
@@ -29,6 +29,10 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
 */
 @WebServlet(urlPatterns = "/Order.action")
 public class OrderAction extends BaseServlet{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2501440925281808854L;
 	static OrderServiceImpl orderServiceImpl =null;
 	static {
 		ClassPathXmlApplicationContext ioc = new ClassPathXmlApplicationContext("ApplicationContext_on.xml");
@@ -41,13 +45,26 @@ public class OrderAction extends BaseServlet{
 	
 	
 	/**
-	 * 	data ： dao层返回的数据
-	 * 	status : 查询是否成功信息
-	 * 	msg : 后台给的其他信息
-	 * 	传进来的json要求：包含角色对象，包含order订单查询信息对象；
+	 *  			Internet Describe
+	 * --------------------------------------------
+	 *  后台返回给前台的数据使用说明：
+	 *  	Map :
+	 *  		key:"data",	需要查询的订单信息，以Order对象储存
+	 * 			key:"orderGoods", 订单关联表，订单详细商品信息，以OrderGoods对象储存
+	 * 			key:"selectByOrderPageCount" , 订单表查询信息总页数（总条数）
+	 * 			key:"selectByOrderGoodsPageCount", 订单表关联表，订单详细商品信息总页数 （总条数）
+	 * 		整个Map转成json,以Request域的方式，向前台发送
+	 * --------------------------------------------
+	 * 	前台给后台的数据要求说明：
+	 * 		Map:
+	 * 			key:"object", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
+	 * 			key:"data", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
+	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存 
+	 * 		整个Map转成json, 以AJAX的试向后台发送	
+	 * --------------------------------------------
 	 * @param request
 	 * @param response
-	 * 	@return 返回一个map，key:data，格式:list，list中包含order对象；
+	 * @param string
 	 */
 	public void selectByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
@@ -62,7 +79,10 @@ public class OrderAction extends BaseServlet{
 		//解析order
 		Order order = JSON.parseObject(map.get("data").toString(),Order.class);
 		map.put("data", order);
-		 Map map1 = null;
+		//解析分页信息
+		PageRang pr = JSON.parseObject(map.get("pr").toString(),PageRang.class);
+		map.put("pr", pr);
+		 Map map1 = new HashMap();
 		 
 		 if (map!=null&&map.size()>0) {
 			 //处理值；
