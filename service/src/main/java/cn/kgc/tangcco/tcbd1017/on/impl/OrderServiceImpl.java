@@ -11,6 +11,7 @@ import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.OrderService;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
+import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
 /**
  * 
  * @author 廖斌
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService{
 	 * 	查询订单  格式
 	 *  map.put("object","查询角色")；
 	 *  map.put("data","返回数据");
+	 *  map.put("orderPageCount",总页数) 
 	 *	map.put("status", "failed");
 	 *	map.put("msg", "");
 	 *	map.put("code", 0);
@@ -49,7 +51,13 @@ public class OrderServiceImpl implements OrderService{
 		if (!map.isEmpty()&&map.containsKey("object")&&map.containsKey("data")) {
 			try {
 				List<Order> list = orderDaoIml.selectByOrder(map);
+				List<OrderGoods> selectByOrderGoods = orderDaoIml.SelectByOrderGoods(map);
+				int selectByOrderPageCount = orderDaoIml.SelectByOrderPageCount(map);
+				int selectByOrderGoodsPageCount = orderDaoIml.SelectByOrderGoodsPageCount(map);
 				map1.put("data", list) ;
+				map1.put("orderGoods", selectByOrderGoods);
+				map1.put("selectByOrderPageCount", selectByOrderPageCount);
+				map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -137,5 +145,8 @@ public class OrderServiceImpl implements OrderService{
 		}
 		return map1;
 	}
+
+
+	
 
 }

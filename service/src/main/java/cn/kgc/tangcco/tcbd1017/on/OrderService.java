@@ -1,7 +1,10 @@
 package cn.kgc.tangcco.tcbd1017.on;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
+
+import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
 
 /**
  * 廖斌
@@ -25,4 +28,5 @@ public interface OrderService {
 	 * 	新增订单
 	 */
 	public Map<String,Object> insertByOrder(Map<String,Object> map)throws SQLException;
+	
 }
