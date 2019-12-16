@@ -1,3 +1,4 @@
+package cn.kgc.tangcco.tcbd1017.on.buyer;
 
 
 import java.sql.SQLException;
@@ -32,6 +33,9 @@ public class Ontest {
 			e.printStackTrace();
 		}
 	}
+	/*
+	 * 胡文举的dao层测试方法
+	 */
 	@Test
 	public void selectRewardPoints() {
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -82,18 +86,6 @@ public class Ontest {
 		try {
 			int i = logisticsDao.insertRewardPoints(map);
 			System.out.println(i);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	@Test
-	public void doller() {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("buyer_id", 12);
-		try {
-			int count = logisticsDao.dollar(map);
-			System.out.println("count >>>" + count);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
