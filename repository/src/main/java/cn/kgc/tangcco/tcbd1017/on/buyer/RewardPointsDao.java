@@ -39,9 +39,6 @@ public interface RewardPointsDao {
 	  * @throws SQLException
 	  */
 	 public int insertRewardPoints (Map<String, Object> map) throws SQLException;
-	 /**
-	  * 获取订单实际积分
-	  */
-	 public int dollar(Map<String, Object> map)throws SQLException;
+	
 	
 }

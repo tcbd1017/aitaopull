@@ -44,15 +44,19 @@ public class RewardPointsDaoImpl implements RewardPointsDao{
 		
 		List<Object> list=new ArrayList<Object>();
 		Object[] param=list.toArray();
-		Connection conn=BaseDBUtils.getConnection();
-		PreparedStatement pst=BaseDBUtils.getPreparedStatement(conn, sql.toString());
-		ResultSet rs=BaseDBUtils.executeQuery(pst, param);
+		// 从数据源中获取连		
+		Connection conn = BaseDBUtils.getConnection();
+		// 预编译SQL语句
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		// 执行查询获取结果集
+		ResultSet rs = BaseDBUtils.executeQuery(pst, param);
 		List<RewardPoints> rewardPointsList=null;
 		RewardPoints rewardPoints = null;
 		if (rs.first()) {
 			rs.previous();
 			rewardPointsList=new ArrayList<RewardPoints>();
 			while (rs.next()) {
+				//实例化添加
 				rewardPoints = new RewardPoints();
 				rewardPoints.setBuyer_id(rs.getInt("buyer_id"));
 				rewardPoints.setReward_points_create_time(rs.getDate("reward_points_create_time"));
