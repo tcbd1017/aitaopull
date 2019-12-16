@@ -40,7 +40,7 @@ public class RecordDaoImpl implements RecordDao {
 
 			String sql="SELECT  * FROM 0203_goods g INNER JOIN 0103_record r ON g.goods_id=r.goods_id INNER JOIN  0101_buyer b ON r.buyer_id=b.buyer_id WHERE b.buyer_id=? AND buyer_status=2 AND record_status=2 AND goods_status=2 ORDER BY record_create_time DESC ";
 
-			String sql="SELECT  * FROM 0203_goods g INNER JOIN 0103_record r ON g.goods_id=r.goods_id INNER JOIN  0101_buyer b ON r.buyer_id=b.buyer_id WHERE b.buyer_id=?  ORDER BY record_create_time DESC ";
+			
 
 			PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 			ResultSet rs=BaseDBUtils.executeQuery(pstmt,buyer_Id);

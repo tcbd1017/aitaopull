@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.buyer;
+package cn.kgc.tangcco.tcbd10107.on.buyer;
 
 import java.sql.SQLException;
 import java.util.HashMap;
