@@ -21,8 +21,10 @@
 		<bean id = "GoodsService" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsServiceImpl"/>
 		<bean id = "RecordDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordDaoImpl"/>
 		<bean id = "RecordService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordServiceImpl"/>
-	
-
+		
+		<bean id = "GoodsFavoriteDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsFavoriteDaoImpl"/>
+		<bean id = "GoodsFavoriteService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsFavoriteServiceImpl"/>
+		
 	
 
 		<bean id = "PostageInfoDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoDaoImpl"/>
