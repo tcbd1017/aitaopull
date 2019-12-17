@@ -141,14 +141,17 @@ public class OrderAction extends BaseServlet{
 	 *  前台给后台格式:
 	 * 	 Map :
 	 * 			key:"shopping", 至少需要包含买家id，购物车id
-	 *  		
+	 *  		{"buyerId":1,"goodsId":2,"goodsName":"苹果"}
 	 *  
 	 */
 	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {
 		Map map = new HashMap();
+		System.out.println();
 		//接收购物车订单号
 
+
 		//key:goodsId、buyerId、goodsName
+
 		Map map1=(Map)JSON.parseObject(string,Map.class);
 		System.out.println(map1);
 
