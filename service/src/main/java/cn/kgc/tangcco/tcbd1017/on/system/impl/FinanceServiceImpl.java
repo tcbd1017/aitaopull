@@ -53,7 +53,7 @@ public class FinanceServiceImpl implements FinanceService {
 			BaseDBUtils.commitAndClose();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 			try {
 				BaseDBUtils.rollbackAndClose();
 			} catch (SQLException e1) {
@@ -100,8 +100,15 @@ public class FinanceServiceImpl implements FinanceService {
 				map.put("data",financeDao.selectExpenditure());
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			
 		}
 		return map;
 	}

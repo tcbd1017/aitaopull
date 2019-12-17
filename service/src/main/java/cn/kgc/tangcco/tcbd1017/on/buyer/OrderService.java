@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on;
+package cn.kgc.tangcco.tcbd1017.on.buyer;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -25,4 +25,11 @@ public interface OrderService {
 	 * 	新增订单
 	 */
 	public Map<String,Object> insertByOrder(Map<String,Object> map)throws SQLException;
+	
+	/**
+	 *  从购物车新增订单
+	 * 
+	 */
+	public Map<String,Object> insertByOrderByShoppingCart(Map<String,String> map)throws SQLException;
+	
 }
