@@ -48,7 +48,7 @@ public class FinanceDaoTest {
 		FinanceDao financeDao= new FinanceDaoImpl();
 		Map<String, Object> map =new HashMap<String, Object>();
 		map.put("seller_id", 2);
-		map.put("shop_income_money", 2.55);
+		map.put("shop_income_money", 25555);
 		int i=0;
 		try {
 			i=financeDao.insertIncome(map);

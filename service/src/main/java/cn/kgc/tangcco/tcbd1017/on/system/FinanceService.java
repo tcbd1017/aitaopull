@@ -26,4 +26,10 @@ public interface FinanceService {
 	 * 查看公司支出
 	 */
 	Map<String, Object>queryExpenditure();
+	
+	/**
+	 *  查看未审核人数总和和详细信息
+	 * 
+	 */
+	Map<String, Object>queryNumberAndDetailed();
 }
