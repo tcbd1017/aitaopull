@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.impl;
+package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
-import cn.kgc.tangcco.tcbd1017.on.OrderDao;
+import cn.kgc.tangcco.tcbd1017.on.buyer.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
 import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
@@ -285,7 +285,6 @@ public class OrderDaoImpl implements OrderDao{
 						if (map.containsKey("data")&&map.get("data") instanceof Order) {
 							//获得订单新增信息
 							Order order = (Order)map.get("data");
-							System.out.println(order.getOrder_uuid()+"------------------------------");
 							//基础sql
 							StringBuilder sql = new StringBuilder(  " insert into 0109_order ( order_uuid,logistics_id,order_create_time,order_update_time,order_status,buyer_id,order_payment,buyer_cash_voucher_id,order_payment_type,order_payment_time,order_consign_time,order_end_time,order_close_time,order_buyer_message ) " );	
 							sql.append(" select \""+order.getOrder_uuid()+"\" ,?,?,?,?,?,?,?,?,?,?,?,?,? ");
@@ -309,7 +308,6 @@ public class OrderDaoImpl implements OrderDao{
 							//执行语句；
 							System.out.println(sql.toString());
 							PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql.toString());
-							//return BaseDBUtils.executeUpdate(pst, list.toArray());
 							return qr.update(BaseDBUtils.getConnection(), sql.toString(), list.toArray());
 						}
 				}

@@ -1,13 +1,16 @@
 package cn.kgc.tangcco.tcbd1017.on.system.impl;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
+import cn.kgc.tangcco.tcbd1017.on.pojo.SellerBuySetMealInfo;
 import cn.kgc.tangcco.tcbd1017.on.system.FinanceDao;
 import cn.kgc.tangcco.tcbd1017.on.system.FinanceService;
 
@@ -31,7 +34,7 @@ public class FinanceServiceImpl implements FinanceService {
 	}
 	@Override
 	/**
-	 * 审核商家购买套餐
+	 *  审核商家购买套餐
 	 */
 	public Map<String, Object> modifySetMealState(Map<String, Object> map)  {
 		Map<String, Object>mapstatas=new HashMap<String, Object>();
@@ -42,14 +45,15 @@ public class FinanceServiceImpl implements FinanceService {
 			i=financeDao.updateSetMealState(map);
 			if (i>0) {
 				int j=0;
-			j=financeDao.insertIncome(map);
+				j=financeDao.insertIncome(map);
 			if (j>0) {
 				mapstatas.put("status", "success");
 			  }
 			}
+			BaseDBUtils.commitAndClose();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
+
 			try {
 				BaseDBUtils.rollbackAndClose();
 			} catch (SQLException e1) {
@@ -57,6 +61,7 @@ public class FinanceServiceImpl implements FinanceService {
 				e1.printStackTrace();
 			}
 		}
+		
 		return mapstatas;
 	}
 	@Override
@@ -71,7 +76,7 @@ public class FinanceServiceImpl implements FinanceService {
 				return map;
 			}else {
 				map.put("status", "success");
-				map.put("data",financeDao.selectExpenditure());
+				map.put("data",financeDao.selectIncome());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -87,7 +92,6 @@ public class FinanceServiceImpl implements FinanceService {
 		map.put("code", 0);
 		map.put("status", "failed");
 		try {
-			BaseDBUtils.startTransaction();
 			if (ObjectUtils.isEmpty(financeDao.selectExpenditure())) {
 				map.put("data", null);
 				return map;
@@ -96,16 +100,40 @@ public class FinanceServiceImpl implements FinanceService {
 				map.put("data",financeDao.selectExpenditure());
 			}
 		} catch (SQLException e) {
+
 			try {
 				BaseDBUtils.rollbackAndClose();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			// TODO Auto-generated catch block
+
 			
 		}
 		return map;
+	}
+	@Override
+	public Map<String, Object> queryNumberAndDetailed() {
+		Map<String, Object>map=new HashMap<String, Object>();
+		map.put("msg", "");
+		map.put("code", 0);
+		map.put("status", "failed");
+		List<SellerBuySetMealInfo> list= new ArrayList<SellerBuySetMealInfo>();
+		Map<String, Object> map2=new HashMap<String, Object>();
+		try {
+			list=financeDao.selectSellerBuySetMealInfo();
+			map2 =financeDao.selectSellerBuySetMealInfocount();
+			int number=(int) map2.get("number");
+			if (list.size()>0&&number>0) {
+				map.put("status", "success");
+				map.put("data",list);
+				map.put("number", number);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

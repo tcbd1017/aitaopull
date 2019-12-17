@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.lang3.ObjectUtils;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
@@ -32,7 +33,7 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 	
 	/**
 	 * 
-	 *    根据权限删除员工
+	 *   根据权限删除员工
 	 */
 	@Override
 	public Map<String, Object> removeandmodifyEmp(Map<String, Object> map) {
@@ -57,16 +58,27 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		}
 		map.put("empPower", map1.get("empPower"));
 		map.put("deptPower", map1.get("deptPower"));
+		if (ObjectUtils.isEmpty(map.get("emp_status"))) {
+			map.put("emp_status", 2);
+		}
+		try {
+			BaseDBUtils.startTransaction();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int i=personnelMattersDao.delecteandupdateEmp(map);
 		if (i>0) {
 			mapstates.put("status", "success");
+		}else {
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		try {
-			BaseDBUtils.closeAll();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		return mapstates;
 	}
 	
@@ -98,15 +110,22 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		}
 		map.put("empPower", map1.get("empPower"));
 		map.put("deptPower", map1.get("deptPower"));
+		try {
+			BaseDBUtils.startTransaction();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int i=personnelMattersDao.updateEmpdept(map);
 		if (i>0) {
 			mapstates.put("status", "Success");
-		}
-		try {
-			BaseDBUtils.closeAll();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}else {
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return mapstates;
 	}

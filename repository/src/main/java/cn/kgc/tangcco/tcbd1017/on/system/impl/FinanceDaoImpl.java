@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
+import cn.kgc.tangcco.tcbd1017.on.pojo.SellerBuySetMealInfo;
 import cn.kgc.tangcco.tcbd1017.on.pojo.ShopExpenditureInfo;
 import cn.kgc.tangcco.tcbd1017.on.pojo.ShopIncomeInfo;
 import cn.kgc.tangcco.tcbd1017.on.system.FinanceDao;
@@ -21,7 +23,7 @@ import cn.kgc.tangcco.tcbd1017.on.system.FinanceDao;
 */
 public class FinanceDaoImpl implements FinanceDao {
 	/**
-	 * 修改套餐状态
+	 *  修改套餐状态
 	 */
 	@Override
 	public int updateSetMealState(Map<String, Object> map) throws SQLException {
@@ -93,6 +95,33 @@ public class FinanceDaoImpl implements FinanceDao {
 		list.add(shopExpenditureInfo);
 	}
 		return list;
+	}
+	@Override
+	public List<SellerBuySetMealInfo> selectSellerBuySetMealInfo() throws SQLException {
+		StringBuilder sql= new StringBuilder(" SELECT seller_buy_set_meal_info_id,seller_id,set_meal_id,set_meal_strat_time,seller_buy_set_meal_info_creat_time,seller_buy_set_meal_info_update_time FROM 030401_seller_buy_set_meal_info WHERE 1 = 1  ");
+		sql.append(" and 030401_seller_buy_set_meal_info.seller_buy_set_meal_info_status = 3 ");
+		List<SellerBuySetMealInfo> list =new ArrayList<SellerBuySetMealInfo>();
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst);
+		while (rs.next()) {
+			list.add( new SellerBuySetMealInfo(rs.getInt("seller_buy_set_meal_info_id"), rs.getInt("seller_id"), rs.getInt("set_meal_id"),rs.getDate("set_meal_strat_time"), rs.getDate("seller_buy_set_meal_info_creat_time"),rs.getDate("seller_buy_set_meal_info_update_time")));
+		}
+		return list;
+	}
+	@Override
+	public Map<String, Object> selectSellerBuySetMealInfocount() throws SQLException {
+		StringBuilder sql= new StringBuilder(" SELECT count(*) as number FROM 030401_seller_buy_set_meal_info WHERE 1 = 1 ");
+		sql.append(" and 030401_seller_buy_set_meal_info.seller_buy_set_meal_info_status = 3 ");
+		
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst);
+		Map<String, Object> map =new HashMap<String, Object>();
+		while (rs.next()) {
+			map.put("number",rs.getInt("number"));
+		}
+		return map;
 	}
 	
 
