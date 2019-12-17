@@ -29,4 +29,10 @@ public interface OrderService {
 	 */
 	public Map<String,Object> insertByOrder(Map<String,Object> map)throws SQLException;
 	
+	/**
+	 *  从购物车新增订单
+	 * 
+	 */
+	public Map<String,Object> insertByOrderByShoppingCart(Map<String,String> map)throws SQLException;
+	
 }

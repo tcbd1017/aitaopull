@@ -25,10 +25,11 @@ import cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
+import cn.kgc.tangcco.tcbd1017.on.pojo.ShoppingCart;
 
 /**
  * 
- * @author Administrator
+ * @author 廖斌
  * @
  *
  */
@@ -124,6 +125,14 @@ public class SelectByOrderTest {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Test
+	public void cteateJson() {
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart.setBuyer_id(1);
+		shoppingCart.setGoods_id(100);
+		System.out.println(JSON.toJSON(shoppingCart));
 	}
 	
 }
