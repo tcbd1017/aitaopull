@@ -2,13 +2,14 @@
 	<beans>
 		
 		
-		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl"/>
-		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl"/>
-
+		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl"/>
+		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl"/>
+		
+		
 		<bean id = "RewardPointsDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RewardPointsDaoImpl"/>
 		<bean id = "RewardPointsService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RewardPointsServiceImpl"/>
 
-
+		
 
 		<bean id = "DeptDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.DeptDaoImpl"/>
 
@@ -16,10 +17,15 @@
         <bean id = "ShoppingCartService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl"/>
 		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
 
+
+		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
+		
+		
+
 		<bean id = "PersonnelMattersDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl"/>
-	
-
-
+		<bean id = "PersonnelMattersService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl"/>
+		<bean id = "FinanceDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceDaoImpl"/>
+		
 
 		<bean id = "GoodsDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsDaoImpl"/>
 		<bean id = "GoodsService" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsServiceImpl"/>
@@ -41,8 +47,14 @@
 		<bean id = "CashVoucherDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherDaoImpl"/>
 		<bean id = "CashVoucherService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherServiceImpl"/>
 
+
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.StoreFavoriteDaoImpl" id="StoreFavoriteDao"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.StoreFavoriteServiceImpl" id="StoreFavoriteService"/>
+	
+
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentDaoImpl" id="CommentDao"/>
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentServiceImpl" id="CommentService"/>
+
 		
 		
 		
@@ -50,6 +62,7 @@
 		<bean id = "BuyerInfoService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.BuyerInfoServiceImple"/>
 		
 		
+
 	</beans>
 
 

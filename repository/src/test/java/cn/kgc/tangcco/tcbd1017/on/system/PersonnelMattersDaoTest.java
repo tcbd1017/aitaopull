@@ -17,24 +17,25 @@ import cn.kgc.tangcco.tcbd1017.on.system.impl.SelectEmpPowerImpl;
 * @Description 类描述
 */
 public class PersonnelMattersDaoTest {
-	@Test
-	public void test01() {
-		PersonnelMattersDao personnelMattersDao=new PersonnelMattersDaoImpl();
-		Map<String, Object>map =new HashMap<String, Object>();
-		Emp emp=new Emp();
-		emp.setEmp_id(1);
-		SelectEmpPower selectEmpPower=new SelectEmpPowerImpl();
-		try {
-			map =selectEmpPower.selectEmpPower(emp);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		map.put("emp_id",3);
-		map.put("dept_id",2);
-		int i=personnelMattersDao.updateEmpdept(map);
-		System.out.println(i);
-	}
+//	@Test
+//	public void test01() {
+//		PersonnelMattersDao personnelMattersDao=new PersonnelMattersDaoImpl();
+//		Map<String, Object>map =new HashMap<String, Object>();
+//		Emp emp=new Emp();
+//		emp.setEmp_id(2);
+//		SelectEmpPower selectEmpPower=new SelectEmpPowerImpl();
+//		try {
+//			map =selectEmpPower.selectEmpPower(emp);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		map.put("emp_id",3);
+//		map.put("dept_id",3);
+//		
+//		int i=personnelMattersDao.updateEmpdept(map);
+//		System.out.println(i);
+//	}
 	
 	@Test
 	public void test02() {

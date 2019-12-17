@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.seller.action;
+package cn.kgc.tangcco.tcbd1017.on.selleraction;
 
 import java.io.IOException;
 import java.util.HashMap;

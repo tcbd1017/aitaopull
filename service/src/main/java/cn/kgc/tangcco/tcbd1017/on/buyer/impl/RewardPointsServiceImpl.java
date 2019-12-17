@@ -109,15 +109,17 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 			BaseDBUtils.commitAndClose();
 			// 将连接归还给数据源
 			return info;
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			
 			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
+					BaseDBUtils.rollbackAndClose();
+				}catch (SQLException e1) {
+					// TODO: handle exception
+					e1.printStackTrace();
+				}
+			
 		}
+		
 		return info;
 	}
 
