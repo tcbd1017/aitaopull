@@ -127,8 +127,8 @@ public class SelectByOrderTest {
 	
 
 	/**
-	 *  测试从购物车新增订单
-	 * 
+	 *  	测试从购物车新增订单
+	 *  	测试数据
 	 */
 	@Test
 	public void test05() {
