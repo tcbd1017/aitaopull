@@ -29,7 +29,7 @@ public class SelectStoreFavorlteinfoDaoImpl implements SelectStoreFavorlteinfoDa
 		
 		// 动态sql开始
 		List<Object> list = new ArrayList<Object>();
-		list.add(map.get("store_id"));
+		list.add(map.get("seller_id"));
 		if (map != null && map.size() > 0) {
 			if (map.containsKey("store_favorite_create_time")) {
 				sql.append(" and store_favorite_create_time > ? ");
