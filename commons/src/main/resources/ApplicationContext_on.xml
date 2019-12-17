@@ -46,8 +46,14 @@
 		<bean id = "CashVoucherDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherDaoImpl"/>
 		<bean id = "CashVoucherService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherServiceImpl"/>
 
+
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.StoreFavoriteDaoImpl" id="StoreFavoriteDao"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.StoreFavoriteServiceImpl" id="StoreFavoriteService"/>
+	
+
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentDaoImpl" id="CommentDao"/>
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentServiceImpl" id="CommentService"/>
+
 	</beans>
 
 

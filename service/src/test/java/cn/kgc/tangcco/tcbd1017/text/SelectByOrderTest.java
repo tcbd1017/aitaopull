@@ -135,6 +135,7 @@ public class SelectByOrderTest {
 		System.out.println(JSON.toJSON(shoppingCart));
 	}
 	
+
 	/**
 	 *  测试从购物车新增订单
 	 * 
@@ -151,4 +152,5 @@ public class SelectByOrderTest {
 			e.printStackTrace();
 		}
 	}
+
 }
