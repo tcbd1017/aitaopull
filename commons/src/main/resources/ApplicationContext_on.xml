@@ -43,6 +43,13 @@
 
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentDaoImpl" id="CommentDao"/>
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentServiceImpl" id="CommentService"/>
+		
+		
+		
+		<bean id = "BuyerInfoDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.BuyerInfoDaoImple"/>
+		<bean id = "BuyerInfoService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.BuyerInfoServiceImple"/>
+		
+		
 	</beans>
 
 
