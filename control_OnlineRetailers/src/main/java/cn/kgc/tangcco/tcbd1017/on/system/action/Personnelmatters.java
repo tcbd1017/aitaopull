@@ -42,8 +42,7 @@ public class Personnelmatters extends BaseServlet {
 		@SuppressWarnings("unused")
 		public void removeandmodifyEmp(HttpServletRequest request,HttpServletResponse response) {
 			//被操作者id
-			int emp_id=(StringUtils.isEmpty(request.getParameter("emp_id"))) ? 1
-					: (Integer.parseInt(request.getParameter("emp_id")));
+			int emp_id=Integer.parseInt(request.getParameter("emp_id"));
 			//员工姓名
 			String emp_name=request.getParameter("emp_name");
 			//员工手机号
@@ -51,8 +50,7 @@ public class Personnelmatters extends BaseServlet {
 			//员工邮箱
 			String emp_mail =request.getParameter("emp_mail");
 			//员工的状态
-			int emp_status=(StringUtils.isEmpty(request.getParameter("emp_status"))) ? 2
-					: (Integer.parseInt(request.getParameter("emp_id")));
+			int emp_status=Integer.parseInt(request.getParameter("emp_id"));
 			//操作者的id
 			int Operator=Integer.parseInt(request.getParameter("Operator"));
 			Map<String, Object> map=new HashMap<String, Object>();

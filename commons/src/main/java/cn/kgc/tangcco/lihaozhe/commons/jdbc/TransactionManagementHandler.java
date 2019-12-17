@@ -27,7 +27,7 @@ public class TransactionManagementHandler implements InvocationHandler {
 			BaseDBUtils.commitAndClose();
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
-			BaseDBUtils.rollbackAndClose();
+			BaseDBUtils.rollbackAndClosenow();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
