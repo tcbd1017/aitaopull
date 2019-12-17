@@ -19,7 +19,7 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.SetMeal;
 import cn.kgc.tangcco.tcbd1017.on.system.SetMealService;
 
 /**
-	 * @author XUE TONG;
+	 * @author XUE TONG
 	 * @version 1.0 2019年12月15日下午2:25:31
 	 * </br>
 	 **/
