@@ -1,5 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.on.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,9 +13,11 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.tcbd1017.on.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
+import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
 
 /**
@@ -49,16 +53,25 @@ public class OrderDaoImpl implements OrderDao{
 					//获得订单查询信息
 					Order order = (Order)map.get("data");
 					//基础sql
-					StringBuilder sql = new StringBuilder("Select * from 0109_order where 1=1  ");
+					StringBuilder sql = new StringBuilder("Select * from 0109_order as o where 1=1 ");
 					//基于买家角色进行查询
-					sql.append(" and 0109_order.buyer_id = (select "+buyer_id+" FROM 0101_buyer WHERE 1=1) ");
+					sql.append(" and o.buyer_id = (select buyer_id FROM 0101_buyer WHERE 1=1 and buyer_id = "+buyer_id+") " );
 					//sql语句占位符查询数据
 					List list = new ArrayList();
 					//处理动态sql
 					Map addSql = addSql(order,sql,list);
 					List list1 = (List)addSql.get("list");
+					StringBuilder sql1=(StringBuilder)addSql.get("sql");
+					//分页
+					if (map.get("pr")!=null) {
+						sql1.append(" limit ?,? ");
+						PageRang pr  = (PageRang)map.get("pr");
+						list1.add((pr.getPageNumber()-1)*pr.getPageNumber());
+						list1.add(pr.getPageNumber());
+					}
+					
 					//执行sql，并返回集合
-					return qrds.query(addSql.get("sql").toString(),list1.toArray(),  new BeanListHandler<Order>(Order.class));
+					return qrds.query(sql1.toString(),list1.toArray(),  new BeanListHandler<Order>(Order.class));
 					}
 				}else if(map.get("object") instanceof Seller) {
 					//获得卖家信息
@@ -69,23 +82,130 @@ public class OrderDaoImpl implements OrderDao{
 						//获得订单查询信息
 						Order order = (Order)map.get("data");
 						//基础sql
-						StringBuilder sql = new StringBuilder("Select * from 0109_order where 1=1  ");
+						StringBuilder sql = new StringBuilder("Select * from 0109_order as o , 0109_order_goods as og ,0201_seller as s where 1=1  ");
 						//基于卖家角色进行查询
-						sql.append(" and 0109_order.order_id = (select o.order_id from 0201_seller as s INNER JOIN	0109_order_goods as o WHERE "+seller_id+" =o.seller_id) ");
-						//sql语句占位符查询数据
+						sql.append(" AND s.seller_id = "+ seller_id );
+						//sql语句占位符查询数据 
 						List list = new ArrayList();
 						//处理动态sql
 						Map addSql = addSql(order,sql,list);
 						List list1 = (List)addSql.get("list");
+						StringBuilder sql1=(StringBuilder)addSql.get("sql");
+						//分页
+						sql1.append(" limit ?,? ");
+						PageRang pr  = (PageRang)map.get("pr");
+						list1.add((pr.getPageNumber()-1)*pr.getPageNumber());
+						list1.add(pr.getPageNumber());
 						//执行sql，并返回集合
-						return qrds.query(addSql.get("sql").toString(),list1.toArray(),  new BeanListHandler<Order>(Order.class));
+						return qrds.query(sql1.toString(),list1.toArray(),  new BeanListHandler<Order>(Order.class));
 						}
 				}//卖家查询
-				
-			//如果data中的对象是是卖家	
 			}
 		return null;
 	}
+	
+	/**
+	 * 	查询商品信息订单表的商品信息
+	 * 	
+	 */
+	@Override
+	public List<OrderGoods> SelectByOrderGoods(Map map) throws SQLException {
+			String sql = "SELECT * FROM 0109_order_goods WHERE 1=1 and order_id = ? limit ? , ?  ";
+			List list = new ArrayList(); 
+			Order order = (Order)map.get("data");
+			PageRang pr  = (PageRang)map.get("pr");
+			list.add(order.getOrder_id()); 
+			list.add((pr.getPageNumber()-1)*pr.getPageNumber());
+			list.add(pr.getPageNumber());
+			return qrds.query(sql, list.toArray(), new BeanListHandler<OrderGoods>(OrderGoods.class));
+			}
+	/**
+	 *  新增商品信息订单
+	 *  依据OrderGoods对象中的成员属性进行修改
+	 */
+	@Override
+	public int insertByOrderGoods(Map<String, Object> map) throws SQLException {
+		OrderGoods orderGoods = (OrderGoods)map.get("orderGoods");
+		StringBuilder sql = new StringBuilder(" insert into 0109_order_goods ");
+		sql.append(" (  seller_id , order_id , goods_id , amount_of_goods ) ");
+		sql.append(" select ?,?,?,?   ");
+		sql.append(" from dual    where not exists ");
+		sql.append(" ( select order_id from 0109_order_goods where order_id =  " +orderGoods.getOrder_id()+")");
+		Object[] params = {orderGoods.getSeller_id(),orderGoods.getOrder_id(),orderGoods.getGoods_id(),orderGoods.getAmount_of_goods() };
+		return qr.update(BaseDBUtils.getConnection(),sql.toString(), params );
+	}
+	/**
+	 *  修改商品信息订单
+	 * 	依据订单号进行修改
+	 */
+	@Override
+	public int updateByOrderGoods(Map<String, Object> map) throws SQLException {
+		OrderGoods orderGoods = (OrderGoods)map.get("orderGoods");
+		StringBuilder sql = new StringBuilder(" update 0109_order_goods set ");
+		if (orderGoods.getSeller_id()>0) {
+			sql.append( " seller_id = ? , " );
+		}
+		if (orderGoods.getOrder_id()>0) {
+			sql.append( " order_id = ? , " );
+		}
+		if (orderGoods.getGoods_id()>0) {
+			sql.append( " goods_id = ? , " );
+		}
+		if (orderGoods.getAmount_of_goods()>0) {
+			sql.append( " amount_of_goods = ? , " );
+		}
+		
+		sql.append(" where order_id = (select order_id from 0109_order_goods where order_id =  " + orderGoods.getOrder_id()+")");
+		//去除逗号
+		String finnalSql = sql.toString().replace(",  where", "where");
+		
+		Object[] params = {orderGoods.getSeller_id(),orderGoods.getOrder_id(),orderGoods.getGoods_id(),orderGoods.getAmount_of_goods() };
+		return qr.update(BaseDBUtils.getConnection(),sql.toString(), params );
+	}
+
+	
+	/**
+	 *  返回查询订单表的分页总页数
+	 *  
+	 */
+	@Override
+	public int SelectByOrderPageCount(Map<String, Object> map) throws SQLException {
+		String sql = "SELECT count(1) FROM 0109_order WHERE order_id = ? ";
+		List list = new ArrayList(); 
+		Order order = (Order)map.get("data");
+		int order_id = order.getOrder_id();
+		list.add(order_id);
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql);
+		ResultSet rs = BaseDBUtils.executeQuery(pst, list.toArray());
+		int i = 0;
+		while (rs.next()) {
+			 i = rs.getInt(1);
+			 System.out.println(i);
+		}
+		return i;
+	}
+	
+	/**
+	 *  返回查询订单表的商品信息的分页总页数
+	 *  
+	 */
+	@Override
+	public int SelectByOrderGoodsPageCount(Map<String, Object> map) throws SQLException {
+		String sql = "SELECT count(1) FROM 0109_order_goods WHERE order_id = ? ";
+		List list = new ArrayList(); 
+		Order order = (Order)map.get("data");
+		int order_id = order.getOrder_id();
+		list.add(order_id);
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql);
+		ResultSet rs = BaseDBUtils.executeQuery(pst, list.toArray());
+		int i = 0;
+		while (rs.next()) {
+			 i = rs.getInt(1);
+			 System.out.println(i);
+		}
+		return i;
+	}
+
 	
 	/**
 	 * @return int
@@ -165,16 +285,32 @@ public class OrderDaoImpl implements OrderDao{
 						if (map.containsKey("data")&&map.get("data") instanceof Order) {
 							//获得订单新增信息
 							Order order = (Order)map.get("data");
+							System.out.println(order.getOrder_uuid()+"------------------------------");
 							//基础sql
-							StringBuilder sql = new StringBuilder(  " insert into 0109_order (order_uuid,logistics_id,order_create_time,order_update_time,order_status,buyer_id,order_payment,buyer_cash_voucher_id,order_payment_type,order_payment_time,order_consign_time,order_end_time,order_close_time,order_buyer_message) " );	
-							sql.append("select ?,?,?,?,?,?,?,?,?,?,?,?,?,?");
-							sql.append("from dual    where not exists");
-							sql.append("(select order_uuid from 0109_order where order_uuid ="+order.getOrder_uuid()+" )");
+							StringBuilder sql = new StringBuilder(  " insert into 0109_order ( order_uuid,logistics_id,order_create_time,order_update_time,order_status,buyer_id,order_payment,buyer_cash_voucher_id,order_payment_type,order_payment_time,order_consign_time,order_end_time,order_close_time,order_buyer_message ) " );	
+							sql.append(" select \""+order.getOrder_uuid()+"\" ,?,?,?,?,?,?,?,?,?,?,?,?,? ");
+							sql.append(" from dual where not exists ");
+							sql.append(" ( select order_uuid from 0109_order where order_uuid =\""+order.getOrder_uuid()+"\" ) ");
 							//sql语句占位符储存数组
-							Object [] params = {order.getOrder_uuid(),order.getLogistics_id(),order.getOrder_create_time(),order.getOrder_update_time(),order.getOrder_status(),order.getBuyer_id(),order.getOrder_payment(),order.getBuyer_cash_voucher_id(),order.getOrder_payment_type(),order.getOrder_payment_time(),order.getOrder_consign_time(),order.getOrder_end_time(),order.getOrder_close_time(),order.getOrder_buyer_message()};
+							List list =new ArrayList();
+							list.add(order.getLogistics_id());
+							list.add(BaseDateUitls.getDateString(order.getOrder_create_time()));
+							list.add(BaseDateUitls.getDateString(order.getOrder_update_time()));
+							list.add(order.getOrder_status());
+							list.add(order.getBuyer_id());
+							list.add(order.getOrder_payment());
+							list.add(order.getBuyer_cash_voucher_id());
+							list.add(order.getOrder_payment_type());
+							list.add(BaseDateUitls.getDateString(order.getOrder_payment_time()));
+							list.add(BaseDateUitls.getDateString(order.getOrder_consign_time()));
+							list.add(BaseDateUitls.getDateString(order.getOrder_end_time()));
+							list.add(BaseDateUitls.getDateString(order.getOrder_close_time()));
+							list.add(order.getOrder_buyer_message());
 							//执行语句；
 							System.out.println(sql.toString());
-							return qr.update(BaseDBUtils.getConnection(), sql.toString(), params);
+							PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql.toString());
+							//return BaseDBUtils.executeUpdate(pst, list.toArray());
+							return qr.update(BaseDBUtils.getConnection(), sql.toString(), list.toArray());
 						}
 				}
 		return 0;
@@ -190,63 +326,63 @@ public class OrderDaoImpl implements OrderDao{
 	 */
 	public Map addSql(Order order,StringBuilder sql,List list ) {
 		if (order.getOrder_id()>0) {
-			sql.append( " and order_id like ? " );
+			sql.append( " and o.order_id like ? " );
 			list.add("%"+order.getOrder_id()+"%");
 		}
 		if (!StringUtils.isEmpty(order.getOrder_uuid())) {
-			sql.append( " and order_uuid like ? " );
+			sql.append( " and o.order_uuid like ? " );
 			list.add("%"+order.getOrder_uuid()+"%");
 		}
 		if (order.getLogistics_id()>0) {
-			sql.append( " and logistics_id like ? " );
+			sql.append( " and o.logistics_id like ? " );
 			list.add("%"+order.getLogistics_id()+"%");
 		}
 		if (!ObjectUtils.isEmpty(order.getOrder_create_time())) {
-			sql.append( " and order_create_time like ? " );
+			sql.append( " and o.order_create_time like ? " );
 			list.add("%"+ BaseDateUitls.getDateString(order.getOrder_create_time())+"%");
 		}
 		if (!ObjectUtils.isEmpty(order.getOrder_update_time())) {
-			sql.append( " and order_update_time like ? " );
+			sql.append( " and o.order_update_time like ? " );
 			list.add("%"+ BaseDateUitls.getDateString(order.getOrder_update_time())+"%");
 		}
 		if (order.getOrder_status()>0) {
-			sql.append( " and order_status like ? " );
+			sql.append( " and o.order_status like ? " );
 			list.add("%"+order.getOrder_status()+"%");
 		}
 		if (order.getBuyer_id()>0) {
-			sql.append( " and buyer_id like ? " );
+			sql.append( " and o.buyer_id like ? " );
 			list.add("%"+order.getBuyer_id()+"%");
 		}
 		if (order.getOrder_payment()>0) {
-			sql.append( " and order_payment like ? " );
+			sql.append( " and o.order_payment like ? " );
 			list.add("%"+order.getOrder_payment()+"%");
 		}
 		if (order.getBuyer_cash_voucher_id()>0) {
-			sql.append( " and buyer_cash_voucher_id like ? " );
+			sql.append( " and o.buyer_cash_voucher_id like ? " );
 			list.add("%"+order.getBuyer_cash_voucher_id()+"%");
 		}
 		if (order.getOrder_payment_type()>0) {
-			sql.append( " and order_payment_type like ? " );
+			sql.append( " and o.order_payment_type like ? " );
 			list.add("%"+order.getOrder_payment_type()+"%");
 		}
 		if (!ObjectUtils.isEmpty(order.getOrder_payment_time())) {
-			sql.append( " and order_payment_time like ? " );
+			sql.append( " and o.order_payment_time like ? " );
 			list.add("%"+ BaseDateUitls.getDateString(order.getOrder_payment_time())+"%");
 		}
 		if (!ObjectUtils.isEmpty(order.getOrder_consign_time())) {
-			sql.append( " and order_consign_time like ? " );
+			sql.append( " and o.order_consign_time like ? " );
 			list.add("%"+ BaseDateUitls.getDateString(order.getOrder_consign_time())+"%");
 		}
 		if (!ObjectUtils.isEmpty(order.getOrder_end_time())) {
-			sql.append( " and order_end_time like ? " );
+			sql.append( " and o.order_end_time like ? " );
 			list.add("%"+ BaseDateUitls.getDateString(order.getOrder_end_time())+"%");
 		}
 		if (!ObjectUtils.isEmpty(order.getOrder_close_time())) {
-			sql.append( " and order_close_time like ? " );
+			sql.append( " and o.order_close_time like ? " );
 			list.add("%"+ BaseDateUitls.getDateString(order.getOrder_close_time())+"%");
 		}
 		if (!StringUtils.isEmpty(order.getOrder_buyer_message())) {
-			sql.append( " and order_buyer_message like ? " );
+			sql.append( " and o.order_buyer_message like ? " );
 			list.add("%"+order.getOrder_buyer_message()+"%");
 		}
 		Map map = new HashMap();
@@ -322,6 +458,12 @@ public class OrderDaoImpl implements OrderDao{
 		return map;
 		
 	}
+
+	
+	
+
+
+	
 	
 	
 	

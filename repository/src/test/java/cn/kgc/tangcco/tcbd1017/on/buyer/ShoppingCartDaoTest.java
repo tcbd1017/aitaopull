@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
@@ -50,8 +52,8 @@ public class ShoppingCartDaoTest {
 			Iterator<String> itSet = keySet.iterator();
 			while (itSet.hasNext()) {
 				String string = (String) itSet.next();
-				System.out.print(string + "\t");
-				System.out.print(result.get(string) + "\t");
+				System.out.print("取出的字段名"+string + "\t");
+				System.out.print("取出的数据:"+result.get(string) + "\t");
 			}
 			System.out.println();
 		}
@@ -98,7 +100,15 @@ public class ShoppingCartDaoTest {
 			System.out.println("更新成功");
 		}
     }
-    
+    @Test
+    public void testJson() {
+    	Map map =new HashMap();
+    	map.put("goodsId", 1);
+    	map.put("buyerId", 1);
+    	map.put("goodsName", "苹果");
+    System.out.println(	JSON.toJSON(map).toString());
+    	
+    }
     
 }
 

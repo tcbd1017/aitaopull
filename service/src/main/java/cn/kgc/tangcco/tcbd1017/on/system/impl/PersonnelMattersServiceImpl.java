@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Emp;
 import cn.kgc.tangcco.tcbd1017.on.system.PersonnelMattersDao;
@@ -34,7 +35,7 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 	 *    根据权限删除员工
 	 */
 	@Override
-	public Map<String, Object> removeEmpstates(Map<String, Object> map) {
+	public Map<String, Object> removeandmodifyEmp(Map<String, Object> map) {
 		/**
 		 * mapstates 往前端传递的map
 		 * map 往后端传的map
@@ -46,8 +47,6 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		Emp emp =new Emp();
 		int emp_id=(int)map.get("Operator");
 		emp.setEmp_id(emp_id);
-		System.out.println(emp.getEmp_id());
-		System.out.println("11111111111");
 		Map<String,Object>map1=new HashMap<String, Object>();
 		try {
 			map1=selectEmpPower.selectEmpPower(emp);
@@ -61,6 +60,12 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		int i=personnelMattersDao.delecteandupdateEmp(map);
 		if (i>0) {
 			mapstates.put("status", "success");
+		}
+		try {
+			BaseDBUtils.closeAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return mapstates;
 	}
@@ -96,6 +101,12 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		int i=personnelMattersDao.updateEmpdept(map);
 		if (i>0) {
 			mapstates.put("status", "Success");
+		}
+		try {
+			BaseDBUtils.closeAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return mapstates;
 	}

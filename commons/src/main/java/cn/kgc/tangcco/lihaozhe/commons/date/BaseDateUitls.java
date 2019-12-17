@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class BaseDateUitls {
-	//mysql数据库中的时间类格式
+	//mysql数据库中的时间类格式.
 	private final static String formatString = "yyyy-MM-dd HH:mm:ss";
 	
 	//传入一个Date类，调用parse进行格式化成String

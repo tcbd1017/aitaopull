@@ -95,12 +95,14 @@ public class CashVoucherServiceImpl implements CashVoucherService{
 				return map1;
 			}
 		} catch (SQLException e) {
-			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
+			
+				try {
+					BaseDBUtils.rollbackAndClose();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
 		}
 		return map1;
 	}

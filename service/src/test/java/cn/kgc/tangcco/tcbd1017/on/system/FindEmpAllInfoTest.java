@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tbd1017.on.system;
+package cn.kgc.tangcco.tcbd1017.on.system;
 /**
  * 
  * @author zhangmiao
