@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.mysql.fabric.xmlrpc.base.Data;
 
 import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.OrderService;
 import cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl;
@@ -41,23 +42,34 @@ public class SelectByOrderTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
+	}  
+	 
 	@Test
-	public void test01() {
+	public void test01() { 
 		Map map = new HashMap();
-		Seller seller = new Seller();
-		seller.setSeller_id(1);
-		map.put("object",seller );
+		//分页信息
+		PageRang pr = new PageRang(1,5);
+		map.put("pr", pr);
+		
+//		Seller seller = new Seller();
+//		seller.setSeller_id(1);
+//		map.put("object",seller );
+		
+		Buyer buyer = new Buyer();
+		buyer.setBuyer_id(1);
+		map.put("object", buyer);
+		
+		//订单信息
 		Order order = new Order();
-		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date myDate2;
-		order.setOrder_buyer_message("2");
+		order.setBuyer_id(1);
+		order.setOrder_id(1);
 		map.put("data",order );
+		System.out.println(JSON.toJSON(map));
 		
 		try {
-			
-			System.out.println();
+			map =orderService.selectByOrder(map);
+			//System.out.println(JSON.toJSON(map));
+			System.out.println("map打印："+map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,8 +97,33 @@ public class SelectByOrderTest {
 		} catch (ParseException | SQLException e1) {
 			e1.printStackTrace();
 		}
-			
+	}
+	@Test
+	public void Test04() {
+		Map map = new HashMap();
+		PageRang pr = new PageRang(1,5);
+		map.put("pr", pr);
 		
+//		Seller seller = new Seller();
+//		seller.setSeller_id(1);
+//		map.put("object",seller );
+		
+		Buyer buyer = new Buyer();
+		buyer.setBuyer_id(1);
+		map.put("object", buyer);
+		
+		Order order = new Order();
+		order.setBuyer_id(1);
+		order.setOrder_id(1);
+		map.put("data",order );
+		
+		try {
+			map=orderService.selectByOrder(map);
+			System.out.println(map);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
+	
 }
