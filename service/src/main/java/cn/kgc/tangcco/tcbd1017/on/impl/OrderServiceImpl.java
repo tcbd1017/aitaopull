@@ -2,13 +2,19 @@ package cn.kgc.tangcco.tcbd1017.on.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import java.util.Date;
+
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -164,11 +170,16 @@ public class OrderServiceImpl implements OrderService{
 
 	/**
 	 *  从购物车新增订单
+
 	 * 	物流id未完成，用的测试数据
+
+	 * 
+
 	 */
 	@Override
 	public Map<String, Object> insertByOrderByShoppingCart(Map<String,String> map) throws SQLException {
 		String json = map.get("query");
+
 		//储存购物车信息的map
 		Map map1 = (Map)JSON.parseObject(json);
 		String status = (String)map1.get("status");
@@ -267,5 +278,20 @@ public class OrderServiceImpl implements OrderService{
 		return map3;
 	}
 	
+
+		Map map1 = (Map)JSON.parseObject(json);
+		String status = (String)map1.get("status");
+		if (status.equals("success")) {
+			List<Map<String ,Object>> list = (ArrayList)map1.get("data");
+			for (Map<String, Object> map2 : list) {
+				
+			}
+			
+		}
+		return null;
+	}
+
+
+
 	
 }
