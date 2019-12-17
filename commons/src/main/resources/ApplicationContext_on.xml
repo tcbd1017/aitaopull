@@ -2,13 +2,14 @@
 	<beans>
 		
 		
-		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl"/>
-		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl"/>
-
+		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl"/>
+		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl"/>
+		
+		
 		<bean id = "RewardPointsDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RewardPointsDaoImpl"/>
 		<bean id = "RewardPointsService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RewardPointsServiceImpl"/>
 
-
+		
 
 		<bean id = "DeptDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.DeptDaoImpl"/>
 

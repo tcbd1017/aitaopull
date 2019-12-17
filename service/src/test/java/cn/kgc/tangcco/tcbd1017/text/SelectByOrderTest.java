@@ -1,30 +1,20 @@
 package cn.kgc.tangcco.tcbd1017.text;
 
 import java.sql.SQLException;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.mysql.fabric.xmlrpc.base.Data;
-
-import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
-import cn.kgc.tangcco.tcbd1017.on.OrderService;
-import cn.kgc.tangcco.tcbd1017.on.impl.OrderServiceImpl;
+import cn.kgc.tangcco.tcbd1017.on.buyer.OrderService;
+import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
-import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
 import cn.kgc.tangcco.tcbd1017.on.pojo.ShoppingCart;
 
 /**
@@ -137,8 +127,8 @@ public class SelectByOrderTest {
 	
 
 	/**
-	 *  测试从购物车新增订单
-	 * 
+	 *  	测试从购物车新增订单
+	 *  	测试数据
 	 */
 	@Test
 	public void test05() {

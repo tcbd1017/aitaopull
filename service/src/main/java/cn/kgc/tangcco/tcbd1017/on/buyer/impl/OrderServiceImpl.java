@@ -1,33 +1,22 @@
-package cn.kgc.tangcco.tcbd1017.on.impl;
-
+package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import java.util.Date;
-
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
-import cn.kgc.tangcco.tcbd1017.on.OrderDao;
-import cn.kgc.tangcco.tcbd1017.on.OrderService;
+import cn.kgc.tangcco.tcbd1017.on.buyer.OrderDao;
+import cn.kgc.tangcco.tcbd1017.on.buyer.OrderService;
+import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
 import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
-import cn.kgc.tangcco.tcbd1017.on.pojo.ShoppingCart;
 /**
  * 
  * @author 廖斌
@@ -187,7 +176,6 @@ public class OrderServiceImpl implements OrderService{
 		Order order = new Order();
 		OrderGoods orderGoods = new OrderGoods();
 		if (status.equals("success")) {
-			System.out.println(map1.get("data"));
 			List<Map<String ,Object>> list = (List)map1.get("data");
 			Iterator<Map<String, Object>> it = list.listIterator();
 	    	while (it.hasNext()) {
@@ -223,14 +211,12 @@ public class OrderServiceImpl implements OrderService{
 		order.setOrder_end_time(date);
 		order.setOrder_close_time(date);
 		order.setOrder_status(1);
-		
 		//测试数据部分
 				order.setLogistics_id(12);
 				order.setOrder_payment(100);
 				order.setBuyer_cash_voucher_id(1);
 				order.setOrder_payment_type(1);
 				order.setOrder_buyer_message("廖斌测试数据");
-				
 		Buyer buyer = new Buyer();
 		buyer.setBuyer_id(order.getBuyer_id());
 		//储存向数据库新增的对象信息
@@ -276,19 +262,6 @@ public class OrderServiceImpl implements OrderService{
 			BaseDBUtils.rollbackAndClose();
 		}
 		return map3;
-	}
-	
-
-		Map map1 = (Map)JSON.parseObject(json);
-		String status = (String)map1.get("status");
-		if (status.equals("success")) {
-			List<Map<String ,Object>> list = (ArrayList)map1.get("data");
-			for (Map<String, Object> map2 : list) {
-				
-			}
-			
-		}
-		return null;
 	}
 
 
