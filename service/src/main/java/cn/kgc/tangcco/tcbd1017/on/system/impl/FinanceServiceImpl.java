@@ -49,8 +49,13 @@ public class FinanceServiceImpl implements FinanceService {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			BaseDBUtils.rollbackAndClose();
+			
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return mapstatas;
 	}
@@ -91,9 +96,14 @@ public class FinanceServiceImpl implements FinanceService {
 				map.put("data",financeDao.selectExpenditure());
 			}
 		} catch (SQLException e) {
-			BaseDBUtils.rollbackAndClose();
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
 		return map;
 	}
