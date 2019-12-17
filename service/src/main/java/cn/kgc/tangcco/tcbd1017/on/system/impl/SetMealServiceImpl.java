@@ -35,7 +35,7 @@ public class SetMealServiceImpl implements SetMealService {
 	}
 
 	/**
-	 * 查询所有
+	 * 查询所有，
 	 */
 	@Override
 	public Map<String, Object> querySetMeal(Map<String, Object> map) {
@@ -120,10 +120,11 @@ public class SetMealServiceImpl implements SetMealService {
 				BaseDBUtils.commitAndClose();
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			try {
 				BaseDBUtils.rollbackAndClose();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -146,10 +147,11 @@ public class SetMealServiceImpl implements SetMealService {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			try {
 				BaseDBUtils.rollbackAndClose();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -171,10 +173,11 @@ public class SetMealServiceImpl implements SetMealService {
 				info.put("status", "success");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			
 			try {
 				BaseDBUtils.rollbackAndClose();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
