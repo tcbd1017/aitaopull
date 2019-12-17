@@ -145,5 +145,14 @@ public class SelectByOrderTest {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 *  测试订单插入功能
+	 * 
+	 */
+	@Test
+	public void Test05() {
+		
+	}
+	
 	
 }
