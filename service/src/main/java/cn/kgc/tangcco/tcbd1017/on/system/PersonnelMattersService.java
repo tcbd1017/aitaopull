@@ -15,7 +15,7 @@ public interface PersonnelMattersService {
 	 * @param map
 	 * @return
 	 */
-	Map<String, Object>removeEmpstates (Map<String, Object>map);
+	Map<String, Object>removeandmodifyEmp (Map<String, Object>map);
 	
 	/**
 	 * 根据权限修改员工部门

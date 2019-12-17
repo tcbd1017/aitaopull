@@ -18,7 +18,7 @@ import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.buyer.CashVoucherService;
 
 /**
- * @author 赵瑞涛
+ * @author 赵瑞涛,
  * @version v1.0<br>
  * 	创建时间:	2019年12月13日	下午11:13:27<br>
  * 	类描述:

@@ -23,9 +23,9 @@ public class RewardPoints {
 	 */
 	private int buyer_id;
 	/**
-	 * 积分变化情况 1元=10积分
+	 * 积分变化情况 10元=1积分
 	 */
-	private String reward_points_value_change;
+	private int reward_points_value_change;
 	/**
 	 * 积分的创建时间
 	 */
