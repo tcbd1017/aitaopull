@@ -146,6 +146,7 @@ public class OrderAction extends BaseServlet{
 	 */
 	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {
 		Map map = new HashMap();
+		System.out.println();
 		//接收购物车订单号
 		//key:goodsId、buyerId、goodsName 
 		Map map1=(Map)JSON.parseObject(string,Map.class);
