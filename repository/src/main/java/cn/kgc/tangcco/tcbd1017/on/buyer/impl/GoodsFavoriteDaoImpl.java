@@ -68,23 +68,23 @@ public class GoodsFavoriteDaoImpl implements GoodsFavoriteDao  {
 		StringBuilder sql=new StringBuilder();
 		sql.append("select gf.goods_favorite_id,gf.buyer_id,gf.goods_id, ");
 		sql.append(" gf.goods_favorite_create_time,gf.goods_favorite_update_time,");
-		sql.append(" gs.goods_uuid,gs.goods_create_time,gs.goods_update_time,gs.goods_picture_url_id, ");	
+		sql.append(" gs.goods_uuid,gs.goods_create_time,gs.goods_update_time,gs.goods_picture_url_id,");	
 		sql.append(" gs.goods_name,gs.goods_price,gs.goods_type,gs.goods_brand,gs.goods_width, ");
-		sql.append(" gs.goods_height,gs.goods_length,gs.seller_id,gs.storage_id, ");
-		sql.append(" b.buyer_uuid,b.buyer_name,b.buyer_mail,b.buyer_mobile,b.buyer_create_time, ");
-		sql.append(" b.buyer_update_time ");
-		sql.append(" from 010601_goods_favorite as gf ");
-		sql.append(" INNER JOIN 0203_goods as gs  on gf.goods_id=gs.goods_id ");
-		sql.append(" INNER JOIN 0101_buyer as b on b.buyer_id=gf.buyer_id and gf.goods_favorite_status=2 ");
-		sql.append("  and gs.goods_status=2 and b.buyer_status =2 ");
-	
+		sql.append(" gs.goods_height,gs.goods_length,gs.seller_id,gs.storage_id, gs.goods_weight,");
+		sql.append("  b.buyer_uuid,b.buyer_name,b.buyer_mail,b.buyer_mobile,b.buyer_create_time,");
+		sql.append("  b.buyer_update_time,gpu.goods_picture_url");
+		sql.append(" from 010601_goods_favorite as gf");
+		sql.append("   INNER JOIN 0203_goods as gs  on gf.goods_id=gs.goods_id ");
+		sql.append("   INNER JOIN 0101_buyer as b on b.buyer_id=gf.buyer_id  ");
+		sql.append("   INNER JOIN 020301_goods_picture_url as gpu on gpu.goods_picture_url_id=gs.goods_picture_url_id ");
+		sql.append("   and gf.goods_favorite_status=2  and gs.goods_status=2 and b.buyer_status =2  ");
 		List<Object>lists = new ArrayList<Object>();
 		if (map != null && map.size() > 0) {		
 			if ( map.containsKey("goods_name")) {				                          
 				sql.append(" and gs.goods_name like ? ");
 				lists.add( "%"+map.get("goods_name")+"%" );
 			}
-			if (map.containsKey("buyer_id")) {
+			 if (map.containsKey("buyer_id")) {
                 
 				sql.append(" and gf.buyer_id = ? ");
 				lists.add(map.get("buyer_id").toString());
@@ -126,6 +126,7 @@ public class GoodsFavoriteDaoImpl implements GoodsFavoriteDao  {
 				map1.put("buyer_mobile",rs.getString("buyer_mobile"));
 				map1.put("buyer_create_time",rs.getDate("buyer_create_time"));
 				map1.put("buyer_update_time",rs.getDate("buyer_update_time"));
+				map1.put("goods_picture_url",rs.getString("goods_picture_url"));
 				list.add(map1);
 				
 			}		
