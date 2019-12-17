@@ -18,6 +18,8 @@ public interface ShoppingCartService {
 	 */
 	public abstract Map<String, Object> queryAllShoppingCartInfoByBuyerId(Map<String, Object> map);
 	
+	public abstract Map<String, Object> queryAllShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map);
+	
 	/**
 	 * 添加购物车信息
 	 * @param map 前台传入的，经过简单处理的大量信息。

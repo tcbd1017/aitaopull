@@ -59,6 +59,30 @@ public class ShoppingCartDaoTest {
     }
     
     @Test
+    public void selectShoppingCartInfoByBuyerIdAddUrlTest() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("buyer_id", 1);
+    	map.put("enableFuzzySelect", 0);
+    	map.put("goods_name", "米");
+    	
+    	List<Map<String, Object>> list = spd.selectShoppingCartInfoByBuyerIdAddUrl(map);
+    	Iterator<Map<String, Object>> it = list.listIterator();
+    	int count = spd.getShoppingCartCount();
+    	while (it.hasNext()) {
+			Map<String, Object> result = (Map<String, Object>) it.next();
+			Set<String> keySet = result.keySet();
+			Iterator<String> itSet = keySet.iterator();
+			while (itSet.hasNext()) {
+				String string = (String) itSet.next();
+				System.out.print(string + "\t");
+				System.out.print(result.get(string) + "\t");
+			}
+			System.out.println();
+		}
+    	System.out.println(count);
+    }
+    
+    @Test
     public void insertShoppingCartTest() {
     	ShoppingCart sc = new ShoppingCart();
     	sc.setShopping_cart_id(0);

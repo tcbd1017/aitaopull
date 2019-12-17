@@ -70,6 +70,51 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<Map<String ,Object>> selectShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map) {
+		List<Map<String ,Object>> list = null;
+		// 判空说明有问题 直接返回空集
+		if (map.isEmpty()) {
+			return list;
+		}
+		
+		// 如果有buyerId则进入逻辑
+		if ((int)map.get("buyer_id") > 0) {
+			list = new ArrayList<Map<String ,Object>>();
+			StringBuilder sql = new StringBuilder(" SELECT ");
+			sql.append(" g.*, "); // g.goods_create_time, g.goods_update_time, 
+			sql.append(" sc.*, ");
+			sql.append(" gpu.* ");
+			sql.append(" FROM 020301_goods_picture_url AS gpu inner join 0108_shopping_cart AS sc INNER JOIN 0203_goods AS g   ");
+			sql.append(" ON g.goods_id = sc.goods_id AND gpu.goods_picture_url_id = g.goods_picture_url_id ");
+			sql.append(" WHERE sc.buyer_id = ? AND sc.shopping_cart_status > 1 ");
+			List<Object> params = new ArrayList<Object>();
+			params.add(map.get("buyer_id"));
+			if ((int)map.get("enableFuzzySelect") > 0) {
+				sql.append(" AND g.goods_name LIKE ?");
+//				StringBuilder fuzzy = new StringBuilder("%");
+//				fuzzy.append((String)map.get("goods_name"));
+//				fuzzy.append("%");
+//				Object tempParam = fuzzy.toString();
+				Object tempParam = "%" + (String)map.get("goods_name") + "%";
+				params.add(tempParam);
+			}
+		
+			try {
+				Object[] param = params.toArray();
+				Connection conn = BaseDBUtils.getConnection();
+				PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString().trim());
+				ResultSet rs = BaseDBUtils.executeQuery(pst, param);
+				// 进入方法前重置记录数
+				count = 0;
+				list = this.rsToList(rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 
 	@Override
 	public int getShoppingCartCount() {

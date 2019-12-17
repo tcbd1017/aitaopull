@@ -42,7 +42,39 @@ public class ShoppingCartServiceTest {
 		int count = (int)result.get("count");
 		String msg = (String)result.get("msg");
 		List<Map<String, Object>> data = (List<Map<String, Object>>)result.get("data");
-		if (0 == data.size()) {
+		if (null == data) {
+			System.out.println("Dao层无结果");
+			System.exit(0);
+		}
+		
+		Iterator<Map<String, Object>> it = data.listIterator();
+    	while (it.hasNext()) {
+			Map<String, Object> resultData = (Map<String, Object>) it.next();
+			Set<String> keySet = resultData.keySet();
+			Iterator<String> itSet = keySet.iterator();
+			while (itSet.hasNext()) {
+				String string = (String) itSet.next();
+				System.out.print(string + "\t");
+				System.out.print(resultData.get(string) + "\t");
+			}
+			System.out.println();
+		}
+    	System.out.println(count);
+	}
+	
+	
+	@Test
+	public void queryAllShoppingCartInfoByBuyerIdTestAddUrl() {
+		Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("buyerId", 1);
+    	map.put("goodsId", 3);
+    	
+		Map<String, Object> result = shoppingCartService.queryAllShoppingCartInfoByBuyerIdAddUrl(map);
+		String status = (String)result.get("status");
+		int count = (int)result.get("count");
+		String msg = (String)result.get("msg");
+		List<Map<String, Object>> data = (List<Map<String, Object>>)result.get("data");
+		if (null == data) {
 			System.out.println("Dao层无结果");
 			System.exit(0);
 		}
