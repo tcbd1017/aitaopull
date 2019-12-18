@@ -77,7 +77,7 @@ public class GoodsFavoriteDaoImpl implements GoodsFavoriteDao  {
 		sql.append("   INNER JOIN 0203_goods as gs  on gf.goods_id=gs.goods_id ");
 		sql.append("   INNER JOIN 0101_buyer as b on b.buyer_id=gf.buyer_id  ");
 		sql.append("   INNER JOIN 020301_goods_picture_url as gpu on gpu.goods_picture_url_id=gs.goods_picture_url_id ");
-		sql.append("   and gf.goods_favorite_status=2  and gs.goods_status=2 and b.buyer_status =2  ");
+		sql.append("   and gf.goods_favorite_status=2  and gs.goods_status=3 and b.buyer_status =2  ");
 		List<Object>lists = new ArrayList<Object>();
 		if (map != null && map.size() > 0) {		
 			if ( map.containsKey("goods_name")) {				                          
