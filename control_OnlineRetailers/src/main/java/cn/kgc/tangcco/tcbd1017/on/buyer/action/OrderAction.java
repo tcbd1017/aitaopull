@@ -1,13 +1,21 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
 import com.alibaba.fastjson.JSON;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
+import cn.kgc.tangcco.lihaozhe.commons.propertis.BaseProperties;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl;
@@ -133,6 +141,9 @@ public class OrderAction extends BaseServlet{
 	 *  
 	 */
 	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {
+		//配置其他模块接口服务器地址；
+		String ipAddress = BaseProperties.getProperties("/IpAddress.properties", "address");
+		
 		//接收购物车订单号
 		//key:goodsId、buyerId、goodsName
 		Map map1 = new HashMap();
@@ -140,9 +151,10 @@ public class OrderAction extends BaseServlet{
 		//调用杜明action接口，获得购物车信息
 		OkHttpClient client = new OkHttpClient();
 		//杜明接口地址： 根据Buyer_id返回购物车信息
-		String url0 = "http://localhost:8080/control_OnlineRetailers/shoppingCart.action?methodName=queryAllShoppingCartInfoByBuyerId";
+		String url0 = ipAddress+"control_OnlineRetailers/shoppingCart.action?methodName=queryAllShoppingCartInfoByBuyerId";
 		//标明接口地址：根据BuyerId和GoodsId,删除物品
-		String url1 = "http://localhost:8080/control_OnlineRetailers/shoppingCart.action?methodName=removeShoppingCart";
+		String url1 = ipAddress+"control_OnlineRetailers/shoppingCart.action?methodName=removeShoppingCart";
+		System.out.println(url0);
 		//获得请求体
 		 final MediaType json=MediaType.parse("application/json; charset=utf-8");
 		 String json2 = JSON.toJSON(map1).toString();
