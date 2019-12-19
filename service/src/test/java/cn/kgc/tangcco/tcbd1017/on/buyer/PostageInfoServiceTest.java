@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tbd1017.on.buyer;
+package cn.kgc.tangcco.tcbd1017.on.buyer;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -34,7 +34,14 @@ public class PostageInfoServiceTest {
 
 	public static void main(String[] args) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		//这一段被删除
+		map.put("postage_info_name", "333");
+		map.put("postage_info_mobile", "333");
+		map.put("postage_info_province_id", 13);
+		map.put("postage_info_city_id", 1306);
+		map.put("postage_info_district_id", 130624);
+		map.put("postage_info_address", "333");
+		map.put("postage_info_status", 3);
+		map.put("postage_info_id", 4);
 		map.put("postage_info_postcode", "123456");
 		map.put("buyer_id", 1);
 		String jsonString = JSON.toJSONString(map);
