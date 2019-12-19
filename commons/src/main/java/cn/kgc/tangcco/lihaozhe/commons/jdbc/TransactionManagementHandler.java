@@ -44,4 +44,4 @@ public class TransactionManagementHandler implements InvocationHandler {
 	public Object getProxy() {
 		return Proxy.newProxyInstance(target.getClass().getClassLoader(),target.getClass().getInterfaces(), this);
 	}
-}	
+}

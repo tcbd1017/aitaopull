@@ -18,7 +18,6 @@
 		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
 
 
-		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
 		
 		
 
@@ -54,6 +53,18 @@
 
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentDaoImpl" id="CommentDao"/>
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentServiceImpl" id="CommentService"/>
+		
+		<bean id = "FrontBuyerLoginDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginDaoImpl"/>
+		<bean id = "FrontBuyerRegisterDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterDaoImpl"/>
+		<bean id = "FrontBuyerRegisterServiceIns" class= "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterServiceImpl"/>
+		<bean id = "FrontBuyerLoginServiceIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginServiceImpl"/>
+		<bean id = "FrontStoreRegisterDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreRegisterDaoImpl"/>
+		<bean id = "FrontStoreRegisterServiceIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreRegisterServiceImpl"/>
+		<bean id = "FrontStoreStockGoodsDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreStockGoodsDaoImpl"/>
+		<bean id = "SellerOrderDeliveryAndInquiryDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryDaoImpl"/>
+        <bean id = "SellerOrderDeliveryAndInquiryService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryServiceImpl"/>
+        <bean id = "SellerCommentManagementDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementDaoImpl"/>
+        <bean id = "SellerCommentManagementService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementServiceImpl"/>
 
 	</beans>
 

@@ -1,15 +1,15 @@
-package cn.kgc.tangcco.tcbd1017.on.impl;
-
-import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.on.GoodsDao;
-import cn.kgc.tangcco.tcbd1017.on.GoodsService;
-import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
+package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
+import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
+import cn.kgc.tangcco.tcbd1017.on.seller.GoodsDao;
+import cn.kgc.tangcco.tcbd1017.on.seller.GoodsService;
 
 /**
  * @author 谷亚坤

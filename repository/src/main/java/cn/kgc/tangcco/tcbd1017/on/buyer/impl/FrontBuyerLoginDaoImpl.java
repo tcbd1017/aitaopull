@@ -26,7 +26,9 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		Map<String, Object> map= new HashMap<>();
 		map.put("buyer_uuid",null);
 		List <Object> list=new ArrayList<>();
-		StringBuilder sql = new StringBuilder(" SELECT `buyer_uuid` FROM `0102_buyer_login` where 1=1 AND `buyer_login_status`='2' "); 
+		StringBuilder sql = new StringBuilder(" SELECT `0101_buyer`.`buyer_id`,`0101_buyer`.`buyer_uuid`,`0102_buyer_login`.`buyer_login_account`,`010101_buyer_info`.buyer_info_icon_url FROM `0101_buyer` ");
+		sql.append(" INNER JOIN `0102_buyer_login` INNER JOIN  `010101_buyer_info` ON 1=1 AND `buyer_status`='2' AND `buyer_login_status`='2' AND `010101_buyer_info`.buyer_info_status='2' ");
+		sql.append(" AND `0101_buyer`.`buyer_uuid`=`0102_buyer_login`.`buyer_uuid` ");
 		// 账户密码登录
 		if (maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
 			sql.append(" AND `buyer_login_account`=? AND `buyer_login_password`=? ");
@@ -44,7 +46,10 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		if(executeQuery.first()) {
 			executeQuery.previous();
 			while (executeQuery.next()) {
+				map.put("buyer_id",executeQuery.getString("buyer_id"));
 				map.put("buyer_uuid", executeQuery.getString("buyer_uuid"));
+				map.put("buyer_login_account", executeQuery.getString("buyer_login_account"));
+				map.put("buyer_info_icon_url",executeQuery.getString("buyer_info_icon_url"));
 			}
 		}
 		return map;
@@ -56,8 +61,10 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		PreparedStatement preparedStatement = null;
 		Map<String, Object> map= new HashMap<>();
 		map.put("buyer_uuid",null);
-		StringBuilder sql = new StringBuilder(" SELECT `buyer_id`,`buyer_uuid` FROM `0101_buyer` WHERE 1=1  AND `buyer_status`='2' ");
-		sql.append(" AND `buyer_mobile`=? ");
+		StringBuilder sql = new StringBuilder(" SELECT `0101_buyer`.`buyer_id`,`0101_buyer`.`buyer_uuid`,`0102_buyer_login`.`buyer_login_account`,`010101_buyer_info`.buyer_info_icon_url FROM `0101_buyer` ");
+		sql.append(" INNER JOIN `0102_buyer_login` INNER JOIN  `010101_buyer_info` ON 1=1 AND `buyer_status`='2' AND `buyer_login_status` ='2' ");
+		sql.append(" AND `0101_buyer`.`buyer_uuid`=`0102_buyer_login`.`buyer_uuid` ");
+		sql.append(" AND `0101_buyer`.`buyer_mobile`=? ");
 		Object[] param= {maps.get("buyer_mobile")};
 		preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		ResultSet executeQuery = BaseDBUtils.executeQuery(preparedStatement,param);
@@ -66,6 +73,8 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 			while (executeQuery.next()) {
 				map.put("buyer_id", executeQuery.getString("buyer_id"));
 				map.put("buyer_uuid", executeQuery.getString("buyer_uuid"));
+				map.put("buyer_login_account", executeQuery.getString("buyer_login_account"));
+				map.put("buyer_info_icon_url",executeQuery.getString("buyer_info_icon_url"));
 			}
 		}
 		return map;

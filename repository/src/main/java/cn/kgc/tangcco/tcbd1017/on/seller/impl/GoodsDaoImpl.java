@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.impl;
+package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +10,8 @@ import java.util.List;
 import org.apache.commons.dbutils.QueryRunner;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.on.GoodsDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
+import cn.kgc.tangcco.tcbd1017.on.seller.GoodsDao;
 
 /**
  * @author 谷亚坤

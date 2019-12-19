@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on.impl;
+package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +13,7 @@ import java.util.Map;
 import org.apache.commons.dbutils.QueryRunner;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.on.BuyerInfoDao;
+import cn.kgc.tangcco.tcbd1017.on.buyer.BuyerInfoDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.BuyerInfo;
 
 public class BuyerInfoDaoImple implements BuyerInfoDao  {

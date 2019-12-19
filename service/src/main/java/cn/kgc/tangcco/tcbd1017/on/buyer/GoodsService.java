@@ -1,10 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer;
 
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
-import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 
 /**
 *@author 作者：肖越

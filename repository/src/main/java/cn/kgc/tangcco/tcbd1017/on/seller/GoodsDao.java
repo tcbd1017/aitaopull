@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.on;
+package cn.kgc.tangcco.tcbd1017.on.seller;
 
 import java.sql.SQLException;
 import java.util.List;
