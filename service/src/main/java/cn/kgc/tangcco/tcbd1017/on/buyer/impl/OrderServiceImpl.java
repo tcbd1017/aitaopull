@@ -66,16 +66,16 @@ public class OrderServiceImpl implements OrderService{
 				//查询购物车商品信息
 				 //List<Map<String ,Object>> selectByGoods = shoppingCartDao.selectShoppingCartInfoByBuyerId(map);
 				 //查询订单商品图片地址
-				 //List<Map<String, Object>> selectShoppingCartInfoByBuyerIdAddUrl = shoppingCartDao.selectShoppingCartInfoByBuyerIdAddUrl(map);
+				 List selectShoppingCartInfoByBuyerIdAddUrl = orderDaoIml.selectShoppingCartInfoByBuyerIdAddUrl(map);
 				//查询订单总条数
 				int selectByOrderPageCount = orderDaoIml.SelectByOrderPageCount(map);
 				//查询商品详情总条数
-				int selectByOrderGoodsPageCount = orderDaoIml.SelectByOrderGoodsPageCount(map);
+				//int selectByOrderGoodsPageCount = orderDaoIml.SelectByOrderGoodsPageCount(map);
 				map1.put("data", list) ;
 				//map1.put("goods", selectByGoods);
-				//map1.put("goodsUrl", selectShoppingCartInfoByBuyerIdAddUrl);
+				map1.put("goodsUrl", selectShoppingCartInfoByBuyerIdAddUrl);
 				map1.put("selectByOrderPageCount", selectByOrderPageCount);
-				map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
+				//map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

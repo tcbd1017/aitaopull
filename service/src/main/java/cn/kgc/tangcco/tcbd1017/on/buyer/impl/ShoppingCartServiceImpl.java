@@ -218,7 +218,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		
 		
 		int result = shoppingCartDao.updateShoppingCartInfo(shoppingCart);
-		if (result == 1) {
+		if (result ==1) {
 			returnedMap.put("status", "success");
 			returnedMap.put("msg", "恭喜小主驯服Dao层删除方法");
 			return returnedMap;

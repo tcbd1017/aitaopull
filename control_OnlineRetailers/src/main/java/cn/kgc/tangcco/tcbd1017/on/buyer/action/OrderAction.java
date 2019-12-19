@@ -66,7 +66,7 @@ public class OrderAction extends BaseServlet{
 	 * 			key:"sellerId、buyerid", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
 	 * 			key:"order", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
 	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存
-	 * 		模板 ：{"buyerId":1,"order":1,"order":1,"prSize":5,"enableFuzzySelect":0} 
+	 * 		模板 ：{"buyerId":1,"order":1,"prPage":1,"prSize":5,"enableFuzzySelect":0} 
 
 	 * 	
 	 * 		整个Map转成json, 以AJAX的试向后台发送	
@@ -153,7 +153,8 @@ public class OrderAction extends BaseServlet{
 	 *  前台给后台格式:
 	 * 	 Map :
 	 * 			key:"shopping", 至少需要包含买家id，购物车id
-	 * 	模板:	{"goodsId":1,"buyerId":1,"goodsName":"平板","enableFuzzySelect":0} 		
+	 * 	模板:{"goodsId":3,"buyerId":1,"enableFuzzySelect":0,"goodsName":"夏普"} 
+	 *   必须属性： goodsId,buyerId,goodsName,enableFuzzySelect
 	 *  
 	 */
 	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {

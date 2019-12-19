@@ -30,7 +30,41 @@ public class OrderDaoImpl implements OrderDao{
 	QueryRunner qrds = new QueryRunner(BaseDBUtils.getDataSource());
 	QueryRunner qr = new QueryRunner();
 	
-	
+	/**
+	 *  根据urlid去找url地址
+	 * @param map
+	 * @return
+	 */
+	@Override
+	public List selectShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map) {
+		List list1 =new ArrayList();
+		Map map1=new HashMap();
+		// 判空说明有问题 直接返回空集
+		if (map.isEmpty()) {
+			return list1;
+		}
+		
+		// 如果有buyerId则进入逻辑
+		if ((int)map.get("buyer_id") > 0) {
+			int buyer_id = (int)map.get("buyer_id");
+			Order order = (Order)map.get("data");
+			StringBuilder sql = new StringBuilder(" select g.goods_picture_url from 020301_goods_picture_url AS g INNER JOIN 0109_order as o where 1=1  ");
+			sql.append(" and o.goods_picture_url_id = g.goods_picture_url_id  ");
+			sql.append(" and o.buyer_id = ? ");
+			List list=new ArrayList();
+			list.add(buyer_id);
+			 try {
+				PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql.toString());
+				ResultSet rs = BaseDBUtils.executeQuery(pst, list.toArray());
+				while (rs.next()) {
+					list1.add(rs.getString("goods_picture_url"));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list1;
+	}
 	
 	
 	/**
