@@ -1,4 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
 import cn.kgc.tangcco.tcbd1017.on.buyer.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.buyer.OrderService;
+import cn.kgc.tangcco.tcbd1017.on.buyer.ShoppingCartDao;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
@@ -24,10 +26,12 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
  */
 public class OrderServiceImpl implements OrderService{
 	static OrderDao orderDaoIml = null;
+	static ShoppingCartDao shoppingCartDao=null;
 	static {
 		ClassPathXmlApplicationContext ioc = new ClassPathXmlApplicationContext("ApplicationContext_on.xml");
 		try {
 			orderDaoIml = (OrderDaoImpl)ioc.getBean("OrderDao");
+			shoppingCartDao = (ShoppingCartDao)ioc.getBean("ShoppingCartDao");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,12 +59,21 @@ public class OrderServiceImpl implements OrderService{
 		map1.put("code", 0);
 		if (!map.isEmpty()&&map.containsKey("object")&&map.containsKey("data")) {
 			try {
+				//查询订单信息
+				Order order =(Order)map.get("data");
+				map.put("buyer_id", order.getBuyer_id());
 				List<Order> list = orderDaoIml.selectByOrder(map);
-				List<OrderGoods> selectByOrderGoods = orderDaoIml.SelectByOrderGoods(map);
+				//查询购物车商品信息
+				 //List<Map<String ,Object>> selectByGoods = shoppingCartDao.selectShoppingCartInfoByBuyerId(map);
+				 //查询订单商品图片地址
+				 //List<Map<String, Object>> selectShoppingCartInfoByBuyerIdAddUrl = shoppingCartDao.selectShoppingCartInfoByBuyerIdAddUrl(map);
+				//查询订单总条数
 				int selectByOrderPageCount = orderDaoIml.SelectByOrderPageCount(map);
+				//查询商品详情总条数
 				int selectByOrderGoodsPageCount = orderDaoIml.SelectByOrderGoodsPageCount(map);
 				map1.put("data", list) ;
-				map1.put("orderGoods", selectByOrderGoods);
+				//map1.put("goods", selectByGoods);
+				//map1.put("goodsUrl", selectShoppingCartInfoByBuyerIdAddUrl);
 				map1.put("selectByOrderPageCount", selectByOrderPageCount);
 				map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
 			} catch (SQLException e) {
@@ -197,6 +210,61 @@ public class OrderServiceImpl implements OrderService{
 					if (string.equals("amount_of_goods")) {
 						orderGoods.setAmount_of_goods((int)result.get(string));
 					}
+					if (string.equals("shopping_cart_id")) {
+						order.setShopping_cart_id((int)result.get(string));
+					}
+					if (string.equals("goods_id")) {
+						order.setGoods_id((int)result.get(string));
+					}
+					if (string.equals("amount_of_goods")) {
+						order.setAmount_of_goods((int)result.get(string));
+					}
+					if (string.equals("goods_uuid")) {
+						order.setGoods_uuid((String)result.get(string));
+					}
+					if (string.equals("goods_picture_url_id")) {
+						order.setGoods_picture_url_id((int)result.get(string));
+					}
+					if (string.equals("goods_name")) {
+						order.setGoods_name((String)result.get(string));
+					}
+				
+					if (string.equals("goods_brand")) {
+						order.setGoods_brand((String)result.get(string));
+					}
+					if (string.equals("goods_type")) {
+						order.setGoods_type((String)result.get(string));
+					}
+					
+					if (string.equals("goods_presentation")) {
+						order.setGoods_presentation((String)result.get(string));
+					}
+					if (string.equals("seller_id")) {
+						order.setSeller_id((int)result.get(string));
+					}
+					if (string.equals("storage_id")) {
+						order.setStorage_id((int)result.get(string));
+					}
+					
+					
+					if (string.equals("goods_width")) {
+						order.setGoods_width(Double.parseDouble(result.get(string).toString()));
+					}
+					if (string.equals("goods_height")) {
+						order.setGoods_height(Double.parseDouble(result.get(string).toString()));
+					}
+					if (string.equals("goods_price")) {
+						order.setGoods_price((BigDecimal)result.get(string));
+					}
+					if (string.equals("goods_length")) {
+					System.out.println("取出的数据值："+ Double.parseDouble(result.get(string).toString()) );
+					order.setGoods_length(Double.parseDouble(result.get(string).toString()));
+					}
+					if (string.equals("goods_weight")) {
+					order.setGoods_weight(Double.parseDouble(result.get(string).toString()));
+					}
+					
+				
 					
 				}
 			}
@@ -213,7 +281,7 @@ public class OrderServiceImpl implements OrderService{
 		order.setOrder_status(1);
 		//测试数据部分
 				order.setLogistics_id(12);
-				order.setOrder_payment(100);
+				order.setOrder_payment(Double.parseDouble(order.getGoods_price().toString()));
 				order.setBuyer_cash_voucher_id(1);
 				order.setOrder_payment_type(1);
 				order.setOrder_buyer_message("廖斌测试数据");

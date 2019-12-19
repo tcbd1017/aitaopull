@@ -49,7 +49,9 @@ public class SelectByOrderTest {
 		Buyer buyer = new Buyer();
 		buyer.setBuyer_id(1);
 		map.put("object", buyer);
-		
+		map.put("buyerId", 1);
+		map.put("order", 1);
+		map.put("enableFuzzySelect", 0);
 		//订单信息
 		Order order = new Order();
 		order.setBuyer_id(1);

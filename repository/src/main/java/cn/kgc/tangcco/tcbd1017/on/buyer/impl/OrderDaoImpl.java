@@ -1,5 +1,6 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +29,10 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
 public class OrderDaoImpl implements OrderDao{
 	QueryRunner qrds = new QueryRunner(BaseDBUtils.getDataSource());
 	QueryRunner qr = new QueryRunner();
+	
+	
+	
+	
 	/**
 	 * @return List<Order>
 	 * 	查询订单  格式
@@ -67,10 +72,16 @@ public class OrderDaoImpl implements OrderDao{
 						sql1.append(" limit ?,? ");
 						PageRang pr  = (PageRang)map.get("pr");
 						list1.add((pr.getPageNumber()-1)*pr.getPageNumber());
-						list1.add(pr.getPageNumber());
+						list1.add(pr.getPageSize());
 					}
 					
 					//执行sql，并返回集合
+					System.out.println("最终执行的语句"+sql1.toString());
+					System.out.println();
+					for (int i = 0; i < list1.size(); i++) {
+						Object object = list1.get(i);
+						System.out.println(object);
+					}
 					return qrds.query(sql1.toString(),list1.toArray(),  new BeanListHandler<Order>(Order.class));
 					}
 				}else if(map.get("object") instanceof Seller) {
@@ -110,14 +121,18 @@ public class OrderDaoImpl implements OrderDao{
 	 */
 	@Override
 	public List<OrderGoods> SelectByOrderGoods(Map map) throws SQLException {
-			String sql = "SELECT * FROM 0109_order_goods WHERE 1=1 and order_id = ? limit ? , ?  ";
+			StringBuilder sql = new StringBuilder("SELECT * FROM 0109_order_goods WHERE 1=1 and order_id = ?  ");
 			List list = new ArrayList(); 
 			Order order = (Order)map.get("data");
-			PageRang pr  = (PageRang)map.get("pr");
-			list.add(order.getOrder_id()); 
-			list.add((pr.getPageNumber()-1)*pr.getPageNumber());
-			list.add(pr.getPageNumber());
-			return qrds.query(sql, list.toArray(), new BeanListHandler<OrderGoods>(OrderGoods.class));
+			if (map.containsKey("pr")) {
+				PageRang pr  = (PageRang)map.get("pr");
+				list.add(order.getOrder_id()); 
+				list.add((pr.getPageNumber()-1)*pr.getPageNumber());
+				list.add(pr.getPageNumber());
+				sql.append(" limit ? , ? ");
+			}
+			
+			return qrds.query(sql.toString(), list.toArray(), new BeanListHandler<OrderGoods>(OrderGoods.class));
 			}
 	/**
 	 *  新增商品信息订单
@@ -170,10 +185,10 @@ public class OrderDaoImpl implements OrderDao{
 	 */
 	@Override
 	public int SelectByOrderPageCount(Map<String, Object> map) throws SQLException {
-		String sql = "SELECT count(1) FROM 0109_order WHERE order_id = ? ";
+		String sql = "SELECT count(1) FROM 0109_order WHERE buyer_id = ? ";
 		List list = new ArrayList(); 
 		Order order = (Order)map.get("data");
-		int order_id = order.getOrder_id();
+		int order_id = order.getBuyer_id();
 		list.add(order_id);
 		PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql);
 		ResultSet rs = BaseDBUtils.executeQuery(pst, list.toArray());
@@ -286,8 +301,8 @@ public class OrderDaoImpl implements OrderDao{
 							//获得订单新增信息
 							Order order = (Order)map.get("data");
 							//基础sql
-							StringBuilder sql = new StringBuilder(  " insert into 0109_order ( order_uuid,logistics_id,order_create_time,order_update_time,order_status,buyer_id,order_payment,buyer_cash_voucher_id,order_payment_type,order_payment_time,order_consign_time,order_end_time,order_close_time,order_buyer_message ) " );	
-							sql.append(" select \""+order.getOrder_uuid()+"\" ,?,?,?,?,?,?,?,?,?,?,?,?,? ");
+							StringBuilder sql = new StringBuilder(  " insert into 0109_order ( order_uuid,logistics_id,order_create_time,order_update_time,order_status,buyer_id,order_payment,buyer_cash_voucher_id,order_payment_type,order_payment_time,order_consign_time,order_end_time,order_close_time,order_buyer_message,shopping_cart_id,goods_id,amount_of_goods,goods_uuid,goods_picture_url_id,goods_name,goods_price,goods_brand,goods_type,goods_width,goods_height,goods_length,goods_presentation,seller_id,storage_id,goods_weight ) " );	
+							sql.append(" select \""+order.getOrder_uuid()+"\" ,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ");
 							sql.append(" from dual where not exists ");
 							sql.append(" ( select order_uuid from 0109_order where order_uuid =\""+order.getOrder_uuid()+"\" ) ");
 							//sql语句占位符储存数组
@@ -305,6 +320,22 @@ public class OrderDaoImpl implements OrderDao{
 							list.add(BaseDateUitls.getDateString(order.getOrder_end_time()));
 							list.add(BaseDateUitls.getDateString(order.getOrder_close_time()));
 							list.add(order.getOrder_buyer_message());
+							list.add(order.getShopping_cart_id());
+							list.add(order.getGoods_id());
+							list.add(order.getAmount_of_goods());
+							list.add(order.getGoods_uuid());
+							list.add(order.getGoods_picture_url_id());
+							list.add(order.getGoods_name());
+							list.add(order.getGoods_price());
+							list.add(order.getGoods_brand());
+							list.add(order.getGoods_type());
+							list.add(order.getGoods_width());
+							list.add(order.getGoods_height());
+							list.add(order.getGoods_length());
+							list.add(order.getGoods_presentation());
+							list.add(order.getSeller_id());
+							list.add(order.getStorage_id());
+							list.add(order.getGoods_weight());
 							//执行语句；
 							System.out.println(sql.toString());
 							PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql.toString());
@@ -458,7 +489,31 @@ public class OrderDaoImpl implements OrderDao{
 	}
 
 	
-	
+	private List<Map<String ,Object>> rsToList(ResultSet rs){
+		List<Map<String ,Object>> list = null;
+		if(rs==null) {
+			return list;
+		}
+		try {
+			list = new ArrayList<Map<String ,Object>>();
+			//获取总列数
+			int columnCount = rs.getMetaData().getColumnCount();
+			while(rs.next()){
+				Map<String, Object> map = new HashMap<String, Object>();
+				// 遍历每一列,拿出列名和数据
+				for (int i = 1; i <= columnCount; i++) {
+					String columnLabel = rs.getMetaData().getColumnLabel(i);
+					Object value = rs.getObject(i);
+					map.put(columnLabel,value);
+				}
+			    list.add(map);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 
 	

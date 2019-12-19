@@ -63,9 +63,12 @@ public class OrderAction extends BaseServlet{
 	 * --------------------------------------------
 	 * 	前台给后台的数据要求说明：
 	 * 		Map:
-	 * 			key:"object", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
-	 * 			key:"data", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
-	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存 
+	 * 			key:"sellerId、buyerid", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
+	 * 			key:"order", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
+	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存
+	 * 		模板 ：{"buyerId":1,"order":1,"order":1,"prSize":5,"enableFuzzySelect":0} 
+
+	 * 	
 	 * 		整个Map转成json, 以AJAX的试向后台发送	
 	 * --------------------------------------------
 	 * @param request
@@ -74,20 +77,33 @@ public class OrderAction extends BaseServlet{
 	 */
 	public void selectByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
+		
+		System.out.println("前台给的数据："+string);
 		Map map =JSON.parseObject(string,Map.class);
-		if (map.get("object").toString().contains("seller")) {
-			Seller seller = JSON.parseObject(map.get("object").toString(),Seller.class);
+		
+		if (map.containsKey("sellerId")) {
+			Seller seller = new Seller();
+			seller.setSeller_id((int)map.get("sellerId"));
 			map.put("object", seller);
-		}else if(map.get("object").toString().contains("buyer")){
-			Buyer buyer = JSON.parseObject(map.get("object").toString(),Buyer.class);
+		}else if(map.containsKey("buyerId")){
+			Buyer buyer = new Buyer();
+			buyer.setBuyer_id((int)map.get("buyerId"));
 			map.put("object", buyer);
 		}
 		//解析order
-		Order order = JSON.parseObject(map.get("data").toString(),Order.class);
+		if (map.containsKey("order")) {
+		Order order = new Order();
+		order.setBuyer_id((int)map.get("order"));
 		map.put("data", order);
+		}
 		//解析分页信息
-		PageRang pr = JSON.parseObject(map.get("pr").toString(),PageRang.class);
-		map.put("pr", pr);
+		if (map.containsKey("prPage")) {
+			PageRang pr = new PageRang();
+			pr.setPageNumber((int)map.get("prPage"));
+			pr.setPageSize((int)map.get("prSize"));
+			map.put("pr", pr);
+		}
+		
 		 Map map1 = new HashMap();
 		 
 		 if (map!=null&&map.size()>0) {
@@ -137,29 +153,26 @@ public class OrderAction extends BaseServlet{
 	 *  前台给后台格式:
 	 * 	 Map :
 	 * 			key:"shopping", 至少需要包含买家id，购物车id
-	 *  		
+	 * 	模板:	{"goodsId":1,"buyerId":1,"goodsName":"平板","enableFuzzySelect":0} 		
 	 *  
 	 */
 	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {
 		//配置其他模块接口服务器地址；
 		String ipAddress = BaseProperties.getProperties("/IpAddress.properties", "address");
-		
+		System.out.println("前台给的数据："+string);
 		//接收购物车订单号
 		//key:goodsId、buyerId、goodsName
-		Map map1 = new HashMap();
-		map1=(Map)JSON.parseObject(string,Map.class);
 		//调用杜明action接口，获得购物车信息
 		OkHttpClient client = new OkHttpClient();
 		//杜明接口地址： 根据Buyer_id返回购物车信息
 		String url0 = ipAddress+"control_OnlineRetailers/shoppingCart.action?methodName=queryAllShoppingCartInfoByBuyerId";
 		//标明接口地址：根据BuyerId和GoodsId,删除物品
 		String url1 = ipAddress+"control_OnlineRetailers/shoppingCart.action?methodName=removeShoppingCart";
-		System.out.println(url0);
+		System.out.println("购物车接口地址："+url0);
 		//获得请求体
 		 final MediaType json=MediaType.parse("application/json; charset=utf-8");
-		 String json2 = JSON.toJSON(map1).toString();
-		 RequestBody queryBody = RequestBody.create(json, json2 );
-		 RequestBody removeBody = RequestBody.create(json, json2);
+		 RequestBody queryBody = RequestBody.create(json, string );
+		 RequestBody removeBody = RequestBody.create(json, string);
 		//查询购物车http请求
 		Request queryCart = new Request.Builder().url(url0).post(queryBody).build();
 		//删除购物车http请求 
@@ -194,12 +207,12 @@ public class OrderAction extends BaseServlet{
 					//获取购物车删除信息； 
 					 removeRs=removeResponse.body().string();
 					if (removeRs.contains("success")) {
-						printJson(response, "{\"status\":success}");
+						printJson(response,removeRs);
 					}else {
-						printJson(response, "{\"status\":failed}");
+						printJson(response,removeRs);
 					}
 			}else {
-				printJson(response, "{\"status\":failed}");
+				printJson(response, removeRs);
 			}
 			} catch (IOException | SQLException e) {
 				// TODO Auto-generated catch block
