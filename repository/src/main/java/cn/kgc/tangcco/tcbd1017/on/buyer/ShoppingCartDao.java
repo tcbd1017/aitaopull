@@ -50,7 +50,7 @@ public interface ShoppingCartDao {
 	public abstract int updateShoppingCartInfo(ShoppingCart shoppingCart);
 	
 	
-
+	// 假装在这里添加一点点代码
 }
 
 
