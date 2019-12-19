@@ -1,15 +1,19 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import com.alibaba.fastjson.JSON;
 
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
+import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
 import cn.kgc.tangcco.tcbd1017.on.buyer.PostageInfoService;
 
 /**
@@ -52,7 +56,12 @@ public class PostageInfoAction extends BaseServlet {
 	 * @return
 	 */
 	public void addPostageInfo(HttpServletRequest request, HttpServletResponse response, String json) {
+		System.out.println(json);
 		Map map = JSON.parseObject(json, Map.class);
+		if (ObjectUtils.isEmpty(map.get("postage_info_postcode"))) {
+			map.put("postage_info_postcode", "000000");
+		}
+		map.put("postage_info_uuid", BaseUUID.generate());
 		Map<String, Object> info = postageInfoService.addPostageInfo(map);
 		printJson(response, info);
 	}
@@ -76,7 +85,10 @@ public class PostageInfoAction extends BaseServlet {
 	 * @return
 	 */
 	public void modifyPostageInfosByStatus(HttpServletRequest request, HttpServletResponse response, String json) {
+		System.out.println(json);
+//		List list = JSON.parseObject(json,List.class);
 		Map map = JSON.parseObject(json, Map.class);
+		map.put("postage_info_status", 3);
 		Map<String, Object> info = postageInfoService.modifyPostageInfosByStatus(map);
 		printJson(response, info);
 
@@ -90,6 +102,7 @@ public class PostageInfoAction extends BaseServlet {
 	 */
 	public void removePostageInfosByStatus(HttpServletRequest request, HttpServletResponse response, String json) {
 		Map map = JSON.parseObject(json, Map.class);
+		map.put("postage_info_status", 1);
 		Map<String, Object> info = postageInfoService.removePostageInfosByStatus(map);
 		printJson(response, info);
 	}
