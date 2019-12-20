@@ -1,7 +1,10 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer;
 
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 
 /**
 *@author 作者：肖越
@@ -12,21 +15,14 @@ public interface GoodsService {
 	 * 查詢所有物品
 	 * @return
 	 */
-
 	public  Map<String,Object> queryAllGoods();
-
-	
 	
 	/**
 	 * 根据商品类型查询商品
 	 * @param goodsType 商品类型名称
 	 * @return map类型
 	 */
-
 	public  Map<String,Object> queryByGoodsType(String goodsType);
-
-	
-
 
 
 	/**

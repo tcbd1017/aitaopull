@@ -28,11 +28,7 @@ public class GoodsDaoImpl implements GoodsDao {
 		List<Goods> list=new ArrayList<Goods>();
 		try {
 		Connection conn=BaseDBUtils.getConnection();
-
 		String sql="SELECT * FROM 0203_goods WHERE goods_status=2";
-
-		
-
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt);
 			while(rs.next()) {
@@ -92,11 +88,7 @@ public class GoodsDaoImpl implements GoodsDao {
 		List<Goods> list=new ArrayList<Goods>();
 		try {
 		Connection conn=BaseDBUtils.getConnection();
-
 		String sql="SELECT * FROM 0203_goods WHERE goods_type=? AND goods_status=2";
-
-		
-
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt,goodsType);
 			while(rs.next()) {
@@ -160,11 +152,7 @@ public class GoodsDaoImpl implements GoodsDao {
 		List<Goods> list=new ArrayList<Goods>();
 		try {
 		Connection conn=BaseDBUtils.getConnection();
-
 		String sql="SELECT * FROM 0203_goods WHERE goods_name LIKE ? OR goods_brand LIKE ? OR goods_presentation LIKE ? AND goods_status =2";
-
-		
-
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt,"%"+vague+"%","%"+vague+"%","%"+vague+"%");
 			while(rs.next()) {
@@ -216,20 +204,20 @@ public class GoodsDaoImpl implements GoodsDao {
 	}
 
 	
-//	public static void main(String[] args) {
-//		try {
-//			List<Goods> list=new GoodsDaoImpl().selectVagueByGoods_nameOrGoods_brandOrGoods_presentation("肖");
-//		for (int i = 0; i < list.size(); i++) {
-//			Goods g=list.get(i);
-//			System.out.println(g);
-//		}
-//			
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("出现异常！！！");
-//		}
-//	}
+	public static void main(String[] args) {
+		try {
+			List<Goods> list=new GoodsDaoImpl().selectVagueByGoods_nameOrGoods_brandOrGoods_presentation("肖");
+		for (int i = 0; i < list.size(); i++) {
+			Goods g=list.get(i);
+			System.out.println(g);
+		}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("出现异常！！！");
+		}
+	}
 	
 	
 	

@@ -126,6 +126,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return map;
 	}
 
+	public static void main(String[] args) {
+		Map map=new GoodsServiceImpl().queryByGoodsType("毛绒玩具");
+		System.out.println(map);
+	}
 	
 
 }

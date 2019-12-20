@@ -19,12 +19,12 @@ import cn.kgc.tangcco.tcbd1017.on.buyer.GoodsService;
 *@author 作者：肖越 
 *@version 1.0 创建时间:2019年12月13日下午12:03:36
 */
-@WebServlet(urlPatterns = "/xiao.action")
+@WebServlet("/xiao.action")
 public class GoodsAction extends BaseServlet {
 	static GoodsService goodsService;
 	static ClassPathXmlApplicationContext path;
 	static {
-		path = new ClassPathXmlApplicationContext("");
+		path = new ClassPathXmlApplicationContext("ApplicationContext_on.xml");
 		try {
 			goodsService = (GoodsService) path.getBean(GoodsService.class.getSimpleName());
 		} catch (Exception e) {
