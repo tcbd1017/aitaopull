@@ -64,22 +64,22 @@
         
         
         <bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
-		<bean id = "SetMealService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealServiceImpl"/>
+		<bean id = "SetMealService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealServiceImpl"/>
 		
-		<bean id = "ViewSellerDao.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerDaoImpl"/>
-		<bean id = "ViewSellerService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerServiceImpl"/>
+		<bean id = "ViewSellerDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerDaoImpl"/>
+		<bean id = "ViewSellerService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerServiceImpl"/>
 		
-		<bean id = "OperationDao.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationDaoImpl"/>
-		<bean id = "OperationService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationServiceImpl"/>
+		<bean id = "OperationDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationDaoImpl"/>
+		<bean id = "OperationService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationServiceImpl"/>
 		
-		<bean id = "EmpLoginDao.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginDaoImpl"/>
-		<bean id = "EmpLoginService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginServiceImpl"/>
+		<bean id = "EmpLoginDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginDaoImpl"/>
+		<bean id = "EmpLoginService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginServiceImpl"/>
 		
-		<bean id = "EmpLoginToEmp.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpImpl"/>
-		<bean id = "EmpLoginToEmpService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpServiceImpl"/>
+		<bean id = "EmpLoginToEmp" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpImpl"/>
+		<bean id = "EmpLoginToEmpService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpServiceImpl"/>
 		
-		<bean id = "UpdateEmpAllInfo.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.UpdateEmpAllInfoImpl"/>
-		<bean id = "ModifyEmpAllInfo.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ModifyEmpAllInfoImpl"/>
+		<bean id = "UpdateEmpAllInfo" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.UpdateEmpAllInfoImpl"/>
+		<bean id = "ModifyEmpAllInfo" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ModifyEmpAllInfoImpl"/>
 
 	</beans>
 
