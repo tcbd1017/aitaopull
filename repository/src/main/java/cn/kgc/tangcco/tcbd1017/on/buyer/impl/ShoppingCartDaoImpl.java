@@ -49,10 +49,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 			params.add(map.get("buyer_id"));
 			if ((int)map.get("enableFuzzySelect") > 0) {
 				sql.append(" AND g.goods_name LIKE ?");
-//				StringBuilder fuzzy = new StringBuilder("%");
-//				fuzzy.append((String)map.get("goods_name"));
-//				fuzzy.append("%");
-//				Object tempParam = fuzzy.toString();
 				Object tempParam = "%" + (String)map.get("goods_name") + "%";
 				params.add(tempParam);
 			}
@@ -87,17 +83,13 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 			sql.append(" g.*, "); // g.goods_create_time, g.goods_update_time, 
 			sql.append(" sc.*, ");
 			sql.append(" gpu.* ");
-			sql.append(" FROM 020301_goods_picture_url AS gpu inner join 0108_shopping_cart AS sc INNER JOIN 0203_goods AS g   ");
+			sql.append(" FROM 020301_goods_picture_url AS gpu inner join 0108_shopping_cart AS sc INNER JOIN 0203_goods AS g ");
 			sql.append(" ON g.goods_id = sc.goods_id AND gpu.goods_picture_url_id = g.goods_picture_url_id ");
 			sql.append(" WHERE sc.buyer_id = ? AND sc.shopping_cart_status > 1 ");
 			List<Object> params = new ArrayList<Object>();
 			params.add(map.get("buyer_id"));
 			if ((int)map.get("enableFuzzySelect") > 0) {
 				sql.append(" AND g.goods_name LIKE ?");
-//				StringBuilder fuzzy = new StringBuilder("%");
-//				fuzzy.append((String)map.get("goods_name"));
-//				fuzzy.append("%");
-//				Object tempParam = fuzzy.toString();
 				Object tempParam = "%" + (String)map.get("goods_name") + "%";
 				params.add(tempParam);
 			}
@@ -164,12 +156,6 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 			sql1.append(" shopping_cart_id = ?, ");
 			list.add(shoppingCart.getShopping_cart_id());
 		}
-//		if (0 != shoppingCart.getBuyer_id()) {
-//			sql1.append(" buyer_id = ?, ");
-//			list.add(shoppingCart.getBuyer_id());
-//		}
-//		
-
 		if (0 != shoppingCart.getAmount_of_goods()) {
 			sql1.append(" amount_of_goods = ?, ");
 			list.add(shoppingCart.getAmount_of_goods());
@@ -178,12 +164,10 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 			sql1.append(" shopping_cart_create_time = ?, ");
 			list.add(shoppingCart.getShopping_cart_create_time());
 		}
-		
 		if (null != shoppingCart.getShopping_cart_update_time()) {
 			sql1.append(" shopping_cart_update_time = ?, ");
 			list.add(shoppingCart.getShopping_cart_update_time());
 		}
-		
 		if (2 > shoppingCart.getShopping_cart_status()) {
 			sql1.append(" shopping_cart_status = ?, ");
 			list.add(shoppingCart.getShopping_cart_status());

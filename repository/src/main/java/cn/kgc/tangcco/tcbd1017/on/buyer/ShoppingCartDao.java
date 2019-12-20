@@ -48,9 +48,6 @@ public interface ShoppingCartDao {
 	 * @return 方法的执行结果 0 失败 1 成功
 	 */
 	public abstract int updateShoppingCartInfo(ShoppingCart shoppingCart);
-	
-	
-	// 假装在这里添加一点点代码
 }
 
 
