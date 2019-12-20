@@ -42,7 +42,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		
 		Integer buyerId = null;
 		String goodsName = null;
-		//System.out.println("进入service成功");
+
 		if (null != map.get("buyerId") && map.get("buyerId") instanceof Integer) {
 			buyerId = (int)map.get("buyerId"); 
 			//System.out.println("放入成功");

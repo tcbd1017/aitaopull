@@ -216,7 +216,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 				Map<String, Object> map = new HashMap<String, Object>();
 				count ++;
 				// 遍历每一列,拿出列名和数据
-				for (int i = 1; i <= columnCount; i++) {
+				for (int i = 1; i <= columnCount; i++) { 
 					String columnLabel = rs.getMetaData().getColumnLabel(i);
 					Object value = rs.getObject(i);
 					map.put(columnLabel,value);
