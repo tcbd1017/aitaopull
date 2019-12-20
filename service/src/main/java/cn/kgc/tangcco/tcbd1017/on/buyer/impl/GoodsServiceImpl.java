@@ -107,7 +107,7 @@ public class GoodsServiceImpl implements GoodsService {
 		map.put("data",new ArrayList<Goods>());
 		map.put("status", "failed");
 		try {
-			List<Goods> goods = goodsDao.selectVagueByGoods_nameOrGoods_brandOrGoods_presentation(vague);
+			List<Map> goods = goodsDao.selectVagueByGoods_nameOrGoods_brandOrGoods_presentation(vague);
 			if (goods !=null) {
 				map.put("status", "success");
 				map.put("data",goods);
