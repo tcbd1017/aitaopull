@@ -15,11 +15,7 @@
 
 		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
         <bean id = "ShoppingCartService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl"/>
-		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
-
-
-		
-		
+	
 
 		<bean id = "PersonnelMattersDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl"/>
 		<bean id = "PersonnelMattersService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl"/>
@@ -65,6 +61,25 @@
         <bean id = "SellerOrderDeliveryAndInquiryService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryServiceImpl"/>
         <bean id = "SellerCommentManagementDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementDaoImpl"/>
         <bean id = "SellerCommentManagementService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementServiceImpl"/>
+        
+        
+        <bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
+		<bean id = "SetMealService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealServiceImpl"/>
+		
+		<bean id = "ViewSellerDao.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerDaoImpl"/>
+		<bean id = "ViewSellerService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerServiceImpl"/>
+		
+		<bean id = "OperationDao.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationDaoImpl"/>
+		<bean id = "OperationService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationServiceImpl"/>
+		
+		<bean id = "EmpLoginDao.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginDaoImpl"/>
+		<bean id = "EmpLoginService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginServiceImpl"/>
+		
+		<bean id = "EmpLoginToEmp.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpImpl"/>
+		<bean id = "EmpLoginToEmpService.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpServiceImpl"/>
+		
+		<bean id = "UpdateEmpAllInfo.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.UpdateEmpAllInfoImpl"/>
+		<bean id = "ModifyEmpAllInfo.java" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ModifyEmpAllInfoImpl"/>
 
 	</beans>
 
