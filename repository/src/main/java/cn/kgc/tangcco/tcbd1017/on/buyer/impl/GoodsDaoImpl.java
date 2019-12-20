@@ -147,7 +147,7 @@ public class GoodsDaoImpl implements GoodsDao {
 
 
 	/**
-	 * 按照商品名称、或者商品类型、或者商品简介 ,模糊查询出相关商品
+	 * 按照商品名称、或者商品类型、或者商品简介 ,模糊查询出相关商品，
 	 */
 	@Override
 	public List<Map> selectVagueByGoods_nameOrGoods_brandOrGoods_presentation(String vague) throws SQLException {
