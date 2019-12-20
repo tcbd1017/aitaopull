@@ -36,6 +36,7 @@ public class RewardPointsServiceText {
 	@Test
 	public void findRewardPoints() {
 		Map<String,Object> info = new HashMap<String, Object>();
+		info.put("buyer_id", 47);
 		info=rewardPointsService.findRewardPoints(info);
 		System.out.println(info);
 	}

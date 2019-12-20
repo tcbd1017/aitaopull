@@ -47,7 +47,7 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 		 info.put("code", 0);
 		 try {
 			 //調用dao層方法
-			List<RewardPoints> list=rewardPointsDao.selectRewardPoints(map);
+			List<RewardPoints> list=rewardPointsDao.selectAllRewardPoints(map);
 			
 			if (list!=null&&list.size()>0) {
 				info.put("status", "success");
