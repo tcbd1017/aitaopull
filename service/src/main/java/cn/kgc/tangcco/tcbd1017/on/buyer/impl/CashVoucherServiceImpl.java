@@ -116,6 +116,12 @@ public class CashVoucherServiceImpl implements CashVoucherService{
 			return map1;
 		}
 	}
+
+	@Override
+	public Map<String, Object> queryByIdAndStatusAndStoreName(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
