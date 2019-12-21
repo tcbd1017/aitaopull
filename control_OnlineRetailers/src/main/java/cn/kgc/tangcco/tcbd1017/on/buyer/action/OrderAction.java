@@ -2,6 +2,7 @@ package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -66,7 +67,7 @@ public class OrderAction extends BaseServlet{
 	 * 			key:"sellerId、buyerid", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
 	 * 			key:"order", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
 	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存
-	 * 		模板 ：{"buyerId":1,"order":1,"prPage":1,"prSize":5,"enableFuzzySelect":0} 
+	 * 		模板 ：{"buyerId":1,"prPage":1,"prSize":5,"enableFuzzySelect":0} 
 
 	 * 	
 	 * 		整个Map转成json, 以AJAX的试向后台发送	
@@ -79,6 +80,7 @@ public class OrderAction extends BaseServlet{
 		//接收值
 		
 		System.out.println("前台给的数据："+string);
+		//向持久层输送的数据map
 		Map map =JSON.parseObject(string,Map.class);
 		
 		if (map.containsKey("sellerId")) {
@@ -91,26 +93,65 @@ public class OrderAction extends BaseServlet{
 			map.put("object", buyer);
 		}
 		//解析order
-		if (map.containsKey("order")) {
+		if (map.containsKey("buyerId")) {
 		Order order = new Order();
-		order.setBuyer_id((int)map.get("order"));
+		order.setBuyer_id((int)map.get("buyerId"));
+			if (map.containsKey("orderStatus")) {
+				order.setOrder_status((int)map.get("orderStatus"));
+			}
 		map.put("data", order);
 		}
+		//解析数组order订单号
+		if (map.containsKey("chk_value")) {
+			ArrayList list = new ArrayList();
+			String  chk_value= (String) map.get("chk_value");
+			//获得第一个点的位置
+			int  indexOf = chk_value.indexOf(",");
+			//获得第一个字符串  0,2
+			list.add(Integer.parseInt((chk_value.substring(0,indexOf)).toString()));
+			for (int i = 0; i < chk_value.length(); i++) {
+				if (indexOf>=chk_value.lastIndexOf(",")) {
+					list.add(Integer.parseInt(chk_value.substring(indexOf+1).toString()));
+					break;
+				}
+					//获得第二个点开始的位置 4
+					int index = indexOf+1;
+					indexOf = chk_value.indexOf(",",indexOf+1);
+					//获取第二个位置   
+					list.add(Integer.parseInt(chk_value.substring(index,indexOf).toString()));
+					
+			}
+			map.put("orderIdList", list);
+		}
+		
+		
 		//解析分页信息
 		if (map.containsKey("prPage")) {
 			PageRang pr = new PageRang();
-			pr.setPageNumber((int)map.get("prPage"));
+			int pageNumbet=Integer.parseInt(map.get("prPage").toString()) ;
+			if (pageNumbet<1) {
+				pageNumbet=1;
+			}
+			pr.setPageNumber(pageNumbet);
 			pr.setPageSize((int)map.get("prSize"));
 			map.put("pr", pr);
+		}
+		
+		//解析各状态的值；
+		if (map.containsKey("allOrderStatus")) {
+			Map allOrderStatus = JSON.parseObject(map.get("allOrderStatus").toString(),Map.class);
+			map.put("allOrderStatus", allOrderStatus);
 		}
 		
 		 Map map1 = new HashMap();
 		 
 		 if (map!=null&&map.size()>0) {
 			 //处理值；
+			 
 			 map1=orderServiceImpl.selectByOrder(map);
 		}
 		 //响应值
+		 System.out.println("响应的值"+map1);
 		printJson(response, map1);
 	}
 	
@@ -121,23 +162,33 @@ public class OrderAction extends BaseServlet{
 	 * @param request
 	 * @param response
 	 * @param string
+	 * 	请求数据模板 ：{"buyerId":1,"orderStatus":8,"orderId":99}
 	 */
 	public void updateByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
 				Map map =JSON.parseObject(string,Map.class);
+				
+				
 				//获得修改对象
-				if (map.get("object").toString().contains("seller")) {
-					Seller seller = JSON.parseObject(map.get("object").toString(),Seller.class);
-					map.put("object", seller);
-				}else if(map.get("object").toString().contains("buyer")){
-					Buyer buyer = JSON.parseObject(map.get("object").toString(),Buyer.class);
+				Buyer buyer = new Buyer();
+				if (map.containsKey("buyerId")) {
+					
+					buyer.setBuyer_id((int)map.get("buyerId"));
 					map.put("object", buyer);
 				}
+				
+				
+				Order order = new Order();
 				//解析order，获得修改订单信息
-				Order order = JSON.parseObject(map.get("data").toString(),Order.class);
+				if (map.containsKey("orderId")&&map.containsKey("orderStatus")) {
+					order.setOrder_status((int)map.get("orderStatus"));
+					order.setOrder_id((int)map.get("orderId"));
+				}
 				map.put("data", order);
+				
+				
+				
 				 Map map1 = new HashMap();
-				 
 				 if (map!=null&&map.size()>0) {
 					 //处理值；
 					 map1=orderServiceImpl.updateByOrder(map);

@@ -92,7 +92,7 @@ public class OrderDaoImpl implements OrderDao{
 					//获得订单查询信息
 					Order order = (Order)map.get("data");
 					//基础sql
-					StringBuilder sql = new StringBuilder("Select * from 0109_order as o where 1=1 ");
+					StringBuilder sql = new StringBuilder("Select * from 0109_order as o where 1=1 AND order_status != 8 ");
 					//基于买家角色进行查询
 					sql.append(" and o.buyer_id = (select buyer_id FROM 0101_buyer WHERE 1=1 and buyer_id = "+buyer_id+") " );
 					//sql语句占位符查询数据
@@ -105,7 +105,7 @@ public class OrderDaoImpl implements OrderDao{
 					if (map.get("pr")!=null) {
 						sql1.append(" limit ?,? ");
 						PageRang pr  = (PageRang)map.get("pr");
-						list1.add((pr.getPageNumber()-1)*pr.getPageNumber());
+						list1.add((pr.getPageNumber()-1)*pr.getPageSize());
 						list1.add(pr.getPageSize());
 					}
 					
@@ -219,12 +219,16 @@ public class OrderDaoImpl implements OrderDao{
 	 */
 	@Override
 	public int SelectByOrderPageCount(Map<String, Object> map) throws SQLException {
-		String sql = "SELECT count(1) FROM 0109_order WHERE buyer_id = ? ";
+		StringBuilder sql =new StringBuilder( "SELECT count(1) FROM 0109_order WHERE buyer_id = ?  and order_status != 8 ");
 		List list = new ArrayList(); 
 		Order order = (Order)map.get("data");
 		int order_id = order.getBuyer_id();
 		list.add(order_id);
-		PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql);
+		if (order.getOrder_status()>0) {
+			sql.append(" and order_status = ?  ");
+			list.add(order.getOrder_status());
+		}
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql.toString());
 		ResultSet rs = BaseDBUtils.executeQuery(pst, list.toArray());
 		int i = 0;
 		while (rs.next()) {
@@ -288,7 +292,7 @@ public class OrderDaoImpl implements OrderDao{
 					sql = (StringBuilder)addsql1.get("sql");
 					 list = (List)addsql1.get("list");
 					//查询条件
-					sql.append(" where buyer_id = (select "+buyer_id+" FROM 0101_buyer WHERE 1=1) ");
+					sql.append(" where order_id =  "+order.getOrder_id());
 					//去除逗号
 					String finnalSql = sql.toString().replace(",  where", "where");
 					System.out.println(finnalSql);

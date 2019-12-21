@@ -1,6 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -62,17 +63,71 @@ public class OrderServiceImpl implements OrderService{
 				//查询订单信息
 				Order order =(Order)map.get("data");
 				map.put("buyer_id", order.getBuyer_id());
-				List<Order> list = orderDaoIml.selectByOrder(map);
+				List list = orderDaoIml.selectByOrder(map);
 				//查询购物车商品信息
 				 //List<Map<String ,Object>> selectByGoods = shoppingCartDao.selectShoppingCartInfoByBuyerId(map);
 				 //查询订单商品图片地址
 				 List selectShoppingCartInfoByBuyerIdAddUrl = orderDaoIml.selectShoppingCartInfoByBuyerIdAddUrl(map);
 				//查询订单总条数
 				int selectByOrderPageCount = orderDaoIml.SelectByOrderPageCount(map);
-				//查询商品详情总条数
-				//int selectByOrderGoodsPageCount = orderDaoIml.SelectByOrderGoodsPageCount(map);
+				//查询各种状态的条数
+				if (map.containsKey("allOrderStatus")) {
+					//储存查询数据
+					Map selectStatus =new HashMap();
+					//获得前台给的查询数据
+					Map allOrderStatus =(Map) map.get("allOrderStatus");
+					
+					int orderStatusShow=(int)allOrderStatus.get("orderStatusShow");
+					int fahuo=(int)allOrderStatus.get("fahuo");
+					int shouhuo=(int)allOrderStatus.get("shouhuo");
+					int pingjia=(int)allOrderStatus.get("pingjia");
+					//未付款条数
+					
+					order.setOrder_status(orderStatusShow);
+					selectStatus.put("data", order);
+					orderStatusShow= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("orderStatusShow", orderStatusShow);
+					
+					order.setOrder_status(fahuo);
+					selectStatus.put("data", order);
+					fahuo= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("fahuo", fahuo);
+					
+					order.setOrder_status(shouhuo);
+					selectStatus.put("data", order);
+					shouhuo= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("shouhuo", shouhuo);
+					
+					order.setOrder_status(pingjia);
+					selectStatus.put("data", order);
+					pingjia= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("pingjia", pingjia);
+					
+					int selectByOrderPageCountStatus = 0;
+					order.setOrder_status(0);
+					selectStatus.put("data", order);
+					selectByOrderPageCountStatus= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("selectByOrderPageCountStatus", selectByOrderPageCountStatus);
+					
+				}
+				//查询从订单页转到结算页的订单号
+				if (map.containsKey("orderIdList")) {
+					//获取订单号的集合；
+					List list1 =(ArrayList) map.get("orderIdList");
+					//储存查询结果的集合
+					List<Order> ListResult  = new ArrayList();
+					for (Object object : list1) {
+						order.setOrder_id((int)object);
+						map.put("data", order);
+						List<Order> selectByOrder = orderDaoIml.selectByOrder(map);
+						for (Order object2 : selectByOrder) {
+							ListResult.add(object2);
+						}
+					}
+				map1.put("ListResult", ListResult);	
+				}
+				
 				map1.put("data", list) ;
-				//map1.put("goods", selectByGoods);
 				map1.put("goodsUrl", selectShoppingCartInfoByBuyerIdAddUrl);
 				map1.put("selectByOrderPageCount", selectByOrderPageCount);
 				//map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
