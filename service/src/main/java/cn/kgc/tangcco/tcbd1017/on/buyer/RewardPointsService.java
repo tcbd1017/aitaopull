@@ -22,6 +22,7 @@ public interface RewardPointsService {
 	 * @throws SQLException
 	 */
 	public Map<String,Object> findRewardPoints(Map<String,Object> map) ;
+	
 	 /**
 	  * 添加积分
 	  * @param map
@@ -29,4 +30,11 @@ public interface RewardPointsService {
 	  * @throws SQLException
 	  */
 	public Map<String,Object> addRewardPoints(Map<String,Object> map) ;
+	 /**
+	  * 提供一个总积分数据
+	  * @param map
+	  * @return
+	  * @throws SQLException
+	  */
+	public Map<String,Object>  findSumRewardPoints(Map<String, Object> map);
 }
