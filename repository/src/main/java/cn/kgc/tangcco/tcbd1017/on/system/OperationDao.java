@@ -28,7 +28,7 @@ public interface OperationDao {
 	 */
 	List<Emp> selectoperation(Map<String, Object> map)throws SQLException;
 	/**
-	 * 查询所有待审核卖家
+	 * 查询所有待审核且未分配卖家
 	 * @param map
 	 * @return
 	 * @throws SQLException
@@ -57,11 +57,27 @@ public interface OperationDao {
 	 * @throws SQLException
 	 */
 	int auditSeller(Map<String, Object> map) throws SQLException;
+	/**
+	 * 查询某员工待审核的卖家
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Seller> selectEmpSellers(Map<String, Object> map)throws SQLException;
+	/**
+	 * 查询某员工待审核的卖家的总记录数
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int selectEmpCountSeller(Map<String, Object> map) throws SQLException;
+	
+	
 	
 	
 	
 	/**
-	 * 查询所有待上架商品
+	 * 查询所有待上架且未分配商品
 	 * @param map
 	 * @return
 	 * @throws SQLException
@@ -75,7 +91,7 @@ public interface OperationDao {
 	 */
 	int selectCountGoods(Map<String, Object> map) throws SQLException;
 	/**
-	 * 分配上架商品的所有信息
+	 * 分配待上架商品的所有信息
 	 * @param map
 	 * @return
 	 * @throws SQLException
@@ -88,4 +104,18 @@ public interface OperationDao {
 	 * @throws SQLException
 	 */
 	int auditGoods(Map<String, Object> map) throws SQLException;
+	/**
+	 * 查询某员工待上架商品信息
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	List<Goods> selectEmpGoods(Map<String, Object> map)throws SQLException;
+	/**
+	 * 查询某员工待上架商品的总记录数
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int selectEmpCountGoods(Map<String, Object> map) throws SQLException;
 }

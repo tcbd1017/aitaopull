@@ -135,6 +135,59 @@ public class OperationServiceImpl implements OperationService{
 	}
 
 	/**
+	 * 查询某员工待审核的卖家
+	 */
+	@Override
+	public Map<String, Object> selectEmpSellers(Map<String, Object> map) throws SQLException {
+		Map<String, Object> info = new LinkedHashMap<String, Object>();
+		// 总页码号
+		int pageCount = 1;
+		info.put("code", 0);
+		info.put("msg", "");
+		info.put("count", 0);
+		info.put("data", new ArrayList<Seller>());
+		info.put("pageCount", pageCount);
+		try {
+			// 存储当前页码号和每页记录数
+			PageRang pr = (PageRang) map.get("pr");
+			// 获取总记录数
+			int count = operationDao.selectEmpCountSeller(map);
+			if (count > 0) {
+				// 每页纪录数
+				int pageSize = ((PageRang) map.get("pr")).getPageSize();
+				// 总页面号
+				pageCount = (int) ((count % pageSize != 0) ? Math.ceil((count + 0.0) / pageSize) : (count / pageSize));
+				// 存储总页面数
+				info.put("pageCount", pageCount);
+				info.put("count", count);
+				// 保护性代码保护传小于1的页面和大于最大页面的值
+				int pageNumber = pr.getPageNumber();
+				info.put("pr", pr);
+				List seller = (List) operationDao.selectEmpSellers(map);
+				if (seller != null) {
+					info.put("data", seller);
+				}
+
+			}
+			BaseDBUtils.closeAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+		}
+		return info;
+	}
+
+
+	
+	
+	
+	
+	/**
 	 * 查询所有待上架商品
 	 */
 	@Override
@@ -181,7 +234,6 @@ public class OperationServiceImpl implements OperationService{
 		}
 		return info;
 	}
-
 
 	/**
 	 * 分配上架商品的所有信息
@@ -233,8 +285,54 @@ public class OperationServiceImpl implements OperationService{
 		}
 		return info;
 	}
-
-
 	
+	/**
+	 * 查询某员工待上架商品信息
+	 */
+	@Override
+	public Map<String, Object> selectEmpGoods(Map<String, Object> map) throws SQLException {
+		Map<String, Object> info = new LinkedHashMap<String, Object>();
+		// 总页码号
+		int pageCount = 1;
+		info.put("code", 0);
+		info.put("msg", "");
+		info.put("count", 0);
+		info.put("data", new ArrayList<Goods>());
+		info.put("pageCount", pageCount);
+		try {
+			// 存储当前页码号和每页记录数
+			PageRang pr = (PageRang) map.get("pr");
+			// 获取总记录数
+			int count = operationDao.selectEmpCountGoods(map);
+			if (count > 0) {
+				// 每页纪录数
+				int pageSize = ((PageRang) map.get("pr")).getPageSize();
+				// 总页面号
+				pageCount = (int) ((count % pageSize != 0) ? Math.ceil((count + 0.0) / pageSize) : (count / pageSize));
+				// 存储总页面数
+				info.put("pageCount", pageCount);
+				info.put("count", count);
+				// 保护性代码保护传小于1的页面和大于最大页面的值
+				int pageNumber = pr.getPageNumber();
+				info.put("pr", pr);
+				List goods = (List) operationDao.selectEmpGoods(map);
+				if (goods != null) {
+					info.put("data", goods);
+				}
+
+			}
+			BaseDBUtils.closeAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+
+		}
+		return info;
+	}
+
 	
 }

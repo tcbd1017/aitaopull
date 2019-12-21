@@ -94,6 +94,31 @@ public class OperationAction extends BaseServlet{
 		}
 		printJson(response, map1);
 	}
+	/**
+	 * 查询某员工待审核的卖家并分页
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void selectEmpSellers(HttpServletRequest request, HttpServletResponse response,String json){
+		Map map = JSON.parseObject(json , Map.class);
+		int pageNum = (!map.containsKey("pageNum")) ? 1
+				:  (int) map.get("pageNum");
+		int pageSize = (!map.containsKey("pageSize")) ? 5
+				: (int) map.get("pageSize");
+		map.put("pr", new PageRang(pageNum, pageSize));
+		Map<String, Object> info = null;
+		try {
+			info = operationService.selectEmpSellers(map);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		printJson(response, info);
+	}
+	
+	
+	
 	
 	/**
 	 * 查询所有待上架商品并分页
@@ -145,5 +170,27 @@ public class OperationAction extends BaseServlet{
 			e.printStackTrace();
 		}
 		printJson(response, map1);
+	}
+	/**
+	 * 查询某员工待上架商品信息并分页
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void selectEmpGoods(HttpServletRequest request, HttpServletResponse response,String json){
+		Map map = JSON.parseObject(json , Map.class);
+		int pageNum = (!map.containsKey("pageNum")) ? 1
+				:  (int) map.get("pageNum");
+		int pageSize = (!map.containsKey("pageSize")) ? 5
+				: (int) map.get("pageSize");
+		map.put("pr", new PageRang(pageNum, pageSize));
+		Map<String, Object> info = null;
+		try {
+			info = operationService.selectEmpGoods(map);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		printJson(response, info);
 	}
 }

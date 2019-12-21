@@ -136,6 +136,62 @@ public class OperationDaoImpl implements OperationDao {
 	}
 
 	/**
+	 * 查询某员工待审核的卖家
+	 */
+	@Override
+	public List<Seller> selectEmpSellers(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(" select * from 0201_seller ");
+		sql.append(" where 1 = 1 ");
+		sql.append(" and 0201_seller.seller_id in ");
+		sql.append(" (select 020102_seller_principal.seller_id from 020102_seller_principal ");
+		sql.append(" where 1=1 ");
+		sql.append(" and 020102_seller_principal.principal_id = ? ) ");
+		Object[] param = {map.get("020102_seller_principal.principal_id")};
+		List<Seller> newsList = new ArrayList<Seller>();;
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, param);
+		while (rs.next()) {
+			newsList.add(new Seller(rs.getInt("seller_id"), rs.getInt("buyer_id"), rs.getString("seller_uuid"),
+					rs.getString("seller_face_token"), rs.getString("seller_idcard_token"),
+					rs.getDate("seller_create_time"), rs.getDate("seller_update_time"), rs.getInt("seller_status"),
+					rs.getInt("store_id"), rs.getInt("storage_id"), rs.getInt("logistics_id"),
+					rs.getString("seller_icon_url")));
+		}
+		return newsList;
+	}
+
+	/**
+	 * 查询某员工待审核的卖家的总记录数
+	 */
+	@Override
+	public int selectEmpCountSeller(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(" select count(seller_id) from 0201_seller ");
+		sql.append(" where 1 = 1 ");
+		sql.append(" and 0201_seller.seller_id in ");
+		sql.append(" (select 020102_seller_principal.seller_id from 020102_seller_principal ");
+		sql.append(" where 1=1 ");
+		sql.append(" and 020102_seller_principal.principal_id = ? ) ");
+		Object[] param = {map.get("020102_seller_principal.principal_id")};
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, param);
+		int count = 0;
+		if (rs.first()) {
+			rs.previous();
+			if (rs.next()) {
+				count = rs.getInt("count(seller_id)");
+			}
+
+		}
+		return count;
+	}
+	
+	
+	
+	
+	
+	/**
 	 * 查询所有待上架商品
 	 */
 	@Override
@@ -223,6 +279,59 @@ public class OperationDaoImpl implements OperationDao {
 		return count;
 	}
 
+	/**
+	 * 查询某员工待上架商品信息
+	 */
+	@Override
+	public List<Goods> selectEmpGoods(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(" select * from 0203_goods ");
+		sql.append(" where 1 = 1 ");
+		sql.append(" and 0203_goods.goods_id in ");
+		sql.append(" (select 020302_goods_principal.goods_id from 020302_goods_principal ");
+		sql.append(" where 1=1 ");
+		sql.append(" and 020302_goods_principal.principal_id = ? ) ");
+		List<Goods> newsList = new ArrayList<Goods>();
+		Object[] param = {map.get("020302_goods_principal.principal_id")};
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, param);
+		while (rs.next()) {
+			newsList.add(new Goods(rs.getInt("goods_id"), rs.getString("goods_uuid"), rs.getDate("goods_create_time"),
+					rs.getDate("goods_update_time"), rs.getInt("goods_status"), rs.getInt("goods_picture_url_id"),
+					rs.getString("goods_name"), rs.getDouble("goods_price"), rs.getString("goods_brand"),
+					rs.getString("goods_type"), rs.getDouble("goods_width"), rs.getDouble("goods_height"),
+					rs.getDouble("goods_length"), rs.getString("goods_presentation"), rs.getInt("seller_id"),
+					rs.getInt("storage_id"), rs.getDouble("goods_weight")));
+		}
+		return newsList;
+	}
+	/**
+	 * 查询某员工待上架商品的总记录数
+	 */
+	@Override
+	public int selectEmpCountGoods(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(" select count(goods_id) from 0203_goods ");
+		sql.append(" where 1 = 1 ");
+		sql.append(" and 0203_goods.goods_id in ");
+		sql.append(" (select 020302_goods_principal.goods_id from 020302_goods_principal ");
+		sql.append(" where 1=1 ");
+		sql.append(" and 020302_goods_principal.principal_id = ? ) ");
+		Object[] param = {map.get("020302_goods_principal.principal_id")};
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, param);
+		int count = 0;
+		if (rs.first()) {
+			rs.previous();
+			if (rs.next()) {
+				count = rs.getInt("count(goods_id)");
+			}
+
+		}
+		return count;
+	}
+
+	
 	
 	
 }

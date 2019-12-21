@@ -102,6 +102,35 @@ public class OperationDaoTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void selectEmpSellers() {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("020102_seller_principal.principal_id", 1);
+			List<Seller> seller = operationDao.selectEmpSellers(map);
+			Iterator<Seller> it = seller.listIterator();
+			while (it.hasNext()) {
+				Seller Sel = it.next();
+				System.out.println(Sel);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void selectEmpCountSeller() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("020102_seller_principal.principal_id", 1);
+		try {
+			int count = operationDao.selectEmpCountSeller(map);
+			System.out.println(count);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Test
 	public void selectGoods() {
@@ -161,9 +190,39 @@ public class OperationDaoTest {
 	public static void main(String[] args) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("goods_id", 1);
-		map.put("goods_status", 3);
+//		map.put("goods_id", 1);
+//		map.put("goods_status", 3);
+		map.put("020102_seller_principal.principal_id", 1);
+//		map.put("020302_goods_principal.principal_id", 1);
 		System.out.println(JSON.toJSONString(map));
-
+	}
+	
+	@Test
+	public void selectEmpGoods() {
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("020302_goods_principal.principal_id", 1);
+			List<Goods> good = operationDao.selectEmpGoods(map);
+			Iterator<Goods> it = good.listIterator();
+			while (it.hasNext()) {
+				Goods goods = it.next();
+				System.out.println(goods);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void selectEmpCountGoods() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("020302_goods_principal.principal_id", 1);
+		try {
+			int count = operationDao.selectEmpCountGoods(map);
+			System.out.println(count);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

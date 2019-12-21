@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
 
 /**
@@ -39,6 +40,16 @@ public interface OperationService {
 	 * @throws SQLException
 	 */
 	Map<String, Object> auditSeller(Map<String, Object> map) throws SQLException;
+	/**
+	 * 查询某员工待审核的卖家
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	Map<String, Object> selectEmpSellers(Map<String, Object> map)throws SQLException;
+		
+	
+	
 	
 	/**
 	 * 查询所有待上架商品
@@ -61,4 +72,12 @@ public interface OperationService {
 	 * @throws SQLException
 	 */
 	Map<String, Object> auditGoods(Map<String, Object> map) throws SQLException;
+	/**
+	 * 查询某员工待上架商品信息
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	Map<String, Object> selectEmpGoods(Map<String, Object> map)throws SQLException;
+	
 }
