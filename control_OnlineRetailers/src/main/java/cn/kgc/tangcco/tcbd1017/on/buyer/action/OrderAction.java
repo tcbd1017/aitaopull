@@ -8,8 +8,10 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -77,8 +79,17 @@ public class OrderAction extends BaseServlet{
 	 * @param string
 	 */
 	public void selectByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
-		//接收值
 		
+//		HttpSession session = request.getSession();
+//		session.setAttribute("key1", "value1");
+//		String id = session.getId();
+//		System.out.println(id);
+//		
+//		Cookie cookie = new Cookie("key1", "value1");
+//		cookie.setPath("/");
+//		cookie.setSecure(false);
+//		response.addCookie(cookie);
+		//接收值
 		System.out.println("前台给的数据："+string);
 		//向持久层输送的数据map
 		Map map =JSON.parseObject(string,Map.class);
@@ -108,6 +119,10 @@ public class OrderAction extends BaseServlet{
 			//获得第一个点的位置
 			int  indexOf = chk_value.indexOf(",");
 			//获得第一个字符串  0,2
+			
+			if (chk_value.contains(",")) {
+				
+			
 			list.add(Integer.parseInt((chk_value.substring(0,indexOf)).toString()));
 			for (int i = 0; i < chk_value.length(); i++) {
 				if (indexOf>=chk_value.lastIndexOf(",")) {
@@ -120,6 +135,9 @@ public class OrderAction extends BaseServlet{
 					//获取第二个位置   
 					list.add(Integer.parseInt(chk_value.substring(index,indexOf).toString()));
 					
+			}
+			}else {
+				list.add(Integer.parseInt(chk_value));
 			}
 			map.put("orderIdList", list);
 		}
@@ -304,7 +322,30 @@ public class OrderAction extends BaseServlet{
 				}
 				 //响应值
 				printJson(response, map1);
-		
 	}
+	
+	
+	/**
+	 *  	查询地址
+	 * 
+	 */
+	public void selectAddressIfo(HttpServletRequest request , HttpServletResponse response, String string) {
+		System.out.println("请求地址成功；");
+		Map map =JSON.parseObject(string,Map.class);
+		try {
+			Map selectAddress = orderServiceImpl.selectAddress(map);
+			printJson(response, selectAddress);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 *  cookie试验 
+	 * 
+	 */
+		
+		
+	
 	
 }

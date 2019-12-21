@@ -383,6 +383,25 @@ public class OrderDaoImpl implements OrderDao{
 		return 0;
 	}
 	
+	/**
+	 *  	查询订单收件地址
+	 * 
+	 */
+	@Override
+	public String selectAddress(int address)throws SQLException{
+		Map map1=new HashMap();
+		
+		List list = new ArrayList();
+		String sql = "select address_name from 04_address where address_id =   "+address;
+		
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(BaseDBUtils.getConnection(), sql);
+		ResultSet rs = BaseDBUtils.executeQuery(pst);
+		while(rs.next()) {
+			String address_name = rs.getString("address_name");
+			return address_name;
+		}
+		return null;
+	}
 	
 	
 	
@@ -551,8 +570,6 @@ public class OrderDaoImpl implements OrderDao{
 		}
 		return list;
 	}
-
-
 
 	
 	

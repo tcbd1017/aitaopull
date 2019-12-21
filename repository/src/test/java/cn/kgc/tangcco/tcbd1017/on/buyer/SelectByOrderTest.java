@@ -152,10 +152,6 @@ public class SelectByOrderTest {
 	 *  测试订单插入功能
 	 * 
 	 */
-	@Test
-	public void Test05() {
-		
-	}
 	
 	
 }

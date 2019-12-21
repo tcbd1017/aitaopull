@@ -387,7 +387,34 @@ public class OrderServiceImpl implements OrderService{
 		return map3;
 	}
 
-
+	/**
+	 * 	 查询订单的收货地址
+	 * 
+	 */
+	@Override
+	public Map selectAddress(Map map)throws SQLException{
+		Map map1 = new HashMap();
+		int postage_info_province_id = (int)map.get("postage_info_province_id");
+		int postage_info_city_id = (int)map.get("postage_info_city_id");
+		int postage_info_district_id = (int)map.get("postage_info_district_id");
+		
+	
+			 String postage_info_province_name = orderDaoIml.selectAddress(postage_info_province_id);
+			 String postage_info_city_name = orderDaoIml.selectAddress(postage_info_city_id);
+			 String postage_info_district_name = orderDaoIml.selectAddress(postage_info_district_id);
+			
+			 
+			 map1.put("postage_info_province_name", postage_info_province_name);
+			 map1.put("postage_info_city_name", postage_info_city_name);
+			 map1.put("postage_info_district_name", postage_info_district_name);
+			 
+	
+		
+		
+		return map1;
+	}
+	
+	
 
 	
 }

@@ -59,5 +59,5 @@ public interface OrderDao {
 		
 		public List selectShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map)throws SQLException;
 	
-		
+		public String selectAddress(int  address)throws SQLException;
 }
