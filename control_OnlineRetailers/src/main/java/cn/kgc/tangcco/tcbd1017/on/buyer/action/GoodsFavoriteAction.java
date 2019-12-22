@@ -7,7 +7,7 @@ package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 */
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,9 +106,9 @@ public class GoodsFavoriteAction extends BaseServlet {
     	Map map=JSON.parseObject(Json,Map.class);
     	System.out.println("买家的Id"+map.get("buyer_id"));
     	System.out.println("商品的名称"+map.get("goods_name"));
-
-    	map=goodsFavoriteService.queryGoodsFavorite(map);
-    	printJson(response,map);
+    	Map<String, Object> dataMap=new HashMap<String, Object>();
+    	 dataMap=goodsFavoriteService.queryGoodsFavorite(map);
+    	printJson(response,dataMap);
 
     }
     
