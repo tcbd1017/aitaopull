@@ -16,15 +16,23 @@ public interface ShoppingCartDao {
 	 * 根据BuyerId查询当前购物车中的商品信息
 	 * @param map 	map 中根据enableFuzzySelect 的字段决定是否开启模糊查询
 	 * 				必须字段buyer_id 可选字段商品名称（根据商品id联合查询商品表）
-	 * @return		包含独立Map(多表联查) 的list集合 以及此次查询出的总数量count
+	 * @return		包含独立Map(多表联查) 的list集合
 	 */
 	public abstract List<Map<String ,Object>> selectShoppingCartInfoByBuyerId(Map<String, Object> map);
+	
 	/**
-	 * 获取上面查询方法查询到的总数据量 (多少条)
-	 * @return 查询到的总数据量
+	 * 根据BuyerId查询当前购物车中的商品信息添加物品URL
+	 * @param map 	map 中根据enableFuzzySelect 的字段决定是否开启模糊查询
+	 * 				必须字段buyer_id 可选字段商品名称（根据商品id联合查询商品表）
+	 * @return		包含独立Map(多表联查) 的list集合
+	 */
+	public abstract List<Map<String ,Object>> selectShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map);
+	
+	/**
+	 * 获取上面查询方法的总记录数
+	 * @return 查询方法获得的总记录数
 	 */
 	public abstract int getShoppingCartCount();
-	
 	/**
 	 * 新增当前购物车的信息
 	 * @param shoppingCart 需要插入的购物车对象 (在service层组装)
@@ -40,8 +48,6 @@ public interface ShoppingCartDao {
 	 * @return 方法的执行结果 0 失败 1 成功
 	 */
 	public abstract int updateShoppingCartInfo(ShoppingCart shoppingCart);
-	
-
 }
 
 

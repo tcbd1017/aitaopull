@@ -15,11 +15,12 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 
 import cn.kgc.tangcco.lihaozhe.commons.date.BaseDateUitls;
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
-import cn.kgc.tangcco.tcbd1017.on.OrderDao;
-import cn.kgc.tangcco.tcbd1017.on.impl.OrderDaoImpl;
+import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
+import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Seller;
 
 public class SelectByOrderTest {
@@ -29,37 +30,39 @@ public class SelectByOrderTest {
 		try {
 			orderdao = (OrderDaoImpl)ioc.getBean("OrderDao");
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
-	@Test
-	public void test01() {
+	@Test  
+	public void test01() { 
 		Map map = new HashMap();
+		PageRang pr = new PageRang(1,5);
+		map.put("pr", pr);
 		
-		Seller seller = new Seller();
-		seller.setSeller_id(1);
-		map.put("object",seller );
+//		Seller seller = new Seller();
+//		seller.setSeller_id(1);
+//		map.put("object",seller );
+		
+		Buyer buyer = new Buyer();
+		buyer.setBuyer_id(1);
+		map.put("object", buyer);
 		
 		Order order = new Order();
-		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date myDate2;
-		try {
-			myDate2 = dateFormat2.parse("2019-12-10 15:35:54");
-			order.setOrder_payment_time(myDate2);
-			map.put("data",order );
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		}
+		order.setBuyer_id(1);;
+		map.put("data",order );
 		
 		
-		
-		System.out.println(JSON.toJSON(map));
+		System.out.println("测试数据："+JSON.toJSON(map));
 		try {
 			List<Order> selectByOrder = orderdao.selectByOrder(map);
+			System.out.println("数组大小："+selectByOrder.size());
 			Iterator<Order> iterator = selectByOrder.iterator();
 			while (iterator.hasNext()) {
 				Order order2 = (Order) iterator.next();
-				System.out.println(order2);
+				int i=0;
+				
+				System.out.println("第"+i+"次循环："+order2);
+				i++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,7 +97,7 @@ public class SelectByOrderTest {
 		try {
 		Map map = new HashMap();
 		Date myDate2 = BaseDateUitls.parse("2019-12-10 15:35:54");
-			Order order = new Order(2, "2", 2, myDate2, myDate2, 1, 1, 1, 1, 1, myDate2, myDate2, myDate2, myDate2, "123");
+			Order order = new Order();
 			map.put("data",order );
 			int selectByOrder = orderdao.insertByOrder(map);
 			System.out.println(selectByOrder);
@@ -102,5 +105,53 @@ public class SelectByOrderTest {
 			e1.printStackTrace();
 		}
 	}
+	@Test
+	public void Test() {
+		Map map = new HashMap();
+		Order order = new Order();
+		order.setOrder_id(1);
+		
+		try {
+			List<OrderGoods> list = orderdao.SelectByOrderGoods(map);
+			System.out.println(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 *  返回订单分页总 页数测试
+	 * 
+	 */
+	@Test
+	public void Test04() {
+		Map map = new HashMap();
+		PageRang pr = new PageRang(1,5);
+		map.put("pr", pr);
+		
+//		Seller seller = new Seller();
+//		seller.setSeller_id(1);
+//		map.put("object",seller );
+		
+		Buyer buyer = new Buyer();
+		buyer.setBuyer_id(1);
+		map.put("object", buyer);
+		
+		Order order = new Order();
+		order.setBuyer_id(1);
+		order.setOrder_id(1);
+		map.put("data",order );
+		
+		try {
+			int i=orderdao.SelectByOrderPageCount(map);
+			System.out.println(i);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 *  测试订单插入功能
+	 * 
+	 */
+	
 	
 }

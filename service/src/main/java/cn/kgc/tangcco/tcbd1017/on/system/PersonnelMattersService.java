@@ -15,7 +15,7 @@ public interface PersonnelMattersService {
 	 * @param map
 	 * @return
 	 */
-	Map<String, Object>removeEmpstates (Map<String, Object>map);
+	Map<String, Object>removeandmodifyEmp (Map<String, Object>map);
 	
 	/**
 	 * 根据权限修改员工部门
@@ -23,5 +23,10 @@ public interface PersonnelMattersService {
 	 * @return
 	 */
 	Map<String, Object>modifyEmpDept( Map<String, Object> map);
+	
+//	/**
+//	 * 员工升降职
+//	 */
+//	Map<String, Object>modifyEmpJurisdiction(Map<String, Object>map);
 	
 }

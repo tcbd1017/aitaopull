@@ -53,26 +53,14 @@ public class CashVoucherAction extends BaseServlet{
 		map=JSON.parseObject(json,Map.class);
 		System.out.println("查询可以使用的优惠券：");
 		System.out.println("参数：买家的id和优惠券的状态"+json);
-		
+		map.put("cash_voucher_status", 2);
 		map = cashVoucherService.queryByIdAndStatus(map);
-		System.out.println("返回的参数：");
+		System.out.println("返回的参数："+map);
 		List<Map<String, Object>> list = (List<Map<String, Object>>) map.get("info");
-		Iterator<Map<String, Object>> iterator = list.iterator();
-		if (list.size()>0) {
-			while (iterator.hasNext()) {
-				Map<String, Object> map2 = (Map<String, Object>) iterator.next();
-				System.out.println("店铺名称"+map2.get("store_name"));
-				System.out.println("图片地址"+map2.get("voucher_type_picture_url"));
-				System.out.println("开始使用的时间"+map2.get("cash_voucher_acailable_begin_time"));
-				System.out.println("停止使用的时间"+map2.get("cash_voucher_available_time"));
-				System.out.println("使用条件"+map2.get("voucher_type_condition"));
-				System.out.println("见面金额"+map2.get("voucher_type_money"));
-			}
 		printJson(response, map);
 		}
-	}
 	/**
-	 * 					查询总数
+	 * 					查询总数(可使用)
 	 * @param request	HttpServletRequest
 	 * @param response	HttpServletResponse
 	 * @param json		json字符串
@@ -82,6 +70,23 @@ public class CashVoucherAction extends BaseServlet{
 		map=JSON.parseObject(json,Map.class);
 		System.out.println("查询可以使用的优惠券总量：");
 		System.out.println("参数：买家的id和优惠券的状态"+json);
+		map.put("cash_voucher_status", 2);
+		map = cashVoucherService.queryNumberByIdAndStatus(map);
+		System.out.println("返回的信息："+map);
+		printJson(response, map);
+	}
+	/**
+	 * 					查询总数(不可使用)
+	 * @param request	HttpServletRequest
+	 * @param response	HttpServletResponse
+	 * @param json		json字符串
+	 */
+	public void queryNumberByIdAndStatus2(HttpServletRequest request,HttpServletResponse response,String json) {
+		Map map=null;
+		map=JSON.parseObject(json,Map.class);
+		System.out.println("查询不可以使用的优惠券总量：");
+		System.out.println("参数：买家的id和优惠券的状态"+json);
+		map.put("cash_voucher_status", 1);
 		map = cashVoucherService.queryNumberByIdAndStatus(map);
 		System.out.println("返回的信息："+map);
 		printJson(response, map);
@@ -95,6 +100,7 @@ public class CashVoucherAction extends BaseServlet{
 	public void removeByUuid(HttpServletRequest request ,HttpServletResponse response,String json) {
 		Map map=null;
 		map=JSON.parseObject(json,Map.class);
+		map.put("cash_voucher_status", 2);
 		System.out.println("删除一个优惠券：");
 		System.out.println("uuid为"+json);
 		map = cashVoucherService.removeByUuid(map);
@@ -112,27 +118,12 @@ public class CashVoucherAction extends BaseServlet{
 		map=JSON.parseObject(json,Map.class);
 		System.out.println("分页查询：");
 		System.out.println("买家的id和优惠券的状态以及分页的信息"+json);
-		System.out.println("页数："+map.get("pageNumber")+"条数"+map.get("pageSize"));
+		map.put("cash_voucher_status", 1); 
+		System.out.println(map);
 		map = cashVoucherService.queryByIdAndStatusAndPagereng(map);
 		System.out.println("返回参数"+map);
 		printJson(response, map);
 	}
-	/**
-	 * 					通过名称查询
-	 * @param request	HttpServletRequest
-	 * @param response	HttpServletResponse
-	 * @param json		json字符串
-	 */
-	public void queryByIdAndStatusAndStoreName(HttpServletRequest request ,HttpServletResponse response ,String json) {
-		Map map = null;
-		map = JSON.parseObject(json,Map.class);
-		System.out.println("通过买家查询：");
-		System.out.println("返回的json"+json);
-		System.out.println("买家id："+map.get("buyer_id"));
-		System.out.println("优惠券的状态："+map.get("cash_voucher_status"));
-		System.out.println("店铺名称："+map.get("store_name"));
-		map = cashVoucherService.queryByIdAndStatusAndStoreName(map);
-		System.out.println("返回的参数："+map);
-		printJson(response, map);
-	}
+	
+	
 }

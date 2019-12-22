@@ -54,6 +54,7 @@ public class CORS implements Filter {
 		if ("OPTIONS".equalsIgnoreCase(requestMethod)) {
 			// ajax跨域
 			resp.setHeader("Access-Control-Allow-Origin", "*");
+//			resp.setHeader("Access-Control-Allow-Origin",  req.getHeader("Origin"));
 			resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 			resp.setHeader("Access-Control-Max-Age", "3600");
 			resp.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -62,6 +63,7 @@ public class CORS implements Filter {
 		} else if (!"OPTIONS".equalsIgnoreCase(requestMethod)) {
 			// ajax跨域
 			resp.setHeader("Access-Control-Allow-Origin", "*");
+//			resp.setHeader("Access-Control-Allow-Origin",  req.getHeader("Origin"));
 			resp.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 			resp.setHeader("Access-Control-Max-Age", "3600");
 			resp.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

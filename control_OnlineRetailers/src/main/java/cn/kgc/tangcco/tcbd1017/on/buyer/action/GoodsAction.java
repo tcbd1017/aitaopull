@@ -24,7 +24,7 @@ public class GoodsAction extends BaseServlet {
 	static GoodsService goodsService;
 	static ClassPathXmlApplicationContext path;
 	static {
-		path = new ClassPathXmlApplicationContext("");
+		path = new ClassPathXmlApplicationContext("ApplicationContext_on.xml");
 		try {
 			goodsService = (GoodsService) path.getBean(GoodsService.class.getSimpleName());
 		} catch (Exception e) {

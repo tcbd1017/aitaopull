@@ -14,7 +14,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.tcbd1017.on.buyer.PostageInfoDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Address;
-import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.PostageInfo;
 
 /**
@@ -30,7 +29,8 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 	@Override
 	public List<PostageInfo> selectPostageInfosByBuyerId(Map<String, Object> map) throws SQLException {
 		StringBuffer sql = new StringBuffer(
-				" SELECT p.`postage_info_id`,p.`postage_info_name`,p.`postage_info_mobile`,p.postage_info_province_id,p.postage_info_city_id,p.postage_info_district_id ");
+
+				" SELECT p.postage_info_postcode, p.`postage_info_id`,p.`postage_info_name`,p.`postage_info_mobile`,p.postage_info_province_id,p.postage_info_city_id,p.postage_info_district_id ");
 		sql.append(
 				" ,p.`postage_info_address`,p.postage_info_create_time,p.`postage_info_update_time`,p.`postage_info_status`,p.`postage_info_uuid`  ");
 		sql.append(
@@ -40,6 +40,9 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		sql.append(" AND b.`buyer_status` = 2 ");
 		sql.append(" AND p.`postage_info_status` > 1  ");
 		sql.append(" AND b.`buyer_id` = ? ");
+		sql.append(" ORDER BY p.`postage_info_status` desc  ");
+		sql.append(" ,p.postage_info_create_time desc  ");
+		sql.append(" limit 0 ,10 ");
 		List<Object> list = new ArrayList<Object>();
 		if (!ObjectUtils.isEmpty(map.get("buyer_id"))) {
 			list.add(map.get("buyer_id"));
@@ -56,12 +59,12 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 			rs.previous();
 			postageInfos = new ArrayList<PostageInfo>();
 			while (rs.next()) {
-				postageInfos.add(new PostageInfo(rs.getInt("postage_info_id"), rs.getString("postage_info_id"),
+				postageInfos.add(new PostageInfo(rs.getInt("postage_info_id"), rs.getString("postage_info_name"),
 						rs.getString("postage_info_mobile"), rs.getInt("postage_info_province_id"),
 						rs.getInt("postage_info_city_id"), rs.getInt("postage_info_district_id"),
 						rs.getString("postage_info_address"), rs.getTimestamp("postage_info_create_time"),
 						rs.getTimestamp("postage_info_update_time"), rs.getInt("postage_info_status"),
-						rs.getString("postage_info_uuid")));
+						rs.getString("postage_info_uuid"), rs.getString("postage_info_postcode")));
 			}
 		}
 		return postageInfos;
@@ -115,15 +118,15 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		}
 		return addressList;
 	}
-
+	
 	@Override
 	public int insertPostageInfo(Map<String, Object> map) throws SQLException {
 		StringBuffer sql = new StringBuffer(" insert into 010401_postage_info  ");
 		sql.append(
 				" (postage_info_name,postage_info_mobile,postage_info_province_id,postage_info_city_id,postage_info_district_id, ");
 		sql.append(
-				" postage_info_address,postage_info_create_time,postage_info_update_time,postage_info_status,postage_info_uuid) ");
-		sql.append(" select ?,?,?,?,?,?,now(),now(),?,? from dual ");
+				" postage_info_address,postage_info_create_time,postage_info_update_time,postage_info_status,postage_info_uuid,postage_info_postcode) ");
+		sql.append(" select ?,?,?,?,?,?,now(),now(),?,?,? from dual ");
 		sql.append(
 				" where not EXISTS (select postage_info_uuid FROM 010401_postage_info where postage_info_uuid = ? ) ");
 		List<Object> list = new ArrayList<Object>();
@@ -135,6 +138,7 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		list.add(map.get("postage_info_address"));
 		list.add(map.get("postage_info_status"));
 		list.add(map.get("postage_info_uuid"));
+		list.add(map.get("postage_info_postcode"));
 		list.add(map.get("postage_info_uuid"));
 		Object[] param = list.toArray();
 		Connection conn = BaseDBUtils.getConnection();
@@ -160,7 +164,6 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 
 	}
 
-
 	@Override
 	public int updatePostageInfo(Map<String, Object> map) throws SQLException {
 		StringBuffer sql = new StringBuffer(" update  010401_postage_info set  ");
@@ -171,7 +174,8 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		sql.append(" postage_info_district_id = ?, ");
 		sql.append("  postage_info_address = ?,  ");
 		sql.append(" postage_info_update_time = now(), ");
-		sql.append(" postage_info_status = ? ");
+		sql.append(" postage_info_status = ?,");
+		sql.append(" postage_info_postcode = ? ");
 		sql.append(" where 1=1  ");
 		sql.append(" and postage_info_id = ?  ");
 		List<Object> list = new ArrayList<Object>();
@@ -182,6 +186,7 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		list.add(map.get("postage_info_district_id"));
 		list.add(map.get("postage_info_address"));
 		list.add(map.get("postage_info_status"));
+		list.add(map.get("postage_info_postcode"));
 		list.add(map.get("postage_info_id"));
 		Object[] param = list.toArray();
 		Connection conn = BaseDBUtils.getConnection();
@@ -228,7 +233,8 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		sql.append(" where 1=1  ");
 		sql.append(" and postage_info_id = ?  ");
 		List<Object> list = new ArrayList<Object>();
-		if (map.containsKey("postageInfo")) {
+		System.out.println(ObjectUtils.isEmpty(map.get("postageInfo")));
+		if (!ObjectUtils.isEmpty(map.get("postageInfo"))) {
 			PostageInfo postageInfo = (PostageInfo) map.get("postageInfo");
 			list.add(postageInfo.getPostage_info_status());
 			list.add(postageInfo.getPostage_info_id());
@@ -237,29 +243,12 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 			list.add(map.get("postage_info_id"));
 		}
 		Object[] param = list.toArray();
+		for (Object object : param) {
+			System.out.println(object);
+		}
 		Connection conn = BaseDBUtils.getConnection();
 		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
 		int count = BaseDBUtils.executeUpdate(pst, param);
-		return count;
-	}
-
-	@Override
-	public int selectCountByStatus(Map<String, Object> map) throws SQLException {
-		StringBuffer sql = new StringBuffer(
-				" select count(p.postage_info_id) from 010401_postage_info as p inner join 0101_buyer as b inner join 0104_buyer_and_postage_info as bp ");
-		sql.append(" on 1=1 ");
-		sql.append(" and p.postage_info_status = 3 ");
-		sql.append(" and b.buyer_id = ? ");
-		sql.append(" and bp.`buyer_id` = b.`buyer_id` ");
-		sql.append(" AND bp.`postage_info_id` = p.`postage_info_id` ");
-		sql.append(" AND b.`buyer_status` = 2 ");
-		Connection conn = BaseDBUtils.getConnection();
-		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
-		ResultSet rs = BaseDBUtils.executeQuery(pst, map.get("buyer_id"));
-		int count = 0;
-		while (rs.next()) {
-			count = rs.getInt("count(postage_info_id)");
-		}
 		return count;
 	}
 
@@ -283,9 +272,30 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 					rs.getInt("p.postage_info_city_id"), rs.getInt("p.postage_info_district_id"),
 					rs.getString("p.postage_info_address"), rs.getTimestamp("p.postage_info_create_time"),
 					rs.getTimestamp("p.postage_info_update_time"), rs.getInt("p.postage_info_status"),
-					rs.getString("p.postage_info_uuid"));
+					rs.getString("p.postage_info_uuid"), rs.getString("p.postage_info_postcode"));
 		}
 		return postageInfo;
 	}
 
+	@Override
+	public int selectCountPostageInfoByBuyerId(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(
+				" select count(p.postage_info_id) from 010401_postage_info as p inner join 0101_buyer as b inner join 0104_buyer_and_postage_info as bp ");
+		sql.append(" on 1=1 ");
+		sql.append(" and p.postage_info_status > 1 ");
+		sql.append(" and b.buyer_id = ? ");
+		sql.append(" and bp.`buyer_id` = b.`buyer_id` ");
+		sql.append(" AND bp.`postage_info_id` = p.`postage_info_id` ");
+		sql.append(" AND b.`buyer_status` = 2 ");
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, map.get("buyer_id"));
+		int count = 0;
+		while (rs.next()) {
+			count = rs.getInt("count(p.postage_info_id)");
+		}
+		return count;
+	}
+
+	
 }

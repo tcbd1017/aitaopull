@@ -274,9 +274,33 @@ public abstract class BaseDBUtils {
 	 * @param rs  ResultSet
 	 * @throws SQLException
 	 */
-	public static void rollbackAndClose() throws SQLException {
+	public static void rollbackAndClose()throws SQLException  {
 		// 事务回滚关闭连接
-		DbUtils.rollbackAndClose(getConnection());
+		try {
+			DbUtils.rollbackAndClose(getConnection());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 从当前线程中移除Connection
+		t.remove();
+	}
+
+	/**
+	 * 事务灰回滚并关闭连接
+	 * 
+	 * @param pst PreparedStatement
+	 * @param rs  ResultSet
+	 * @throws SQLException
+	 */
+	public static void rollbackAndCloseAll() {
+		// 事务回滚关闭连接
+		try {
+			DbUtils.rollbackAndClose(getConnection());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// 从当前线程中移除Connection
 		t.remove();
 	}
