@@ -8,7 +8,6 @@ import cn.kgc.tangcco.tcbd1017.lo.UserAndAddressDao;
 import cn.kgc.tangcco.tcbd1017.lo.commons.jdbc.MyDBUtil;
 import cn.kgc.tangcco.tcbd1017.lo.pojo.LogisticsAddress;
 
- 
 
 public class UserAndAddressDaoImpl implements UserAndAddressDao {
 

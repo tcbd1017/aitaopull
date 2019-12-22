@@ -1,5 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.lo;
- 
+
 import java.util.List;
 import java.util.Map;
 
@@ -33,4 +33,11 @@ public interface UserAndLogisticsDao {
 	 * @return
 	 */
 	List selectMoneyByUserId(Map<String ,Object> map);
+	
+	/**
+	 * 	查询全部订单
+	 * @param map
+	 * @return
+	 */
+	List selectLogisticsByStutas(Map<String ,Object> map);
 }

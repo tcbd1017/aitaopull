@@ -1,5 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.lo;
- 
+
 import java.util.Map;
 
 /**
@@ -16,5 +16,12 @@ public interface MoneyDao {
 	 * @return
 	 */
 	int addMoney(Map<String ,Object> map);
+	
+	/**
+	 * 	更改账单状态
+	 * @param map
+	 * @return
+	 */
+	int payMoney(Map<String ,Object> map);
 	
 }

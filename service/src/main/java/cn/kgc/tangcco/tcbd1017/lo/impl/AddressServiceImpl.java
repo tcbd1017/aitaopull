@@ -8,8 +8,11 @@ import cn.kgc.tangcco.tcbd1017.lo.AddressDao;
 import cn.kgc.tangcco.tcbd1017.lo.AddressService;
 import cn.kgc.tangcco.tcbd1017.lo.UserAndAddressDao;
 import cn.kgc.tangcco.tcbd1017.lo.commons.suiji.SuiJi;
-
- 
+/**
+ * 
+ * @author CUI
+ *
+ */
 public class AddressServiceImpl implements AddressService {
 
 	UserAndAddressDao uaad=new UserAndAddressDaoImpl();
