@@ -30,9 +30,9 @@ public class CommentDaoImpl implements CommentDao{
 	public int insertComment(Map<String, Object> map) throws SQLException {
 		StringBuilder sql = new StringBuilder(" insert into 0105_comment select 0,?,?,?,?,NOW(),NOW(),2,? from dual ");
 		sql.append(" where not EXISTS ");
-		sql.append(" (select comment_id from 0105_comment ");
-		sql.append(" where buyer_id = ?) ");
-		Object[] param = {map.get("buyer_id"),map.get("order_id"),map.get("comment_parent_id"),map.get("comment_content"),map.get("comment_grade"),map.get("buyer_id")};
+		sql.append(" (select order_id from 0105_comment ");
+		sql.append(" where order_id = ?) ");
+		Object[] param = {map.get("buyer_id"),map.get("order_id"),map.get("comment_parent_id"),map.get("comment_content"),map.get("comment_grade"),map.get("order_id")};
 		Connection conn= BaseDBUtils.getConnection();
 		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
 		int count = BaseDBUtils.executeUpdate(pst, param);
@@ -47,16 +47,18 @@ public class CommentDaoImpl implements CommentDao{
 	@Override
 	public List<Map<String ,Object>> selectComment(Map<String, Object> map) throws SQLException {
 		List<Map<String ,Object>> list = null;
-		StringBuilder sql = new StringBuilder(" select c.comment_id,c.buyer_id,c.order_id,c.comment_parent_id,c.comment_content,c.comment_create_time,c.comment_update_time, ");
-		sql.append(" c.comment_status,c.comment_grade,b.buyer_id,b.buyer_name,o.order_id,o.order_status from 0105_comment as c ");
+		StringBuilder sql = new StringBuilder(" select c.comment_id,c.buyer_id,c.order_id,c.comment_parent_id,c.comment_content,c.comment_create_time,c.comment_update_time,c.comment_status, ");
+		sql.append(" c.comment_grade,b.buyer_id,b.buyer_name,o.order_id,o.order_status,o.goods_name from 0105_comment as c ");
 		sql.append(" inner join 0101_buyer as b ");
 		sql.append(" inner join 0109_order as o ");
 		sql.append(" where 1 = 1 ");
 		sql.append(" and c.buyer_id = b.buyer_id ");
 		sql.append(" and c.order_id = o.order_id ");
+		sql.append(" and o.goods_name = ?");
+		Object[] param = {map.get("goods_name")};
 		Connection conn = BaseDBUtils.getConnection();
 		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
-		ResultSet rs = BaseDBUtils.executeQuery(pst);
+		ResultSet rs = BaseDBUtils.executeQuery(pst,param);
 		list = rsToList(rs);
 		return list;
 	}

@@ -72,7 +72,7 @@ public class CommentServiceImpl implements CommentService{
 		info.put("status", "failed");
 		try {
 			List<Map<String, Object>> selectComment = commentDao.selectComment(map);
-			if(selectComment!=null) {
+			if(selectComment!=null && selectComment.size()>0) {
 				info.put("status", "success");
 				info.put("data", selectComment);
 			}
