@@ -194,9 +194,14 @@ public class OrderAction extends BaseServlet{
 					buyer.setBuyer_id((int)map.get("buyerId"));
 					map.put("object", buyer);
 				}
-				
+				if (map.containsKey("chk_value")) {
+					
+					//String[] string=(String[])JSON.parseObject((String) map.get("chk_value"));
+					
+				}
 				
 				Order order = new Order();
+				order.setOrder_id((int)map.get("orderId"));
 				//解析order，获得修改订单信息
 				if (map.containsKey("orderId")&&map.containsKey("orderStatus")) {
 					order.setOrder_status((int)map.get("orderStatus"));
