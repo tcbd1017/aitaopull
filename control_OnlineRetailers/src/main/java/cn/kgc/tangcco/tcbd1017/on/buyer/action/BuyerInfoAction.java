@@ -43,26 +43,12 @@ public class BuyerInfoAction extends BaseServlet {
 	 * @param request
 	 * @param response
 	 * @param json
+	 * @throws SQLException 
 	 */
-	public void	 queryBuyerInfoByBuyer_id(HttpServletRequest request,HttpServletResponse response,String json) {
-		Map map1=null;
-	  if (!StringUtils.isEmpty(json)) {
-	   //把jason字符串转换成map<k,v>格式
-	    map1 = JSON.parseObject(json,Map.class); 
-	    System.out.println("进入方法");
-	    System.out.println(json);
-	  }
-	  
-	  System.out.println(map1.containsKey("buyer_id"));
-	  Map<String, Object>map=new HashMap<String, Object>();
-	  map.put("buyer_id", json);
-	   try {
-		map1 =buyerInfoService.queryBuyerInfoByBuyer_id(map);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	  printJson(response, map1);
+	public void	 queryBuyerInfoByBuyer_id(HttpServletRequest request,HttpServletResponse response,String json) throws SQLException {
+		Map map=JSON.parseObject(json,Map.class);
+		Map queryBuyerInfoByBuyer_id = buyerInfoService.queryBuyerInfoByBuyer_id(map);
+	  printJson(response, queryBuyerInfoByBuyer_id);
 }
 	/**
 	 * 根据买家id修改和删除
@@ -71,24 +57,11 @@ public class BuyerInfoAction extends BaseServlet {
 	 * @param json
 	 */
 	public void	 removeAndModify_BuyerInfoBybuyer_id(HttpServletRequest request,HttpServletResponse response,String json) {
-		Map map1=null;
-		if (!StringUtils.isEmpty(json)) {
-			
-			map1 = JSON.parseObject(json,Map.class); 
-			System.out.println("进入方法");
-			System.out.println(json);
-		}
-		
-		System.out.println(map1.containsKey("buyer_id"));
-		
-		try {
-			map1 =buyerInfoService.queryBuyerInfoByBuyer_id(map1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		printJson(response, map1);
+		Map map=JSON.parseObject(json,Map.class);
+		Map removeAndModify_BuyerInfoBybuyer_id = buyerInfoService.removeAndModify_BuyerInfoBybuyer_id(map);
+	  printJson(response, removeAndModify_BuyerInfoBybuyer_id);
 	}
+	//添加
 	public void	 addBuyerInfo(HttpServletRequest request,HttpServletResponse response,String json) {
 		Map map1=null;
 		if (!StringUtils.isEmpty(json)) {

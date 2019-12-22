@@ -81,7 +81,8 @@ public class BuyerInfoServiceImple implements BuyerInfoService{
 		try {
 			//开启事务
 			BaseDBUtils.startTransaction();
-			int i=buyerInfoDao.update(map);
+			int i=buyerInfoDao.updateBuyerInfo(map);
+			
 			if (i>0) {
 				map2.put("date", i);
 				map2.put("status", "success");
