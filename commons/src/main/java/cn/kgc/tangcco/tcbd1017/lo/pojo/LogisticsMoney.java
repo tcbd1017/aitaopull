@@ -5,7 +5,7 @@ package cn.kgc.tangcco.tcbd1017.lo.pojo;
  * 创建时间：2019年12月10日下午7:47:37
  * 类描述：
  */
- 
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;

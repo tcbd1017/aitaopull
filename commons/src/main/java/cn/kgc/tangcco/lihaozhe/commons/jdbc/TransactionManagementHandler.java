@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.sql.SQLException;
 /** 
-* @author 作者 Your-Name: 刘煜
+* @author 作者 Your-Name: 刘煜;
 * @version 创建时间：2019年11月23日 下午5:06:44 
 *    类说明 
 */
