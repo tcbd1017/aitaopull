@@ -47,10 +47,11 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 		 info.put("code", 0);
 		 try {
 			 //調用dao層方法
-			List<RewardPoints> list=rewardPointsDao.selectRewardPoints(map);
+			List<RewardPoints> list=rewardPointsDao.selectAllRewardPoints(map);
 			
 			if (list!=null&&list.size()>0) {
 				info.put("status", "success");
+			
 				info.put("data", list);
 			}
 			BaseDBUtils.closeAll();
@@ -63,7 +64,37 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 			}
 			e.printStackTrace();
 		}
-		
+		return info;
+	}
+	/*
+	 * 提供一个总积分数据
+	 */
+	public Map<String,Object>  findSumRewardPoints(Map<String, Object> map){
+		Map<String,Object> info = new HashMap<String, Object>();
+		 info.put("data",0);
+		 info.put("status", "failed");
+		List<RewardPoints> list;
+		int sum = 0 ;
+		try {
+			list=rewardPointsDao.selectAllRewardPoints(map);
+			if (list!=null&&list.size()>0) {
+				Iterator<RewardPoints> iterator = list.iterator();
+				while (iterator.hasNext()) {
+					RewardPoints rewardPoints = (RewardPoints) iterator.next();
+					System.out.println(rewardPoints);
+					sum += rewardPoints.getReward_points_value_change();
+					map.put("reward_points_value_change", sum);
+					System.out.println("sum = "+sum);
+				}
+			}
+			if(sum>0) {
+				 info.put("status", "success");
+				info.put("data",sum);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return info;
 	}
 	 /**
@@ -97,13 +128,16 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 						System.out.println(rewardPoints);
 						sum += rewardPoints.getReward_points_value_change();
 						map.put("reward_points_value_change", sum);
+						System.out.println("sum = "+sum);
+						//System.out.println(map.get("reward_points_create_time"));
+						//System.out.println(map.get("reward_points_update_time"));
 					}
-					
+					 info.put("data",list);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
 				}
-					info.put("data", sum);
 			}
 			//关闭事务
 			BaseDBUtils.commitAndClose();
@@ -117,10 +151,10 @@ public class RewardPointsServiceImpl implements RewardPointsService{
 					// TODO: handle exception
 					e1.printStackTrace();
 				}
-			
 		}
-		
 		return info;
 	}
+
+	
 
 }

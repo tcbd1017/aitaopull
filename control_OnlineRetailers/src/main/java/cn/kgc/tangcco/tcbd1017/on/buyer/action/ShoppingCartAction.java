@@ -47,7 +47,14 @@ public class ShoppingCartAction extends BaseServlet{
 	 * @param json
 	 */
 	
+	public void queryAllShoppingCartInfoByBuyerIdAddUrl(HttpServletRequest request, HttpServletResponse response, String json) {
+		Map map = JSON.parseObject(json, Map.class);
+		Map<String, Object> result = shoppingCartService.queryAllShoppingCartInfoByBuyerIdAddUrl(map);
+		printJson(response, result);
+	}
+	
 	public void queryAllShoppingCartInfoByBuyerId(HttpServletRequest request, HttpServletResponse response, String json) {
+		System.out.println("前台获取的json"+json);
 		Map map = JSON.parseObject(json, Map.class);
 		Map<String, Object> result = shoppingCartService.queryAllShoppingCartInfoByBuyerId(map);
 		printJson(response, result);

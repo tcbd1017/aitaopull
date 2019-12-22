@@ -8,6 +8,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.buyer.ShoppingCartService;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl;
@@ -32,10 +34,8 @@ public class ShoppingCartServiceTest {
 	ShoppingCartServiceImpl scsi = new ShoppingCartServiceImpl();
 	@Test
 	public void queryAllShoppingCartInfoByBuyerIdTest() {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("goodsId", 3);
-		map.put("buyerId", 1);
-		//map.put("goodsName", "米");
+		String json = "{\"buyer_id\":1,\"goods_name\":\"米\",\"enableFuzzySelect\":0}";
+    	Map map = JSON.parseObject(json, Map.class);
 		
 		Map<String, Object> result = shoppingCartService.queryAllShoppingCartInfoByBuyerId(map);
 		String status = (String)result.get("status");

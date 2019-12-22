@@ -1,5 +1,6 @@
 package cn.kgc.tangcco.tcbd1017.on.system;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -22,5 +23,10 @@ public interface PersonnelMattersDao {
 	 * 
 	 */
 	int updateEmpdept(Map<String, Object> map);
+	
+//	/**
+//	 * 员工的升降职
+//	 */
+//	int updateEmpJurisdiction(Map<String, Object>map)throws SQLException;
 }
 	

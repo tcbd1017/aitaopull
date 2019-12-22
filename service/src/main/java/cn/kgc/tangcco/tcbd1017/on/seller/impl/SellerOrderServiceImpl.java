@@ -1,6 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.on.seller.impl;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,13 +21,12 @@ public class SellerOrderServiceImpl implements SellerOrderService {
 	
 	@Override
 	public Map<String, Object> queryOrder(Map<String, Object> map) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("status", "failed");
+		Map<String, Object> result = new LinkedHashMap<String, Object>();
+		result.put("code", 0);
+		result.put("msg", "");
 		List<Map<String, Object>> list = sellerGoodsSellConditionDao.selectOrderByCondition(map);
-		if (list.size()>0 && list!= null) {
-			result.put("status", "success");
-			result.put("data", list);
-		}
+		result.put("count", list.size());
+		result.put("data", list);
 		return result;
 	}
 

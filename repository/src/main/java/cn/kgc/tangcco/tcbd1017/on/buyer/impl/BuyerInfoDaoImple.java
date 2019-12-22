@@ -12,17 +12,10 @@ import java.util.Map;
 
 import org.apache.commons.dbutils.QueryRunner;
 
-
-
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.tcbd1017.on.buyer.BuyerInfoDao;
 import cn.kgc.tangcco.tcbd1017.on.pojo.BuyerInfo;
 
-/**
- * 
- * @author Administrator 朱浩
- *
- */
 public class BuyerInfoDaoImple implements BuyerInfoDao  {
 	/**
 	 * 根据buyer_id查询所有
@@ -30,7 +23,6 @@ public class BuyerInfoDaoImple implements BuyerInfoDao  {
 	 * @return newlist  返回BuyerInfo所有信息
 	 */
 	QueryRunner qr=new QueryRunner();
-	
 	public List<BuyerInfo> selectAllBuyerInfosByBuyer_id(Map<String, Object> map){
 		
 		
@@ -101,7 +93,18 @@ public class BuyerInfoDaoImple implements BuyerInfoDao  {
 		System.out.println(sql.toString());
 		
 		List<Object> paramList = new ArrayList<Object>();
-
+//		map.get("buyer_info_id");
+//		map.get("buyer_id");
+//		map.get("buyer_info_gender");
+//		map.get("buyer_info_idcard");
+//		map.get("buyer_info_idcard_name");
+//		map.get("buyer_info_birthday");
+//		map.get("buyer_info_address");
+//		map.get("buyer_info_icon_url");
+//		map.get("buyer_info_create_time");
+//		map.get("buyer_info_update_time");
+//		map.get("buyer_info_status");
+//		map.get("buyer_info_id");
 		paramList.add(map.get("buyer_info_id"));
 		paramList.add(map.get("buyer_id"));
 		paramList.add(map.get("buyer_info_gender"));
@@ -127,93 +130,102 @@ public class BuyerInfoDaoImple implements BuyerInfoDao  {
 		
 		
 	}
-	/**
-	 * 修改
-	 * @param map
-	 * @return
-	 */
-	public  int  updateBuyerInfo(Map<String, Object> map) {
-		StringBuilder sql=new StringBuilder(" update 010101_buyer_info ");
-		
-		
-		List<Object> paramList = new ArrayList<Object>();
+	//修改
+	public  int  update(Map<String, Object> map) {
+		StringBuilder sql=new StringBuilder(" update 010101_buyer_info");
+		sql.append(" where buyer_info_id=?" );
 		if (map != null && map.size() > 0) {
 
-			if (map.containsKey("buyer_info_id")&&map.get("buyer_info_id")!=null) {
-				sql.append(" set buyer_info_id = ?");
-				paramList.add(map.get("buyer_info_id"));
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ?, ");
 				
 			}
 			
-			if (map.containsKey("buyer_info_gender")&&map.get("buyer_id")!=null) {
-				sql.append(", buyer_info_gender = ?");
-				paramList.add(map.get("buyer_info_gender"));
-			}
-			
-			if (map.containsKey("buyer_info_idcard_name")&&map.get("buyer_info_idcard_name")!=null) {
-				sql.append(", buyer_info_idcard_name=?");
-				paramList.add(map.get("buyer_info_idcard_name"));
-			}
-			if (map.containsKey("buyer_info_idcard")&&map.get("buyer_info_idcard")!=null) {
-				sql.append(", buyer_info_idcard=?");
-				paramList.add(map.get("buyer_info_idcard"));
-			}
-			
-			if (map.containsKey("buyer_info_address")&&map.get("buyer_info_address")!=null) {
-				sql.append(", buyer_info_address = ?");
-				paramList.add(map.get("buyer_info_address"));
-			}
-			
-			if (map.containsKey("buyer_info_birthday")&&map.get("buyer_info_birthday")!=null) {
-				sql.append(", buyer_info_birthday= ?");
-				paramList.add(map.get("buyer_info_birthday"));
-			}
-			
-			if (map.containsKey("buyer_info_icon_url")&&map.get("buyer_info_icon_url")!=null) {
-				sql.append(", buyer_info_icon_url= ?");
-				paramList.add(map.get("buyer_info_icon_url"));
+			if (map.containsKey("buyer_info_gender")) {
+				sql.append("  buyer_id = ? ");
 				
 			}
 			
-			if (map.containsKey("buyer_info_create_time")&&map.get("buyer_info_create_time")!=null) {
-				sql.append(", buyer_info_create_time = ?");
-
-				paramList.add(map.get("buyer_info_create_time"));
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
 			}
 			
-			if (map.containsKey("buyer_info_update_time")&&map.get("buyer_info_update_time")!=null) {
-				sql.append(", buyer_info_update_time = ?");
-				paramList.add(map.get("buyer_info_update_time"));
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
 			}
 			
-			if (map.containsKey("buyer_info_status")&&map.get("buyer_info_status")!=null) {
-				sql.append(", buyer_info_status = ?");
-				paramList.add(map.get("buyer_info_status"));
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
 			}
 			
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
+			}
 			
-		}	
-		sql.append("  where buyer_id=?");
-		
-		paramList.add(map.get("buyer_id"));
-		
-		int execute=0;
-		try {
-			execute = qr.update(BaseDBUtils.getConnection(), sql.toString(), paramList.toArray());
-		} catch (SQLException e) {
-			e.printStackTrace();
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
+			}
+			
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
+			}
+			
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
+			}
+			
+			if (map.containsKey("buyer_id")) {
+				sql.append(" set buyer_id = ? ");
+				
+			}
 		}
-		
-		
-		return execute;
+		return 0;
 	}
 	
 	
 	
 	
+	//测试查询
+	public void test() {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("buyer_id", 313 );
+		List<BuyerInfo> list=selectAllBuyerInfosByBuyer_id(map);
+		
+		System.out.println(list);
+		
+	}
+	//测试添加
+	public void test01() {
+		Map<String, Object> map=new HashMap<String, Object>();
+		
+		map.put("buyer_info_id", 5);
+		map.put("buyer_id", 5);
+		map.put("buyer_info_gender", 2);
+		map.put("buyer_info_idcard", "5");
+		map.put("buyer_info_idcard_name", "小潘");
+		map.put("buyer_info_birthday", new  Date());
+		map.put("buyer_info_address", "硅谷");
+		map.put("buyer_info_icon_url","16516" );
+		map.put("buyer_info_create_time", new Date() );
+		map.put("buyer_info_update_time", new Date());
+		map.put("buyer_info_status", 2);
 	
-	
-	
+		int insertBuyerInfo = insertBuyerInfo(map);
+		
+		
+		if(insertBuyerInfo==0) {
+			System.out.println("shibai");
+		}else if(insertBuyerInfo> 0) {
+			System.out.println("成功");
+		}
+	}
 }
 
 	

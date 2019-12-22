@@ -21,7 +21,7 @@ import cn.kgc.tangcco.tcbd1017.on.buyer.impl.BuyerInfoServiceImple;
  * @author Administrator 朱浩
  *
  */
-@WebServlet(urlPatterns = "xinxi.action")
+@WebServlet(urlPatterns = "/xinxi.action")
 public class BuyerInfoAction extends BaseServlet {
 
 	

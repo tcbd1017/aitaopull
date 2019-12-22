@@ -49,6 +49,7 @@ public class StoreAction extends BaseServlet {
 		
 		
 		Map map=JSON.parseObject(json,Map.class);
+		System.out.println(map.get("store_name").toString());
 //		System.out.println(map.get("buyer_id"));
 //		//获取分页页数
 //		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));

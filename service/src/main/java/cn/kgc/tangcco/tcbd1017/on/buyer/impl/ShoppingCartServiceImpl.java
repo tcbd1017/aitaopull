@@ -40,16 +40,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		returnedMap.put("msg", null);
 		returnedMap.put("data", null);
 		
-		Integer goodsId = null;
 		Integer buyerId = null;
 		String goodsName = null;
-		// 直接拿到传入的物品Id
-		if (null != map.get("goodsId") && map.get("goodsId") instanceof Integer) {
-			goodsId = (int)map.get("goodsId"); 
-		}
-		// 根据买家名称拿到买家的id
+
 		if (null != map.get("buyerId") && map.get("buyerId") instanceof Integer) {
 			buyerId = (int)map.get("buyerId"); 
+			//System.out.println("放入成功");
 			
 		}		
 		// 看前台是否传入了模糊查询需求
@@ -67,6 +63,38 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		}
 		
 		List<Map<String, Object>> list = shoppingCartDao.selectShoppingCartInfoByBuyerId(queryMap);
+		if (!list.isEmpty()) {
+			returnedMap.put("status", "success");
+			returnedMap.put("msg", "查询成功");
+			returnedMap.put("data", list);
+			returnedMap.put("count", shoppingCartDao.getShoppingCartCount());
+			return returnedMap;
+		}
+		
+		returnedMap.put("msg", "service层服务开小差了，马上回来");
+		return returnedMap;
+	}
+	
+	
+	@Override
+	public Map<String, Object> queryAllShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map) {
+		Map<String, Object> returnedMap = new HashMap<String, Object>();
+		returnedMap.put("status", "failed");
+		returnedMap.put("count", 0);
+		returnedMap.put("msg", null);
+		returnedMap.put("data", null);
+		
+		Integer buyerId = null;
+		String goodsName = null;
+		if (null != map.get("buyerId") && map.get("buyerId") instanceof Integer) {
+			buyerId = (int)map.get("buyerId"); 
+			
+		}		
+		
+		Map<String, Object> queryMap = new HashMap<String, Object>();
+		queryMap.put("buyer_id", buyerId);
+		queryMap.put("enableFuzzySelect", 0);
+		List<Map<String, Object>> list = shoppingCartDao.selectShoppingCartInfoByBuyerIdAddUrl(queryMap);
 		if (!list.isEmpty()) {
 			returnedMap.put("status", "success");
 			returnedMap.put("msg", "查询成功");
@@ -168,7 +196,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		
 		
 		int result = shoppingCartDao.updateShoppingCartInfo(shoppingCart);
-		if (result == 1) {
+		if (result ==1) {
 			returnedMap.put("status", "success");
 			returnedMap.put("msg", "恭喜小主驯服Dao层删除方法");
 			return returnedMap;

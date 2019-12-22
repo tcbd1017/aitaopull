@@ -101,12 +101,12 @@ public class RewardPointsDaoImpl implements RewardPointsDao{
 	public int insertRewardPoints(Map<String, Object> map) throws SQLException {
 		if (map!=null&&map.size()>0) {
 				StringBuilder sql = new StringBuilder(" insert into 0107_reward_points(buyer_id,reward_points_value_change,reward_points_create_time,reward_points_update_time,reward_points_status) ");
-				sql.append(" values(?,?,?,?,2)");
+				sql.append(" values(?,?,NOW(),NOW(),2)");
 				List<Object> list = new ArrayList<Object>();
 				list.add(map.get("buyer_id"));
 				list.add(map.get("reward_points_value_change"));
-				list.add(map.get("reward_points_create_time"));
-				list.add(map.get("reward_points_update_time"));
+				//list.add(map.get("reward_points_create_time"));
+				//list.add(map.get("reward_points_update_time"));
 				
 				Object[] param = list.toArray();
 				System.out.println(sql.toString());

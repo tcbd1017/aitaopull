@@ -119,6 +119,11 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		int i=personnelMattersDao.updateEmpdept(map);
 		if (i>0) {
 			mapstates.put("status", "Success");
+			try {
+				BaseDBUtils.commitAndClose();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}else {
 			try {
 				BaseDBUtils.rollbackAndClose();
@@ -129,9 +134,31 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		}
 		return mapstates;
 	}
-	
-	
-	
-	
-		
+//	/**
+//	 * 员工升降职
+//	 */
+//	@Override
+//	public Map<String, Object> modifyEmpJurisdiction(Map<String, Object> map) {
+//		Map<String, Object>mapstates=new HashMap<String, Object>();
+//		mapstates.put("status", "failed");
+//		int i = 0;
+//		try {
+//			BaseDBUtils.startTransaction();
+//			i =personnelMattersDao.updateEmpJurisdiction(map);
+//			if (i>0) {
+//				mapstates.put("status", "success");
+//			}
+//			BaseDBUtils.commitAndClose();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			try {
+//				BaseDBUtils.rollbackAndClose();
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//		}
+//		return mapstates;
+//	}
+//		
 }

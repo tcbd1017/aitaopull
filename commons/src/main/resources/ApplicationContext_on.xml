@@ -2,6 +2,7 @@
 	<beans>
 		
 		
+		
 		<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl"/>
 		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl"/>
 		
@@ -15,22 +16,31 @@
 
 		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
         <bean id = "ShoppingCartService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl"/>
-		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
+	
 
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl" id="PersonnelMattersDao"/>
 
-		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl" id="PersonnelMattersService"/>
+
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceDaoImpl" id="FinanceDao"/>
+
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceServiceImpl" id="FinanceService"/>
+
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.EmpsWithDeptImpl" id="EmpsWithDept"/>
+
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.EmpsWithDeptServiceImpl" id="EmpsWithDeptService"/>
+
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.RevenueAndExpenditureImpl" id="RevenueAndExpenditure"/>
+
+<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.RevenueAndExpenditureImplServiceImpl" id="RevenueAndExpenditureImplService"/>
 		
-		
 
-		<bean id = "PersonnelMattersDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl"/>
-		<bean id = "PersonnelMattersService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl"/>
-		<bean id = "FinanceDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceDaoImpl"/>
+		<bean id = "GoodsDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsDaoImpl"/>
+		<bean id = "GoodsService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsServiceImpl"/>
 		
-
-		<bean id = "GoodsDao" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsDaoImpl"/>
-		<bean id = "GoodsService" class = "cn.kgc.tangcco.tcbd1017.on.impl.GoodsServiceImpl"/>
 		<bean id = "RecordDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordDaoImpl"/>
 		<bean id = "RecordService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordServiceImpl"/>
+	
 		
 		<bean id = "GoodsFavoriteDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsFavoriteDaoImpl"/>
 		<bean id = "GoodsFavoriteService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsFavoriteServiceImpl"/>
@@ -54,6 +64,114 @@
 
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentDaoImpl" id="CommentDao"/>
 		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentServiceImpl" id="CommentService"/>
+		
+		<bean id = "FrontBuyerLoginDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginDaoImpl"/>
+		<bean id = "FrontBuyerRegisterDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterDaoImpl"/>
+		<bean id = "FrontBuyerRegisterServiceIns" class= "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterServiceImpl"/>
+		<bean id = "FrontBuyerLoginServiceIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginServiceImpl"/>
+		<bean id = "FrontStoreRegisterDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreRegisterDaoImpl"/>
+		<bean id = "FrontStoreRegisterServiceIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreRegisterServiceImpl"/>
+		<bean id = "FrontStoreStockGoodsDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreStockGoodsDaoImpl"/>
+		<bean id = "SellerOrderDeliveryAndInquiryDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryDaoImpl"/>
+        <bean id = "SellerOrderDeliveryAndInquiryService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryServiceImpl"/>
+        <bean id = "SellerCommentManagementDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementDaoImpl"/>
+        <bean id = "SellerCommentManagementService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementServiceImpl"/>
+        
+        
+        <bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
+		<bean id = "SetMealService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealServiceImpl"/>
+		
+		<bean id = "ViewSellerDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerDaoImpl"/>
+		<bean id = "ViewSellerService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ViewSellerServiceImpl"/>
+		
+		<bean id = "OperationDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationDaoImpl"/>
+		<bean id = "OperationService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.OperationServiceImpl"/>
+		
+		<bean id = "EmpLoginDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginDaoImpl"/>
+		<bean id = "EmpLoginService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginServiceImpl"/>
+		
+		<bean id = "EmpLoginToEmp" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpImpl"/>
+		<bean id = "EmpLoginToEmpService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.EmpLoginToEmpServiceImpl"/>
+		
+		<bean id = "UpdateEmpAllInfo" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.UpdateEmpAllInfoImpl"/>
+		<bean id = "ModifyEmpAllInfo" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.ModifyEmpAllInfoImpl"/>
+				<bean id = "OrderDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl"/>
+		<bean id = "OrderService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl"/>
+		
+		
+		<bean id = "RewardPointsDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RewardPointsDaoImpl"/>
+		<bean id = "RewardPointsService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RewardPointsServiceImpl"/>
+
+		
+
+		<bean id = "DeptDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.DeptDaoImpl"/>
+
+		<bean id = "ShoppingCartDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartDaoImpl"/>
+        <bean id = "ShoppingCartService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.ShoppingCartServiceImpl"/>
+		<bean id = "SetMealDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SetMealDaoImpl"/>
+
+
+		
+		
+
+		<bean id = "PersonnelMattersDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl"/>
+		<bean id = "PersonnelMattersService" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl"/>
+		<bean id = "FinanceDao" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceDaoImpl"/>
+		
+
+		<bean id = "GoodsDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsDaoImpl"/>
+		<bean id = "GoodsService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsServiceImpl"/>
+		
+		<bean id = "RecordDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordDaoImpl"/>
+		<bean id = "RecordService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.RecordServiceImpl"/>
+	
+		
+		<bean id = "GoodsFavoriteDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsFavoriteDaoImpl"/>
+		<bean id = "GoodsFavoriteService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsFavoriteServiceImpl"/>
+		
+	
+
+		<bean id = "PostageInfoDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoDaoImpl"/>
+		<bean id = "PostageInfoService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.PostageInfoServiceImpl"/>
+		
+
+		<bean id = "SelectEmpAllInfo" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.SelectEmpAllInfoImpl"/>
+		<bean id = "FindEmpAllInfo" class = "cn.kgc.tangcco.tcbd1017.on.system.impl.FindEmpAllInfoImpl"/>
+
+		<bean id = "CashVoucherDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherDaoImpl"/>
+		<bean id = "CashVoucherService" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.CashVoucherServiceImpl"/>
+
+
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.StoreFavoriteDaoImpl" id="StoreFavoriteDao"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.StoreFavoriteServiceImpl" id="StoreFavoriteService"/>
+	
+
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentDaoImpl" id="CommentDao"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.buyer.impl.CommentServiceImpl" id="CommentService"/>
+		
+		<bean id = "FrontBuyerLoginDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginDaoImpl"/>
+		<bean id = "FrontBuyerLoginServiceIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginServiceImpl"/>
+		
+		<bean id = "FrontBuyerRegisterDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterDaoImpl"/>
+		<bean id = "FrontBuyerRegisterServiceIns" class= "cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterServiceImpl"/>
+		
+		<bean id = "FrontStoreRegisterDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreRegisterDaoImpl"/>
+		<bean id = "FrontStoreRegisterServiceIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreRegisterServiceImpl"/>
+		
+		<bean id = "FrontStoreStockGoodsDaoIns" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.FrontStoreStockGoodsDaoImpl"/>
+		
+		<!-- jiangdao  -->
+        <bean id = "SelectStoreFavorlteinfoDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SelectStoreFavorlteinfoDaoImpl"/>
+        <bean id = "SelectStoreFavorlteinfoService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SelectStoreFavorlteinfoServiceImpl"/>
+        
+        <bean id = "SelectStorePendinginfoDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SelectStorePendinginfoDaoImpl"/>
+        <bean id = "SelectStorePendinginfoService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SelectStorePendinginfoServiceImpl"/>
+        
+        <bean id = "SellerOrderDeliveryAndInquiryDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryDaoImpl"/>
+        <bean id = "SellerOrderDeliveryAndInquiryService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerOrderDeliveryAndInquiryServiceImpl"/>
+        
+        <bean id = "SellerCommentManagementDao" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementDaoImpl"/>
+        <bean id = "SellerCommentManagementService" class = "cn.kgc.tangcco.tcbd1017.on.seller.impl.SellerCommentManagementServiceImpl"/>
 
 		
 		

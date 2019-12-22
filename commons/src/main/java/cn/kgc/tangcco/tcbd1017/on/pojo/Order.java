@@ -1,4 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.on.pojo;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -67,4 +68,24 @@ public class Order {
 	 * 	用户留言信息
 	 */
 	private String order_buyer_message;  
+	
+	private int shopping_cart_id;
+	private int goods_id;
+	private int amount_of_goods;
+	private String goods_uuid;
+	private int goods_picture_url_id;
+	private String goods_name;
+	private BigDecimal goods_price;
+	private String goods_brand;
+	private String goods_type;
+	
+	private String goods_presentation;
+	private int seller_id;
+	private int storage_id;
+	
+	private double goods_weight;
+	private double goods_width;
+	private double goods_height;
+	private double goods_length;
+	
 }

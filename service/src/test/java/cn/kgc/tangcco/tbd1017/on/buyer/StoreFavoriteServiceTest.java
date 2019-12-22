@@ -35,7 +35,7 @@ public class StoreFavoriteServiceTest {
 //		map.put("pr", new PageRang(1, 10));
 //		map.put("buyer_id", 1);
 		Map<String, Object> map2 = ss.queryStoreFavorite(map);
-		System.out.println(map2.get("date").toString());
+		System.out.println(map2.get("status").toString());
 	}
 	@Test
 	public void addStoreFavorite() {
