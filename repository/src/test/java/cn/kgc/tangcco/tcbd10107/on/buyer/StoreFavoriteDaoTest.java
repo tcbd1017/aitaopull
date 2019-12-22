@@ -57,7 +57,7 @@ public class StoreFavoriteDaoTest {
 	@Test
 	public void fuzzyQueryStoreFavorite() {
 		Map<String, Object>map=new HashMap<String, Object>();
-		map.put("store_favorite_id", 1);
+//		map.put("store_favorite_id", 1);
 		List fuzzyQueryStoreFavorite = sd.fuzzyQueryStoreFavorite(map);
 		Iterator  it=fuzzyQueryStoreFavorite.iterator();
 		while (it.hasNext()) {

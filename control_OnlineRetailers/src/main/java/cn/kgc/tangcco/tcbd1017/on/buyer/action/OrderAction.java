@@ -1,13 +1,24 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
 import com.alibaba.fastjson.JSON;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
+import cn.kgc.tangcco.lihaozhe.commons.propertis.BaseProperties;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl;
@@ -55,9 +66,12 @@ public class OrderAction extends BaseServlet{
 	 * --------------------------------------------
 	 * 	前台给后台的数据要求说明：
 	 * 		Map:
-	 * 			key:"object", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
-	 * 			key:"data", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
-	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存 
+	 * 			key:"sellerId、buyerid", 储存查询角色信息，比如Seller_Id、Buyer_Id，以Seller或Buyer对象储存
+	 * 			key:"order", 储存订单查询信息，比如Order_Id、order_update_time等等，以Order对象储存；
+	 * 			key:"pr", 储存分页信息，以PageRang对象进行储存
+	 * 		模板 ：{"buyerId":1,"prPage":1,"prSize":5,"enableFuzzySelect":0} 
+
+	 * 	
 	 * 		整个Map转成json, 以AJAX的试向后台发送	
 	 * --------------------------------------------
 	 * @param request
@@ -65,28 +79,97 @@ public class OrderAction extends BaseServlet{
 	 * @param string
 	 */
 	public void selectByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
+		
+//		HttpSession session = request.getSession();
+//		session.setAttribute("key1", "value1");
+//		String id = session.getId();
+//		System.out.println(id);
+//		
+//		Cookie cookie = new Cookie("key1", "value1");
+//		cookie.setPath("/");
+//		cookie.setSecure(false);
+//		response.addCookie(cookie);
 		//接收值
+		System.out.println("前台给的数据："+string);
+		//向持久层输送的数据map
 		Map map =JSON.parseObject(string,Map.class);
-		if (map.get("object").toString().contains("seller")) {
-			Seller seller = JSON.parseObject(map.get("object").toString(),Seller.class);
+		
+		if (map.containsKey("sellerId")) {
+			Seller seller = new Seller();
+			seller.setSeller_id((int)map.get("sellerId"));
 			map.put("object", seller);
-		}else if(map.get("object").toString().contains("buyer")){
-			Buyer buyer = JSON.parseObject(map.get("object").toString(),Buyer.class);
+		}else if(map.containsKey("buyerId")){
+			Buyer buyer = new Buyer();
+			buyer.setBuyer_id((int)map.get("buyerId"));
 			map.put("object", buyer);
 		}
 		//解析order
-		Order order = JSON.parseObject(map.get("data").toString(),Order.class);
+		if (map.containsKey("buyerId")) {
+		Order order = new Order();
+		order.setBuyer_id((int)map.get("buyerId"));
+			if (map.containsKey("orderStatus")) {
+				order.setOrder_status((int)map.get("orderStatus"));
+			}
 		map.put("data", order);
+		}
+		//解析数组order订单号
+		if (map.containsKey("chk_value")) {
+			ArrayList list = new ArrayList();
+			String  chk_value= (String) map.get("chk_value");
+			//获得第一个点的位置
+			int  indexOf = chk_value.indexOf(",");
+			//获得第一个字符串  0,2
+			
+			if (chk_value.contains(",")) {
+				
+			
+			list.add(Integer.parseInt((chk_value.substring(0,indexOf)).toString()));
+			for (int i = 0; i < chk_value.length(); i++) {
+				if (indexOf>=chk_value.lastIndexOf(",")) {
+					list.add(Integer.parseInt(chk_value.substring(indexOf+1).toString()));
+					break;
+				}
+					//获得第二个点开始的位置 4
+					int index = indexOf+1;
+					indexOf = chk_value.indexOf(",",indexOf+1);
+					//获取第二个位置   
+					list.add(Integer.parseInt(chk_value.substring(index,indexOf).toString()));
+					
+			}
+			}else {
+				list.add(Integer.parseInt(chk_value));
+			}
+			map.put("orderIdList", list);
+		}
+		
+		
 		//解析分页信息
-		PageRang pr = JSON.parseObject(map.get("pr").toString(),PageRang.class);
-		map.put("pr", pr);
+		if (map.containsKey("prPage")) {
+			PageRang pr = new PageRang();
+			int pageNumbet=Integer.parseInt(map.get("prPage").toString()) ;
+			if (pageNumbet<1) {
+				pageNumbet=1;
+			}
+			pr.setPageNumber(pageNumbet);
+			pr.setPageSize((int)map.get("prSize"));
+			map.put("pr", pr);
+		}
+		
+		//解析各状态的值；
+		if (map.containsKey("allOrderStatus")) {
+			Map allOrderStatus = JSON.parseObject(map.get("allOrderStatus").toString(),Map.class);
+			map.put("allOrderStatus", allOrderStatus);
+		}
+		
 		 Map map1 = new HashMap();
 		 
 		 if (map!=null&&map.size()>0) {
 			 //处理值；
+			 
 			 map1=orderServiceImpl.selectByOrder(map);
 		}
 		 //响应值
+		 System.out.println("响应的值"+map1);
 		printJson(response, map1);
 	}
 	
@@ -97,23 +180,38 @@ public class OrderAction extends BaseServlet{
 	 * @param request
 	 * @param response
 	 * @param string
+	 * 	请求数据模板 ：{"buyerId":1,"orderStatus":8,"orderId":99}
 	 */
 	public void updateByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
 				Map map =JSON.parseObject(string,Map.class);
+				
+				
 				//获得修改对象
-				if (map.get("object").toString().contains("seller")) {
-					Seller seller = JSON.parseObject(map.get("object").toString(),Seller.class);
-					map.put("object", seller);
-				}else if(map.get("object").toString().contains("buyer")){
-					Buyer buyer = JSON.parseObject(map.get("object").toString(),Buyer.class);
+				Buyer buyer = new Buyer();
+				if (map.containsKey("buyerId")) {
+					
+					buyer.setBuyer_id((int)map.get("buyerId"));
 					map.put("object", buyer);
 				}
+				if (map.containsKey("chk_value")) {
+					
+					//String[] string=(String[])JSON.parseObject((String) map.get("chk_value"));
+					
+				}
+				
+				Order order = new Order();
+				order.setOrder_id((int)map.get("orderId"));
 				//解析order，获得修改订单信息
-				Order order = JSON.parseObject(map.get("data").toString(),Order.class);
+				if (map.containsKey("orderId")&&map.containsKey("orderStatus")) {
+					order.setOrder_status((int)map.get("orderStatus"));
+					order.setOrder_id((int)map.get("orderId"));
+				}
 				map.put("data", order);
+				
+				
+				
 				 Map map1 = new HashMap();
-				 
 				 if (map!=null&&map.size()>0) {
 					 //处理值；
 					 map1=orderServiceImpl.updateByOrder(map);
@@ -129,25 +227,27 @@ public class OrderAction extends BaseServlet{
 	 *  前台给后台格式:
 	 * 	 Map :
 	 * 			key:"shopping", 至少需要包含买家id，购物车id
-	 *  		
+	 * 	模板:{"goodsId":3,"buyerId":1,"enableFuzzySelect":0,"goodsName":"夏普"} 
+	 *   必须属性： goodsId,buyerId,goodsName,enableFuzzySelect
 	 *  
 	 */
 	public void insertByOrderByShoppingCart(HttpServletRequest request , HttpServletResponse response, String string) {
+		//配置其他模块接口服务器地址；
+		String ipAddress = BaseProperties.getProperties("/IpAddress.properties", "address");
+		System.out.println("前台给的数据："+string);
 		//接收购物车订单号
 		//key:goodsId、buyerId、goodsName
-		Map map1 = new HashMap();
-		map1=(Map)JSON.parseObject(string,Map.class);
 		//调用杜明action接口，获得购物车信息
 		OkHttpClient client = new OkHttpClient();
 		//杜明接口地址： 根据Buyer_id返回购物车信息
-		String url0 = "http://localhost:8080/control_OnlineRetailers/shoppingCart.action?methodName=queryAllShoppingCartInfoByBuyerId";
+		String url0 = ipAddress+"control_OnlineRetailers/shoppingCart.action?methodName=queryAllShoppingCartInfoByBuyerId";
 		//标明接口地址：根据BuyerId和GoodsId,删除物品
-		String url1 = "http://localhost:8080/control_OnlineRetailers/shoppingCart.action?methodName=removeShoppingCart";
+		String url1 = ipAddress+"control_OnlineRetailers/shoppingCart.action?methodName=removeShoppingCart";
+		System.out.println("购物车接口地址："+url0);
 		//获得请求体
 		 final MediaType json=MediaType.parse("application/json; charset=utf-8");
-		 String json2 = JSON.toJSON(map1).toString();
-		 RequestBody queryBody = RequestBody.create(json, json2 );
-		 RequestBody removeBody = RequestBody.create(json, json2);
+		 RequestBody queryBody = RequestBody.create(json, string );
+		 RequestBody removeBody = RequestBody.create(json, string);
 		//查询购物车http请求
 		Request queryCart = new Request.Builder().url(url0).post(queryBody).build();
 		//删除购物车http请求 
@@ -182,12 +282,12 @@ public class OrderAction extends BaseServlet{
 					//获取购物车删除信息； 
 					 removeRs=removeResponse.body().string();
 					if (removeRs.contains("success")) {
-						printJson(response, "{\"status\":success}");
+						printJson(response,removeRs);
 					}else {
-						printJson(response, "{\"status\":failed}");
+						printJson(response,removeRs);
 					}
 			}else {
-				printJson(response, "{\"status\":failed}");
+				printJson(response, removeRs);
 			}
 			} catch (IOException | SQLException e) {
 				// TODO Auto-generated catch block
@@ -227,7 +327,30 @@ public class OrderAction extends BaseServlet{
 				}
 				 //响应值
 				printJson(response, map1);
-		
 	}
+	
+	
+	/**
+	 *  	查询地址
+	 * 
+	 */
+	public void selectAddressIfo(HttpServletRequest request , HttpServletResponse response, String string) {
+		System.out.println("请求地址成功；");
+		Map map =JSON.parseObject(string,Map.class);
+		try {
+			Map selectAddress = orderServiceImpl.selectAddress(map);
+			printJson(response, selectAddress);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 *  cookie试验 
+	 * 
+	 */
+		
+		
+	
 	
 }

@@ -52,13 +52,17 @@ public class SelectByOrderTest {
 		map.put("data",order );
 		
 		
-		System.out.println(JSON.toJSON(map));
+		System.out.println("测试数据："+JSON.toJSON(map));
 		try {
 			List<Order> selectByOrder = orderdao.selectByOrder(map);
+			System.out.println("数组大小："+selectByOrder.size());
 			Iterator<Order> iterator = selectByOrder.iterator();
 			while (iterator.hasNext()) {
 				Order order2 = (Order) iterator.next();
-				System.out.println(order2);
+				int i=0;
+				
+				System.out.println("第"+i+"次循环："+order2);
+				i++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,7 +97,7 @@ public class SelectByOrderTest {
 		try {
 		Map map = new HashMap();
 		Date myDate2 = BaseDateUitls.parse("2019-12-10 15:35:54");
-			Order order = new Order(2, "2", 2, myDate2, myDate2, 1, 1, 1, 1, 1, myDate2, myDate2, myDate2, myDate2, "123");
+			Order order = new Order();
 			map.put("data",order );
 			int selectByOrder = orderdao.insertByOrder(map);
 			System.out.println(selectByOrder);
@@ -148,10 +152,6 @@ public class SelectByOrderTest {
 	 *  测试订单插入功能
 	 * 
 	 */
-	@Test
-	public void Test05() {
-		
-	}
 	
 	
 }

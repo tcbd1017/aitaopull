@@ -36,13 +36,22 @@ public class RewardPointsServiceText {
 	@Test
 	public void findRewardPoints() {
 		Map<String,Object> info = new HashMap<String, Object>();
+		info.put("buyer_id", 2);
 		info=rewardPointsService.findRewardPoints(info);
 		System.out.println(info);
 	}
 	@Test
+	public void findsum() {
+		Map<String,Object> info = new HashMap<String, Object>();
+		info.put("buyer_id", 1);
+		info=rewardPointsService.findSumRewardPoints(info);
+		System.out.println(info);
+	}
+	
+	@Test
 	public void addRewardPoints(){
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("buyer_id", 47);
+		map.put("buyer_id", 88888);
 		map.put("reward_points_value_change", 19);
 		map.put("reward_points_create_time", new Date());
 		map.put("reward_points_update_time", new Date());

@@ -1,5 +1,7 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.impl;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +15,7 @@ import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
 import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
 import cn.kgc.tangcco.tcbd1017.on.buyer.OrderDao;
 import cn.kgc.tangcco.tcbd1017.on.buyer.OrderService;
+import cn.kgc.tangcco.tcbd1017.on.buyer.ShoppingCartDao;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderDaoImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
@@ -24,10 +27,12 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.OrderGoods;
  */
 public class OrderServiceImpl implements OrderService{
 	static OrderDao orderDaoIml = null;
+	static ShoppingCartDao shoppingCartDao=null;
 	static {
 		ClassPathXmlApplicationContext ioc = new ClassPathXmlApplicationContext("ApplicationContext_on.xml");
 		try {
 			orderDaoIml = (OrderDaoImpl)ioc.getBean("OrderDao");
+			shoppingCartDao = (ShoppingCartDao)ioc.getBean("ShoppingCartDao");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,14 +60,77 @@ public class OrderServiceImpl implements OrderService{
 		map1.put("code", 0);
 		if (!map.isEmpty()&&map.containsKey("object")&&map.containsKey("data")) {
 			try {
-				List<Order> list = orderDaoIml.selectByOrder(map);
-				List<OrderGoods> selectByOrderGoods = orderDaoIml.SelectByOrderGoods(map);
+				//查询订单信息
+				Order order =(Order)map.get("data");
+				map.put("buyer_id", order.getBuyer_id());
+				List list = orderDaoIml.selectByOrder(map);
+				//查询购物车商品信息
+				 //List<Map<String ,Object>> selectByGoods = shoppingCartDao.selectShoppingCartInfoByBuyerId(map);
+				 //查询订单商品图片地址
+				 List selectShoppingCartInfoByBuyerIdAddUrl = orderDaoIml.selectShoppingCartInfoByBuyerIdAddUrl(map);
+				//查询订单总条数
 				int selectByOrderPageCount = orderDaoIml.SelectByOrderPageCount(map);
-				int selectByOrderGoodsPageCount = orderDaoIml.SelectByOrderGoodsPageCount(map);
+				//查询各种状态的条数
+				if (map.containsKey("allOrderStatus")) {
+					//储存查询数据
+					Map selectStatus =new HashMap();
+					//获得前台给的查询数据
+					Map allOrderStatus =(Map) map.get("allOrderStatus");
+					
+					int orderStatusShow=(int)allOrderStatus.get("orderStatusShow");
+					int fahuo=(int)allOrderStatus.get("fahuo");
+					int shouhuo=(int)allOrderStatus.get("shouhuo");
+					int pingjia=(int)allOrderStatus.get("pingjia");
+					//未付款条数
+					
+					order.setOrder_status(orderStatusShow);
+					selectStatus.put("data", order);
+					orderStatusShow= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("orderStatusShow", orderStatusShow);
+					
+					order.setOrder_status(fahuo);
+					selectStatus.put("data", order);
+					fahuo= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("fahuo", fahuo);
+					
+					order.setOrder_status(shouhuo);
+					selectStatus.put("data", order);
+					shouhuo= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("shouhuo", shouhuo);
+					
+					order.setOrder_status(pingjia);
+					selectStatus.put("data", order);
+					pingjia= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("pingjia", pingjia);
+					
+					int selectByOrderPageCountStatus = 0;
+					order.setOrder_status(0);
+					selectStatus.put("data", order);
+					selectByOrderPageCountStatus= orderDaoIml.SelectByOrderPageCount(selectStatus);
+					map1.put("selectByOrderPageCountStatus", selectByOrderPageCountStatus);
+					
+				}
+				//查询从订单页转到结算页的订单号
+				if (map.containsKey("orderIdList")) {
+					//获取订单号的集合；
+					List list1 =(ArrayList) map.get("orderIdList");
+					//储存查询结果的集合
+					List<Order> ListResult  = new ArrayList();
+					for (Object object : list1) {
+						order.setOrder_id((int)object);
+						map.put("data", order);
+						List<Order> selectByOrder = orderDaoIml.selectByOrder(map);
+						for (Order object2 : selectByOrder) {
+							ListResult.add(object2);
+						}
+					}
+				map1.put("ListResult", ListResult);	
+				}
+				
 				map1.put("data", list) ;
-				map1.put("orderGoods", selectByOrderGoods);
+				map1.put("goodsUrl", selectShoppingCartInfoByBuyerIdAddUrl);
 				map1.put("selectByOrderPageCount", selectByOrderPageCount);
-				map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
+				//map1.put("selectByOrderGoodsPageCount", selectByOrderGoodsPageCount);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -197,6 +265,61 @@ public class OrderServiceImpl implements OrderService{
 					if (string.equals("amount_of_goods")) {
 						orderGoods.setAmount_of_goods((int)result.get(string));
 					}
+					if (string.equals("shopping_cart_id")) {
+						order.setShopping_cart_id((int)result.get(string));
+					}
+					if (string.equals("goods_id")) {
+						order.setGoods_id((int)result.get(string));
+					}
+					if (string.equals("amount_of_goods")) {
+						order.setAmount_of_goods((int)result.get(string));
+					}
+					if (string.equals("goods_uuid")) {
+						order.setGoods_uuid((String)result.get(string));
+					}
+					if (string.equals("goods_picture_url_id")) {
+						order.setGoods_picture_url_id((int)result.get(string));
+					}
+					if (string.equals("goods_name")) {
+						order.setGoods_name((String)result.get(string));
+					}
+				
+					if (string.equals("goods_brand")) {
+						order.setGoods_brand((String)result.get(string));
+					}
+					if (string.equals("goods_type")) {
+						order.setGoods_type((String)result.get(string));
+					}
+					
+					if (string.equals("goods_presentation")) {
+						order.setGoods_presentation((String)result.get(string));
+					}
+					if (string.equals("seller_id")) {
+						order.setSeller_id((int)result.get(string));
+					}
+					if (string.equals("storage_id")) {
+						order.setStorage_id((int)result.get(string));
+					}
+					
+					
+					if (string.equals("goods_width")) {
+						order.setGoods_width(Double.parseDouble(result.get(string).toString()));
+					}
+					if (string.equals("goods_height")) {
+						order.setGoods_height(Double.parseDouble(result.get(string).toString()));
+					}
+					if (string.equals("goods_price")) {
+						order.setGoods_price((BigDecimal)result.get(string));
+					}
+					if (string.equals("goods_length")) {
+					System.out.println("取出的数据值："+ Double.parseDouble(result.get(string).toString()) );
+					order.setGoods_length(Double.parseDouble(result.get(string).toString()));
+					}
+					if (string.equals("goods_weight")) {
+					order.setGoods_weight(Double.parseDouble(result.get(string).toString()));
+					}
+					
+				
 					
 				}
 			}
@@ -213,7 +336,7 @@ public class OrderServiceImpl implements OrderService{
 		order.setOrder_status(1);
 		//测试数据部分
 				order.setLogistics_id(12);
-				order.setOrder_payment(100);
+				order.setOrder_payment(Double.parseDouble(order.getGoods_price().toString()));
 				order.setBuyer_cash_voucher_id(1);
 				order.setOrder_payment_type(1);
 				order.setOrder_buyer_message("廖斌测试数据");
@@ -264,7 +387,34 @@ public class OrderServiceImpl implements OrderService{
 		return map3;
 	}
 
-
+	/**
+	 * 	 查询订单的收货地址
+	 * 
+	 */
+	@Override
+	public Map selectAddress(Map map)throws SQLException{
+		Map map1 = new HashMap();
+		int postage_info_province_id = (int)map.get("postage_info_province_id");
+		int postage_info_city_id = (int)map.get("postage_info_city_id");
+		int postage_info_district_id = (int)map.get("postage_info_district_id");
+		
+	
+			 String postage_info_province_name = orderDaoIml.selectAddress(postage_info_province_id);
+			 String postage_info_city_name = orderDaoIml.selectAddress(postage_info_city_id);
+			 String postage_info_district_name = orderDaoIml.selectAddress(postage_info_district_id);
+			
+			 
+			 map1.put("postage_info_province_name", postage_info_province_name);
+			 map1.put("postage_info_city_name", postage_info_city_name);
+			 map1.put("postage_info_district_name", postage_info_district_name);
+			 
+	
+		
+		
+		return map1;
+	}
+	
+	
 
 	
 }

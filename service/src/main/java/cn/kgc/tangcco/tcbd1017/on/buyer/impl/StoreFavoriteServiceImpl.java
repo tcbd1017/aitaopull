@@ -60,7 +60,7 @@ public class StoreFavoriteServiceImpl implements StoreFavoriteService{
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		if (list!=null) {
+		if (list!=null && list.size()>0) {
 			map2.put("status", "success");
 			map2.put("date", list);
 		}else {

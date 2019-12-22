@@ -31,5 +31,6 @@ public interface OrderService {
 	 * 
 	 */
 	public Map<String,Object> insertByOrderByShoppingCart(Map<String,String> map)throws SQLException;
+	public Map selectAddress(Map map)throws SQLException;
 	
 }

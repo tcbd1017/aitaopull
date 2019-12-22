@@ -10,17 +10,55 @@ import java.util.Map;
 */
 public interface FrontBuyerRegisterDaoIns {
 	/**
-	  * 买家用户- 账户密码,人脸注册
+	  * 买家用户- 账户密码
 	  * @return 影响的数据行数
 	  * @throws SQLException 
 	  */
-	int insert_Account_Password_Byyer(Map<String, Object> map) throws SQLException; 
+	int insert_Account_Password_Byyer(Map<String, Object> map) throws SQLException;
+	/**
+	 * 账户  买家表新增
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int insert_Account_Password(Map<String, Object> map) throws SQLException;
+	
+	/**
+	 * 人脸注册
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int insert_Face(Map<String, Object> map) throws SQLException;
 	/**
 	 * 买家用户-手机号注册
 	 * @return  影响的数据行数
 	 * @throws SQLException 
 	 */
 	int insert_Mobile_Byyer(Map<String, Object> map) throws SQLException;
+	
+	/**
+	 * 买家用户-手机号注册 表二 买家登陆表
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int insert_Mobile_Boyer_Login(Map<String, Object> map) throws SQLException;
+	/**
+	 * 买家用户   买家信息表的添加
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int insert_Boyer_Info(Map<String, Object> map) throws SQLException;
+	
+	/**
+	 * 根据uuid查询buyer_id
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	int select_Buyer_Id(Map<String, Object> map) throws SQLException;
 	/**
 	 * 查询买家uuid 
 	 * @param map

@@ -23,10 +23,6 @@ public interface BuyerInfoDao {
 	 * @return
 	 */
 	public  int  insertBuyerInfo(Map<String, Object>map) ;
-	/**
-	 * 修改
-	 * @param map 修改的参数
-	 * @return int大于0 修改成功
-	 */
-	public  int  updateBuyerInfo(Map<String, Object> map);
+	
+	public  int  update(Map<String, Object> map);
 }
