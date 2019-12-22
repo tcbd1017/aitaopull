@@ -2,6 +2,7 @@ package cn.kgc.tangcco.tcbd1017.on.seller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 
@@ -11,7 +12,7 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
  * @ClassName 类名称  0203 goods持久层
  * @Description 类描述  商品上架下架方法接口
  **/
-public interface GoodsDao {
+public interface SellerGoodsDao {
 	/**
 	 * 查看所有未上架的商品信息
 	 * 
@@ -19,7 +20,7 @@ public interface GoodsDao {
 	 * @return 返回List集合 承载商品信息 泛型Good实体类
 	 * @throws SQLException sql异常
 	 */
-	List<Goods> selectOfflineGoods(int store_id) throws SQLException;
+	List<Goods> selectOfflineGoods(Map<String, Object> map) throws SQLException;
 
 	/**
 	 * 根据商品id查看商品详细信息
@@ -28,7 +29,7 @@ public interface GoodsDao {
 	 * @return 返回List集合 承载商品信息 泛型Good实体类
 	 * @throws SQLException sql异常
 	 */
-	List<Goods> selectAllGoods(int goods_id) throws SQLException;
+	List<Goods> selectAllGoods(Map<String, Object> map) throws SQLException;
 
 	/**
 	 * 查看所有以上架的商品信息
@@ -37,7 +38,15 @@ public interface GoodsDao {
 	 * @return 返回List集合 承载商品信息 泛型Good实体类
 	 * @throws SQLException sql异常
 	 */
-	List<Goods> selectOnlineGoods(int store_id) throws SQLException;
+	List<Goods> selectOnlineGoods(Map<String, Object> map) throws SQLException;
+	/**
+	 * 查看所有商品信息
+	 * @param map 前台传输进的值 初步传进来店铺id
+	 * @return 返回List集合 承载商品信息 泛型Good实体类
+	 * @throws SQLException sql异常
+	 */
+	
+	List<Goods> selectWholeGoods(Map<String, Object> map) throws SQLException;
 
 	/**
 	 * 根据商品id选择上架商品
@@ -46,7 +55,7 @@ public interface GoodsDao {
 	 * @return 返回的修改参数 1 修改成功 0 修改失败
 	 * @throws SQLException SQL异常
 	 */
-	int supdateGoods(int goods_id) throws SQLException;
+	int supdateGoods(Map<String, Object> map) throws SQLException;
 
 	/**
 	 * 根据商品id选择下架商品
@@ -55,7 +64,7 @@ public interface GoodsDao {
 	 * @return 返回的修改参数 1 修改成功 0 修改失败
 	 * @throws SQLException SQL异常
 	 */
-	int xupdateGoods(int goods_id) throws SQLException;
+	int xupdateGoods(Map<String, Object> map) throws SQLException;
 
 	/**
 	 * 根据商品id修改商品价钱
@@ -64,5 +73,5 @@ public interface GoodsDao {
 	 * @return 返回的修改参数 1 修改成功 0 修改失败
 	 * @throws SQLException SQL异常
 	 */
-	int updateGoodsgoods_price(int goods_id, double goods_price) throws SQLException;
+	int updateGoodsgoods_price(Map<String, Object> map) throws SQLException;
 }

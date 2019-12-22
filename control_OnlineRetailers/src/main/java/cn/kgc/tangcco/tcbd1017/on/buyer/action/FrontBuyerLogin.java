@@ -42,6 +42,7 @@ public class FrontBuyerLogin extends BaseServlet {
 		map.put("buyer_mobile", maps.get("buyer_mobile"));
 		Map<String, Object> front_Buyer_Login = proxy.Front_Buyer_Login(map);
 		printJson(response, front_Buyer_Login);
+		
 	}
 
 	// 人脸检测

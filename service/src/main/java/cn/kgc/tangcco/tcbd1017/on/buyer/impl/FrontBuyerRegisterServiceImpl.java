@@ -38,27 +38,30 @@ public class FrontBuyerRegisterServiceImpl implements FrontBuyerRegisterServiceI
 				if (maps.get("buyer_mobile") != null) {
 					if (bean.select_buyer_mobile(maps) == false) {
 						number = bean.insert_Mobile_Byyer(maps);
-						map.put("status", "success");
-					} else {
-						map.put("msg", "该手机号已被注册");
-					}
-				}
-				// 账户密码注册
-				if (maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
-					if (bean.select_buyer_login_account(maps) == false) {
-						number = bean.insert_Account_Password_Byyer(maps);
-						if (number > 0) {
-							map.put("status", "success");
+						// 账户密码注册
+						if ( maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
+							if (bean.select_buyer_login_account(maps) == false) {
+								number = bean.insert_Account_Password_Byyer(maps);
+								if (number > 0) {
+									map.put("status", "success");
+								}
+							} else {
+								map.put("msg", "该账号已被注册");
+								return map;
+							}
 						}
 					} else {
-						map.put("msg", "该账号已被注册");
+						map.put("msg", "该手机号已被注册");
+						return map;
 					}
 				}
 				// 人脸注册
 				if (maps.get("buyer_login_face_token") != null) {
-					number = bean.insert_Account_Password_Byyer(maps);
+					number = bean.insert_Mobile_buyer_login_face_token(maps);
 					if (number > 0) {
 						map.put("status", "success");
+					}else {
+						return map;
 					}
 				}
 			}

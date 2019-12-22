@@ -36,7 +36,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 			list.add(maps.get("buyer_login_password"));
 			preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		}
-		//人脸注册
+		//人脸登录
 		if(maps.get("buyer_login_face_token")!=null) {
 			sql.append(" AND `buyer_login_face_token`=? ");
 			list.add(maps.get("buyer_login_face_token"));

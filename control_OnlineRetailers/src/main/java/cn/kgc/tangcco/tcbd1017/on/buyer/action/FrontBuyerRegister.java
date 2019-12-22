@@ -17,6 +17,7 @@ import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
 import cn.kgc.tangcco.tcbd1017.on.buyer.FrontBuyerRegisterServiceIns;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerRegisterServiceImpl;
 /**
+ * 刘煜  类描述 ： 用户注册
  * Servlet implementation class FrontBuyerRegister
  */
 @WebServlet("/FrontBuyerRegister.action")
@@ -36,6 +37,7 @@ public class FrontBuyerRegister extends BaseServlet {
     	map.put("buyer_login_password",maps.get("buyer_login_password"));
     	map.put("buyer_create_time", new Date());
     	map.put("buyer_login_create_time", new Date());
+    	System.out.println(map.toString());
     	Map<String, Object> buyerRegister = proxy.BuyerRegister(map);
     	printJson(response, buyerRegister);
     }
