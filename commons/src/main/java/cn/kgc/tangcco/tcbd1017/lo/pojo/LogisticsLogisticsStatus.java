@@ -5,7 +5,7 @@ package cn.kgc.tangcco.tcbd1017.lo.pojo;
  * 创建时间：2019年12月13日上午8:32:02
  * 类描述：
  */
- 
+
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class LogisticsLogisticsStatus {
 	/*
 	 * 物流创建时间
 	 */
-	private Date logistics_create_time;
+	private Date logistics_create;
 	
 	/**
 	 * 物流经过公司

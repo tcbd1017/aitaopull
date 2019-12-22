@@ -1,5 +1,6 @@
 package cn.kgc.tangcco.tcbd1017.lo;
- 
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,4 +23,13 @@ public interface UserDao {
 	 * @return
 	 */
 	int updateUser(Map<String ,Object> map);
+	
+	/**
+	 * 用户登录
+	 * @param map 姓名 手机号 密码
+	 * @return  登陆对象
+	 */
+	List selectUser(Map<String ,Object> map);
+	
+	
 }
