@@ -70,6 +70,12 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		int i=personnelMattersDao.delecteandupdateEmp(map);
 		if (i>0) {
 			mapstates.put("status", "success");
+			try {
+				BaseDBUtils.rollbackAndClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else {
 			try {
 				BaseDBUtils.rollbackAndClose();
