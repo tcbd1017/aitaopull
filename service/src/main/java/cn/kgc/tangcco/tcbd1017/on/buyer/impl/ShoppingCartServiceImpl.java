@@ -40,18 +40,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		returnedMap.put("msg", null);
 		returnedMap.put("data", null);
 		
-//		Integer goodsId = null;
 		Integer buyerId = null;
 		String goodsName = null;
-		// 直接拿到传入的物品Id
-//		if (null != map.get("goodsId") && map.get("goodsId") instanceof Integer) {
-//			goodsId = (int)map.get("goodsId"); 
-//		}
-		// 根据买家名称拿到买家的id
-		System.out.println("进入service成功");
+
 		if (null != map.get("buyerId") && map.get("buyerId") instanceof Integer) {
 			buyerId = (int)map.get("buyerId"); 
-			System.out.println("放入成功");
+			//System.out.println("放入成功");
 			
 		}		
 		// 看前台是否传入了模糊查询需求
@@ -90,32 +84,16 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		returnedMap.put("msg", null);
 		returnedMap.put("data", null);
 		
-//		Integer goodsId = null;
 		Integer buyerId = null;
 		String goodsName = null;
-		// 直接拿到传入的物品Id
-//		if (null != map.get("goodsId") && map.get("goodsId") instanceof Integer) {
-//			goodsId = (int)map.get("goodsId"); 
-//		}
-		// 根据买家名称拿到买家的id
 		if (null != map.get("buyerId") && map.get("buyerId") instanceof Integer) {
 			buyerId = (int)map.get("buyerId"); 
 			
 		}		
-//		// 看前台是否传入了模糊查询需求
-//		if (null != map.get("goodsName") && map.get("goodsName") instanceof String) {
-//			goodsName = (String)map.get("goodsName"); 
-//		}
 		
 		Map<String, Object> queryMap = new HashMap<String, Object>();
 		queryMap.put("buyer_id", buyerId);
 		queryMap.put("enableFuzzySelect", 0);
-//		queryMap.put("goods_name", null);
-//		if (null != goodsName) {
-//			queryMap.put("enableFuzzySelect", 1);
-//			queryMap.put("goods_name", map.get("goodsName"));
-//		}
-		
 		List<Map<String, Object>> list = shoppingCartDao.selectShoppingCartInfoByBuyerIdAddUrl(queryMap);
 		if (!list.isEmpty()) {
 			returnedMap.put("status", "success");

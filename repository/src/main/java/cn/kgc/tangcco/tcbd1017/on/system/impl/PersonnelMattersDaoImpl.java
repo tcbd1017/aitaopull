@@ -29,7 +29,7 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 	public int delecteandupdateEmp(Map<String, Object> map) {
 		
 		/**
-		 * 操作员的信息在传过来的map里边
+		 *  操作员的信息在传过来的map里边
 		 */
 		StringBuilder sql=new StringBuilder(" UPDATE 0301_emp set emp_update_time=now()");
 		List<Object>list =new ArrayList<Object>();
@@ -52,11 +52,11 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 		
 		if (map != null&&map.size()>0) {
 			if (!ObjectUtils.isEmpty(map.get("emp_name"))) {
-				sql.append(" ,emp_name = ?,");
+				sql.append(" ,emp_name = ?");
 				list.add(map.get("emp_name"));
 			}
 			if (!ObjectUtils.isEmpty(map.get("emp_mobile"))) {
-				sql.append(" ,emp_mobile =?,");
+				sql.append(" ,emp_mobile =?");
 				list.add(map.get("emp_mobile"));
 			}
 			if (!ObjectUtils.isEmpty(map.get("emp_mail"))) {
@@ -68,7 +68,7 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 			 */
 			if (!ObjectUtils.isEmpty(map.get("emp_status"))&&(int)map.get("empPower")==1&&(int)map.get("deptPower")==3) {
 				
-				if (!ObjectUtils.isNotEmpty(map1.get("empPower"))&&(int)map1.get("empPower")==1&&(int)map1.get("deptPower")<3) {
+				if (!ObjectUtils.isEmpty(map1.get("empPower"))&&(int)map1.get("empPower")==1&&(int)map1.get("deptPower")<3) {
 					System.out.println("1111111111");
 					sql.append(" ,0301_emp.emp_status = ? ");
 					list.add(map.get("emp_status"));
@@ -89,7 +89,7 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 			 * 总经理
 			 */
 			if (!ObjectUtils.isEmpty(map.get("emp_status"))&&(int)map.get("empPower")==3) {
-			   
+			   System.out.println("3333333");
 				sql.append(" ,0301_emp.emp_status = ? ");
 				list.add(map.get("emp_status"));
 			}
@@ -146,7 +146,7 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 			 * 普通员工
 			 */
 			if (!ObjectUtils.isEmpty(map.get("emp_id"))&&!ObjectUtils.isEmpty(map.get("dept_id"))&&(int)map.get("empPower")==1&&(int)map.get("deptPower")==3) {
-				if ((int)map.get("dept_id")<6 &&(int)map1.get("empPower")==1&&(int)map1.get("deptPower")<3) {
+				if ((int)map.get("dept_id")<6&&(int)map.get("dept_id")!=2 &&(int)map1.get("empPower")==1&&(int)map1.get("deptPower")<3) {
 					sql.append(" UPDATE 030100_emp_and_dept set 030100_emp_and_dept.dept_id = ? WHERE 1 =1 ");
 					sql.append(" and 030100_emp_and_dept.emp_id = ? ");
 				}
@@ -187,5 +187,42 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 		return rs;
 		
 	}
+
+//	@Override
+//	public int updateEmpJurisdiction(Map<String, Object> map) throws SQLException {
+//		StringBuilder sql = new StringBuilder();
+//		Emp emp=new Emp();
+//		SelectEmpPower selectEmpPower=new SelectEmpPowerImpl();
+//		emp.setEmp_id((int)map.get("emp_id"));
+//		/**
+//		 * 被修改员工的权限
+//		 */
+//		Map<String, Object>map1=null;
+//		try {
+//			map1=selectEmpPower.selectEmpPower(emp);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		if (map1!=null&&map1.size()>0) {
+//			if ((int)map.get("empPower")==3&&(int)map.get("deptPower")==4) {
+//			sql.append("UPDATE 030101_emp_and_emprole set 030101_emp_and_emprole.emprole_id= ? WHERE 1 = 1 ");
+//			sql.append(" and 030101_emp_and_emprole.emp_id = ? ");
+//			}
+//		}
+//		Object param[]= {map.get("dept_id"),map.get("emp_id")};
+//		Connection conn =null;
+//		PreparedStatement pst=null;
+//		int rs=0;
+//		try {
+//			conn = BaseDBUtils.getConnection();
+//			pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+//			rs = BaseDBUtils.executeUpdate(pst,param);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return rs;
+//	}
 
 }

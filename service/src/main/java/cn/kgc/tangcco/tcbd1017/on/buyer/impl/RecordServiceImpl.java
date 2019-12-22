@@ -14,11 +14,7 @@ import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Record;
 
 /**
-
-*@author 作者：肖越，
-
 *@author 作者：肖越
-
 *@version 1.0 创建时间:2019年12月14日上午9:00:38
 */
 public class RecordServiceImpl implements RecordService {
@@ -98,16 +94,10 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 
-
-	
-
-	
-	
-	
 	
 	/**
 	 * 根据传过来的买家id 和商品名称（支持模糊查询）
-	 * 所对应的商品
+	 * 返回买家历史记录里所对应的商品图片url等信息
 	 */
 	@Override
 	public Map<String, Object> queryRecordAllByBuyerIdAndGoodsName(String buyer_Id, String goods_name) {
@@ -137,9 +127,6 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 
-
-
-	
 	
 	/**
 	 * 
@@ -175,10 +162,234 @@ public class RecordServiceImpl implements RecordService {
 		return map;
 	}
 
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 1》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id返回买家详细信息
+	 * @param buyer_id 买家id
+	 * @return 返回该买家详细信息
+	 */
+	@Override
+	public Map<String, Object> queryBuyerInfoBybuyer_id(String buyer_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectBuyerInfoBybuyer_id(buyer_id);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
 
 
 	
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 2》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id和当前页码  返回买家历史记录里商品图片url等信息 （并进行了分页）      例：传过来的json字符串    {"pageNo":"1","buyer_id":"1"}
+	 * @param buyer_id 买家id
+	 * @return 返回该买家历史记录里商品图片url等信息
+	 */
+	@Override
+	public Map<String, Object> queryGoodsPictureUrlByBuyerId(String buyer_id,String pageNo) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectGoodsPictureUrlBybuyer_id(buyer_id,pageNo);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
 
+
+
+
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 3》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id获取买家历史记录总条数
+	 * @param buyer_id 买家id
+	 * @return  根据买家id获取(buyerHistory)买家历史记录总条数    和 总页数(totalPages)
+	 */
+	@Override
+	public Map<String, Object> queryCountBuyerHistory(String buyer_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectCountBuyerHistory(buyer_id);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 4》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id获取买家购物车前两条数据
+	 * @param buyer_id 买家id
+	 * @return 买家购物车前两条数据
+	 */
+	@Override
+	public Map<String, Object> queryBuyerShoppingCart(String buyer_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectBuyerShoppingCart(buyer_id);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+
+	
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 5》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id和当前页码获取买家购物车的所有数据 (购物车商品图片、重量、长宽高...等信息)
+	 * 每页显示五条数据
+	 * @param buyer_id 买家id
+	 * @return 买家购物车的所有数据
+	 */
+	@Override
+	public Map<String, Object> queryAllBuyerShoppingCart(String buyer_id,String pages) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectAllBuyerShoppingCart(buyer_id,pages);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 6》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id获取买家购物车总条数和总页数
+	 * @param buyer_id 买家id
+	 * @return  根据买家id获取(shoppingCart)买家购物车总条数 和 总页数(totalPages 按照一页显示五条数据来计算)
+	 */
+	@Override
+	public Map<String, Object> queryCountShoppingCart(String buyer_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectCountShoppingCart(buyer_id);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+
+	
 
 	
 	

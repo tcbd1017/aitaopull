@@ -78,7 +78,7 @@ public class Ontest {
 	@Test
 	public void insertRewardPoints() {
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("buyer_id", 1);
+		map.put("buyer_id", 5);
 		map.put("reward_points_value_change", 22);
 		map.put("reward_points_create_time", new Date());
 		map.put("reward_points_update_time", new Date());
@@ -86,6 +86,7 @@ public class Ontest {
 		try {
 			int i = logisticsDao.insertRewardPoints(map);
 			System.out.println(i);
+			System.out.println(map);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

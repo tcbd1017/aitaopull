@@ -9,9 +9,8 @@
 		<!-- <property name="driverClass">com.mysql.cj.jdbc.Driver</property> -->
 		<!-- mysql 5.x -->
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
-<!-- 49.235.240.163 -->
+	<!-- jdbc:mysql://49.235.240.163:3306/dxm? -->
 		<property name="jdbcUrl">jdbc:mysql://49.235.240.163:3306/dxm?useUnicode=true&amp;characterEncoding=UTF8&amp;useSSL=false&amp;serverTimeZone=GMT</property>
-
 		<property name="user">root</property>
 		<property name="password">123456</property>
 		<property name="initialPoolSize">10</property>
@@ -34,7 +33,7 @@
 
 		<property name="user">root</property>
 
-		<property name="password">123456</property>
+		<property name="password">root</property>
 
 		<!-- 初始化连接池中的连接数，取值应在minPoolSize与maxPoolSize之间，默认为3 -->
 

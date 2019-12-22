@@ -19,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class Seller {
 	
 	/**
-	 * 卖家id
+	 * 卖家id,注册商家的买家id
 	 */
-	private int seller_id;
+	private int seller_id,buyer_id;
 	
 	/**
 	 * 卖家唯一标识符uuid,卖家人脸认证token 值 , 卖家 身份证认证token值

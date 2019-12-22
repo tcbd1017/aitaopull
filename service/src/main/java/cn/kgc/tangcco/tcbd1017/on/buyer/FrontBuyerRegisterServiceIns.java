@@ -14,5 +14,5 @@ public interface FrontBuyerRegisterServiceIns {
 	 * @return
 	 * @throws SQLException 
 	 */
-	Map<String,Object> BuyerRegister(Map<String,Object> map) throws SQLException;
+	Map<String,Object> BuyerRegister(Map<String,Object> map);
 }

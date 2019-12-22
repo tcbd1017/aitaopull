@@ -24,4 +24,9 @@ public interface PersonnelMattersService {
 	 */
 	Map<String, Object>modifyEmpDept( Map<String, Object> map);
 	
+//	/**
+//	 * 员工升降职
+//	 */
+//	Map<String, Object>modifyEmpJurisdiction(Map<String, Object>map);
+	
 }

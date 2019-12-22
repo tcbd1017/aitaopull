@@ -10,11 +10,17 @@ import java.util.Map;
 */
 public interface FrontBuyerRegisterDaoIns {
 	/**
-	  * 买家用户- 账户密码,人脸注册
+	  * 买家用户- 账户密码,
 	  * @return 影响的数据行数
 	  * @throws SQLException 
 	  */
 	int insert_Account_Password_Byyer(Map<String, Object> map) throws SQLException; 
+	/**
+	 * @param map
+	 * @return人脸注册
+	 * @throws SQLException
+	 */
+	int insert_Mobile_buyer_login_face_token(Map<String, Object> map) throws SQLException;
 	/**
 	 * 买家用户-手机号注册
 	 * @return  影响的数据行数
