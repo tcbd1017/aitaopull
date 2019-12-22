@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>商家购买仓库</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="src/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="src/layuiadmin/style/admin.css" media="all">
+
+    <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="res/dist/echarts.min.js"></script>
+</head>
+
+<body class="layui-layout-body" style="overflow: auto;">
+
+    <div class="layadmin-tabsbody-item layui-show ">
+        <!-- <div style="padding: 15px; background-color: #dddddd; ">
+            <div class="layui-row layui-col-space15 ">
+                购买仓库
+            </div>
+        </div> -->
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>购买仓库</legend>
+        </fieldset>
+        <div style="padding: 40px; background-color: #eeeeee;">
+            <div class="layui-row layui-col-space15 ">
+                <div class="layui-col-md4 ">
+                    <div class="layui-card " style="width: 300px; height: 400px;">
+                        <div class="layui-card-header">10万容量</div>
+                        <div class="layui-card-body ">
+                            <br>
+                            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                            <img src="img/t014c810c3fe6d3181d.jpg" alt="" style="width: 270px; height: 200px; ">
+                            <br>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;价格：1
+                            <br>
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="layui-btn layui-btn-sm">小型按钮</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4 ">
+                    <div class="layui-card " style="width: 300px; height: 400px;">
+                        <div class="layui-card-header">100万容量</div>
+                        <div class="layui-card-body ">
+                            <br>
+                            <img src="img/t0120c6d56e42abb425.jpg" alt="" style="width: 270px; height: 200px; ">
+                            <br>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;价格：1
+                            <br>
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="layui-btn layui-btn-sm">小型按钮</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4 ">
+                    <div class="layui-card " style="width: 300px; height: 400px;">
+                        <div class="layui-card-header">1000万容量</div>
+                        <div class="layui-card-body ">
+                            <br>
+                            <img src="img/t013231649947ec2af5.jpg" alt="" style="width: 270px; height: 200px; ">
+                            <br>
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;价格：1
+                            <br>
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="layui-btn layui-btn-sm">小型按钮</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade " layadmin-event="shade "></div>
+
+    </div>
+
+    <script src="src/layuiadmin/layui/layui.js "></script>
+    <script>
+        layui.config({
+            base: 'src/layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use('index');
+    </script>
+</body>
+
+</html>

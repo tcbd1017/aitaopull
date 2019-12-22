@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>控制台</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <script src="/static/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+  
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md8">
+        <div class="layui-row layui-col-space15">
+          <div class="layui-col-md6">
+            <div class="layui-card">
+              <div class="layui-card-header">快捷方式</div>
+              <div class="layui-card-body">
+                
+                <div class="layui-carousel layadmin-carousel layadmin-shortcut">
+                  <div carousel-item>
+                    <ul class="layui-row layui-col-space10">
+                     
+                      <li class="layui-col-xs3">
+                        <a lay-href="home/homepage2.html">
+                          <i class="layui-icon layui-icon-chart"></i>
+                          <cite>主页一</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="/ordealTest.html">
+                          <i class="layui-icon layui-icon-survey"></i>
+                          <cite>题库</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="user/user/list.html">
+                          <i class="layui-icon layui-icon-user"></i>
+                          <cite>用户</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="user/user/phoneMessage.html">
+                          <i class="layui-icon layui-icon-cellphone"></i>
+                          <cite>通知</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                    </ul>
+                    <ul class="layui-row layui-col-space10">
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs3">
+                        <a lay-href="set/user/info.html">
+                          <i class="layui-icon layui-icon-set"></i>
+                          <cite>我的资料</cite>
+                        </a>
+                      </li>
+                    </ul>
+                    
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="layui-col-md6">
+            <div class="layui-card">
+              <div class="layui-card-header">待办事项</div>
+              <div class="layui-card-body">
+
+                <div class="layui-carousel layadmin-carousel layadmin-backlog">
+                  <div carousel-item>
+                    <ul class="layui-row layui-col-space10">
+                      <li class="layui-col-xs6">
+                        <a lay-href="app/forum/list.html" class="layadmin-backlog-body">
+                          <h3>账号待审</h3>
+                          <p><cite id="accountExamine">0</cite></p>
+                        </a>
+                      </li>
+                      <li class="layui-col-xs6">
+                        <a lay-href="app/forum/replys.html" class="layadmin-backlog-body">
+                          <h3>待定</h3>
+                          <p><cite>0</cite></p>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="layui-col-md12">
+            <div class="layui-card">
+              <div class="layui-card-header">数据概览</div>
+              <div class="layui-card-body">
+                
+                <div class="layui-carousel layadmin-carousel layadmin-dataview" data-anim="fade" lay-filter="LAY-index-dataview">
+                  <div carousel-item id="LAY-index-dataview">
+                    <div><i class="layui-icon layui-icon-loading1 layadmin-loading"></i></div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-col-md4">
+        <div class="layui-card">
+          <div class="layui-card-header">版本信息</div>
+          <div class="layui-card-body layui-text">
+            <table class="layui-table">
+              <colgroup>
+                <col width="100">
+                <col>
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td>当前版本</td>
+                  <td>
+                    <script type="text/html" template>
+                      1.0
+                    </script>
+                  </td>
+                </tr>
+                <tr>
+                  <td>基于框架</td>
+                  <td>
+                    <script type="text/html" template>
+                      layui
+                    </script>
+                 </td>
+                </tr>
+                <tr>
+                  <td>主要用途</td>
+                  <td>用于kgc班级内部的管理</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+        
+        <div class="layui-card">
+          <div class="layui-card-header">
+            每日记录
+            <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+          </div>
+          <div class="layui-card-body layui-text layadmin-text">
+            <p>10月1日更新人脸识别登录,账号密码,手机号密码登录记住我一分钟</p>
+            <p>10月2日更新短信注册，账号审批功能</p>
+            <p>10月4日修复手机号重复注册问题,更新注册账号异步验证功能,修改密码功能</p>
+            <p>10月5日更新认证人脸功能,完善人脸识别登录</p>
+            <p>10月25日修改数据库,更新基于角色的权限访问控制RBAC</p>
+            <p>10月26日更新支付班费功能</p>
+            <p>10月27日完善支付班费功能,查询支付记录</p>
+            <p>10月28日更新行为验证</p>
+            <p>10月31日更新用用户信息包含(地图定位,地址联想,头像存储七牛云服务器)</p>
+            <p>11月1日更新人脸签到,文字语音合成播报(人脸识别和语音合成的交互)</p>
+            <p>11月1日更新登录欢迎语</p>
+            <p>11月2日更新admin管理所有用户功能(增删改查)</p>
+            <p>11月3日更新老师对学生的操作(周测成绩录入,查看信息,各种查询条件)</p>
+            <p>11月4日更新通知功能,权限高的对权限低的发送通知(短信群发)</p>
+            <p>11月5日更新老师课堂随机提问</p>
+            <p>11月6日更新学生日测,及不同角色的百度echarts统计</p>
+            <p>11月7日更新不同角色的数据统计</p>
+            <p>11月8-9日测试,修改BUG</p>
+            <p></p>
+            <p>—— tcbd1016 四点半小组</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script src="../../layuiadmin/layui/layui.js?t=1"></script>  
+  <script>
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'console']);
+
+  $(()=>{
+    let $user=JSON.parse(sessionStorage.getItem('user'))
+    let $url=JSON.parse(sessionStorage.getItem('url'))
+    if($user==null){
+      loginOut()
+    }
+    
+    $.ajax({
+      url:$url+"/back/user.action?methodName=queryCount",
+      dataType:"json",
+      type:'post',
+      success:(rs)=>{
+        $('#accountExamine').text(rs.data)
+      },
+      error:()=>{
+        layer.msg('服务器走丢了', {
+            icon: 5
+          });
+      }
+    })
+
+  })
+  //如果没有登录对象直接退出
+  function loginOut(){
+    location.replace('/login.html')
+  }
+  </script>
+</body>
+</html>
+
