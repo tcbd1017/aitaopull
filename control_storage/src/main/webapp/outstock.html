@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>出库查询页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="src/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="src/layuiadmin/style/admin.css" media="all">
+
+    <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="res/dist/echarts.min.js"></script>
+</head>
+
+<body class="layui-layout-body" style="overflow: auto;">
+    <div class="layadmin-tabsbody-item layui-show ">
+
+        <div style="padding: 15px; background-color: #dddddd; ">
+            <div class="layui-row layui-col-space15 ">
+                出库记录统计
+            </div>
+        </div>
+
+        <div class="layui-row ">
+            <div class="layui-col-xs6 ">
+                <div id="lineChartStock" style="width:100%;height:300px; " class="grid-demo grid-demo-bg1 "></div>
+            </div>
+            <div class="layui-col-xs6 ">
+                <div id="pieChartStock" style="width:600px;height:300px; " class="grid-demo "></div>
+            </div>
+        </div>
+        <div style="padding: 15px; background-color: #dddddd; ">
+            <div class="layui-row layui-col-space15 ">
+                出库记录查询
+            </div>
+        </div>
+        <form class="layui-form" id="query_form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-mid">店铺：</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="createDate" autocomplete="off" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-mid">仓库:</label>
+                    <div class="layui-input-inline" style="width: 100px;">
+                        <input type="text" name="createDate" autocomplete="off" class="layui-input" />
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" type="button" function="query"><i class="layui-icon">&#xe615;</i>查询</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="layui-col-md12">
+            <table class="layui-hide" id="test"></table>
+        </div>
+        <div class="layui-col-md12">
+            <div class="layui-row grid-demo">
+                <div class="layui-col-md12">
+                    <button class="layui-btn" function="top" topUrl="views/datagrid/add.html" topWidth="800px" inputs="city:1" isMaximize="0" topHeight="600px" topTitle="新增demo">
+                            <i class="layui-icon">&#xe654;</i>新增
+                        </button>
+                    <button class="layui-btn layui-btn-danger" function="submit" method="get" url="/servlet/DEMO1003" isMutiDml="1" isConfirm="1" confirmMsg="是否确定删除选中的数据？" inputs="id:">
+                            <i class="layui-icon">&#xe640;</i>批量删除
+                        </button>
+                    <button class="layui-btn" function="refresh">
+                            <i class="layui-icon">&#x1002;</i>刷新
+                        </button>
+                    <button class="layui-btn" function="test">
+                            <i class="layui-icon">&#xe756;</i>测试
+                        </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="src/layuiadmin/layui/layui.js "></script>
+    <script>
+        layui.config({
+            base: 'src/layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use('index');
+    </script>
+
+    <!-- 百度统计 -->
+    <!-- <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+            var s = document.getElementsByTagName("script ")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script> -->
+</body>
+
+</html>
+<script type="text/javascript ">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('lineChartStock'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '每月出库记录',
+            x: 'center'
+        },
+        xAxis: {
+            name: '(月份)',
+            type: 'category',
+            data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320, 1320, 1456, 1230, 1500, 1800],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    // 基于准备好的dom，初始化echarts实例
+    var myCharts = echarts.init(document.getElementById('pieChartStock'));
+
+    // 指定图表的配置项和数据
+    var options = {
+        title: {
+            text: '出库记录按类别显示',
+            subtext: '虚构数据',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            // orient: 'vertical',
+            // top: 'middle',
+            bottom: 10,
+            left: 'center',
+            data: ['西凉', '益州', '兖州', '荆州', '幽州']
+        },
+        series: [{
+            type: 'pie',
+            radius: '65%',
+            center: ['50%', '50%'],
+            selectedMode: 'single',
+            data: [{
+                value: 1548,
+                name: '幽州',
+                label: {
+                    normal: {
+                        rich: {
+                            title: {
+                                color: '#eee',
+                                align: 'center'
+                            },
+                            abg: {
+                                backgroundColor: '#333',
+                                width: '100%',
+                                align: 'right',
+                                height: 25,
+                                borderRadius: [4, 4, 0, 0]
+                            },
+                            Sunny: {
+                                height: 30,
+                                align: 'left',
+                                backgroundColor: {}
+                            },
+                            Cloudy: {
+                                height: 30,
+                                align: 'left',
+                                backgroundColor: {}
+                            },
+                            Showers: {
+                                height: 30,
+                                align: 'left',
+                                backgroundColor: {}
+                            },
+                            weatherHead: {
+                                color: '#333',
+                                height: 24,
+                                align: 'left'
+                            },
+                            hr: {
+                                borderColor: '#777',
+                                width: '100%',
+                                borderWidth: 0.5,
+                                height: 0
+                            },
+                            value: {
+                                width: 20,
+                                padding: [0, 20, 0, 30],
+                                align: 'left'
+                            },
+                            valueHead: {
+                                color: '#333',
+                                width: 20,
+                                padding: [0, 20, 0, 30],
+                                align: 'center'
+                            },
+                            rate: {
+                                width: 40,
+                                align: 'right',
+                                padding: [0, 10, 0, 0]
+                            },
+                            rateHead: {
+                                color: '#333',
+                                width: 40,
+                                align: 'center',
+                                padding: [0, 10, 0, 0]
+                            }
+                        }
+                    }
+                }
+            }, {
+                value: 535,
+                name: '荆州'
+            }, {
+                value: 510,
+                name: '兖州'
+            }, {
+                value: 634,
+                name: '益州'
+            }, {
+                value: 735,
+                name: '西凉'
+            }],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myCharts.setOption(options);
+
+    layui.use('table', function() {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test',
+            url: '/demo/table/user/',
+            cols: [
+                [{
+                    field: 'id',
+                    width: '10%',
+                    title: 'ID',
+                    sort: true,
+                    align: 'center'
+                }, {
+                    field: 'warehouse_typesize',
+                    width: '18%',
+                    title: '仓库类型',
+                    align: 'center'
+                }, {
+                    field: 'warehouse_price',
+                    width: '18%',
+                    title: '仓库价格',
+                    sort: true,
+                    align: 'center'
+                }, {
+                    field: 'shop_name',
+                    width: '18%',
+                    title: '购买店铺名称',
+                    align: 'center'
+                }, {
+                    field: 'warehouse_shop_buytime',
+                    title: '购买日期',
+                    width: '18%',
+                    // minWidth: 150, //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    align: 'center'
+                }, {
+                    field: 'warehouse_shop_buyyear',
+                    // width: '18%',
+                    title: '购买时长',
+                    sort: true,
+                    align: 'center'
+                }]
+            ],
+            page: true
+        });
+    });
+</script>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>layuiAdmin 网站用户</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <script src="../../../../static/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+              <input type="text" name="nickname" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+              <input type="text" name="account" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-block">
+              <input type="text" name="phone" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+              <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+              <select name="sex">
+                <option value="">不限</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <!-- <button class="layui-btn layuiadmin-btn-useradmin" data-type="batchdel">删除</button>--> 
+          <!-- <button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button> -->
+        </div>
+
+        <table id="LAY-user-manage" lay-filter="LAY-user-manage"></table>
+        <script type="text/html" id="imgTpl">
+          <img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.headUrl }}>
+        </script>
+        <script type="text/html" id="table-useradmin-webuser">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+    layui.use(['form', 'table'], function () {
+      var $ = layui.$
+        , form = layui.form
+        , table = layui.table;
+
+      let user = sessionStorage.getItem("user")
+      let $user = JSON.parse(user);
+      let $url = JSON.parse(sessionStorage.getItem('url'))
+
+
+      //用户管理
+      table.render({
+        elem: '#LAY-user-manage'
+        , url: $url + '/back/user.action?methodName=showAllUser' //模拟接口
+        , cols: [[
+          // { type: 'checkbox', fixed: 'left' }
+           { type: 'numbers', width: 80, title: '序号', sort: true }
+          , { field: 'nickname', title: '姓名', minWidth: 100 }
+          , { field: 'account', title: '账号', minWidth: 100 }
+          , { field: 'headUrl', title: '头像', width: 100, templet: '#imgTpl' }
+          , { field: 'phone', title: '手机' }
+          , { field: 'email', title: '邮箱' }
+          , {
+            field: 'sex', width: 80, title: '性别', templet: function (data) {
+              return data.sex == 1 ? "男" : "女"
+            }
+          }
+          , { field: 'address', title: '地址' }
+          , { title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser' }
+        ]]
+        , page: true
+        , limit: 30
+        , height: 'full-220'
+        , text: { none: '无数据' }
+      });
+
+      //监听工具条
+      table.on('tool(LAY-user-manage)', function (obj) {
+        var data = obj.data;
+        if (obj.event === 'del') {
+          layer.prompt({
+            formType: 1
+            , title: '敏感操作，请验证口令'
+          }, function (value, index) {
+
+            layer.close(index);
+
+
+            $.ajax({
+              url: $url + '/back/user.action?methodName=command',
+              type: 'post',
+              dataType: 'json',
+              data: { 'uuid': $user.uuid },
+              async: false,
+              success: function (rs) {
+                if (value == rs.data.command) {//口令
+                  layer.confirm('真的删除行么', function (index) {
+                    console.log("我是要被删除的主键" + data.uuid)//被删除的主键
+                    $.ajax({
+                      url: $url + '/back/user.action?methodName=deleteUser',
+                      type: 'post',
+                      dataType: 'json',
+                      data: { 'uuid': data.uuid },
+                      async: false,
+                      success: function (rs) {
+                        switch (rs.status) {
+                          case "success":
+                            layer.msg('已删除');
+                            break;
+                          case "failed":
+                            layer.msg('删除失败');
+                            break;
+
+                          default:
+                            break;
+                        }
+                      },
+                      error: function () {
+                        layer.msg('服务器走丢了', {
+                          icon: 2
+                          , time: 1000,
+                        });
+                      }
+                    })
+
+                    layer.close(index);
+                    table.reload('LAY-user-manage');
+                  });
+
+                } else {
+                  layer.msg('口令错误');
+                }
+              },
+              error: function () {
+                layer.msg('服务器走丢了', {
+                  icon: 2
+                  , time: 1000,
+                });
+              }
+            })
+
+
+
+          });
+        } else if (obj.event === 'edit') {
+          console.log("我是要被修改的主键" + data.uuid)//操作行的主键
+          let uuid = data.uuid
+          layer.open({
+            type: 2
+            , title: '编辑'
+            , content: 'userform.html'
+            , maxmin: true
+            , area: ['500px', '450px']
+            , btn: ['确定', '取消']
+            , yes: function (index, layero) {
+              var iframeWindow = window['layui-layer-iframe' + index]
+                , submitID = 'LAY-user-front-submit'
+                , submit = layero.find('iframe').contents().find('#' + submitID);
+
+              //监听提交
+              iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+
+                var field = data.field; //获取提交的字段
+                field.uuid = uuid
+                console.log("我是被修改的内容" + JSON.stringify(field))//修改的内容
+
+                $.ajax({
+                  url: $url + '/back/user.action?methodName=updateUser',
+                  type: 'post',
+                  dataType: 'json',
+                  data: field,
+                  async: false,
+                  success: function (rs) {
+                    switch (rs.status) {
+                      case "success":
+                        layer.msg('修改成功', {
+                          icon: 1
+                        });
+                        break;
+                      case "failed":
+                        layer.msg('修改失败', {
+                          icon: 2
+                        });
+                        break;
+
+                      default:
+                        break;
+                    }
+                  },
+                  error: function () {
+                    layer.msg('服务器走丢了', {
+                      icon: 2
+                      , time: 1000,
+                    });
+                  }
+                })
+                //提交 Ajax 成功后，静态更新表格中的数据
+                //$.ajax({});
+                table.reload('LAY-user-manage'); //数据刷新
+                layer.close(index); //关闭弹层
+              });
+
+              submit.trigger('click');
+            }
+            , success: function (layero, index) {
+              var body = layui.layer.getChildFrame('body', index);
+
+              //点击编辑后 ajax查询当前得用户信息, 把值从父页面传入Iframe页面
+              $.ajax({
+                url: $url + '/back/user.action?methodName=showUserByUUID',
+                type: 'post',
+                dataType: 'json',
+                data: { 'uuid': uuid },
+                async: false,//这里必须用同步  不然iframe层的男女显示不出来
+                success: ((rs) => {
+                  body.find("#nickname").val(rs.data.nickname);
+                  body.find("#account").val(rs.data.account);
+                  body.find("#phone").val(rs.data.phone);
+                  body.find("#email").val(rs.data.email);
+                  body.find("#avatar").val(rs.data.headUrl);
+                  body.find("input[name=sex][value=1]").attr("checked", rs.data.sex == 1 ? true : false);
+                  body.find("input[name=sex][value=2]").attr("checked", rs.data.sex == 2 ? true : false);
+                })
+              })
+            }
+          });
+
+        }
+      });
+
+
+
+      //监听搜索
+      form.on('submit(LAY-user-front-search)', function (data) {
+
+        var field = data.field;
+        console.log("我是搜索内容" + JSON.stringify(field))//搜索的值
+
+        //执行重载
+        table.reload('LAY-user-manage', {
+          where: field,
+        });
+      });
+
+      //事件
+      var active = {
+        batchdel: function () {
+          var checkStatus = table.checkStatus('LAY-user-manage')
+            , checkData = checkStatus.data; //得到选中的数据
+
+          if (checkData.length === 0) {
+            return layer.msg('请选择数据');
+          }
+          layer.prompt({
+            formType: 1
+            , title: '敏感操作，请验证口令'
+          }, function (value, index) {
+
+
+
+
+
+            layer.close(index);
+
+
+            $.ajax({
+              url: $url + '/back/user.action?methodName=command',
+              type: 'post',
+              dataType: 'json',
+              data: { 'uuid': $user.uuid },
+              async: false,
+              success: function (rs) {
+
+                if (value == rs.data.command) {//口令
+                  layer.confirm('确定删除吗？', function (index) {
+                    let arr = new Array();
+                    for (let index = 0; index < checkData.length; index++) {
+                      arr[index] = checkData[index].uuid
+                    }
+                    
+                    console.log("批量删除的主键数组" + arr)//主键数组 
+                    //执行 Ajax 把要删除的主键数组传输后台    批量删除
+                    /*
+                    admin.req({
+                      url: 'xxx'
+                      //,……
+                    });
+                    */
+                    //重载
+                    layer.close(index);
+                    table.reload('LAY-user-manage');
+                    // layer.msg('已删除');
+                    //关闭弹出层
+                    
+                  });
+                } else {
+                  layer.msg('口令错误');
+                }
+
+
+              },
+              error: function () {
+                layer.msg('服务器走丢了', {
+                  icon: 2
+                  , time: 1000,
+                });
+              }
+            })
+
+
+
+
+
+
+
+
+          });
+        }
+        , add: function () {
+          layer.open({
+            type: 2
+            , title: '添加'
+            , content: 'userform.html'
+            , maxmin: true
+            , area: ['500px', '450px']
+            , btn: ['确定', '取消']
+            , yes: function (index, layero) {
+              var iframeWindow = window['layui-layer-iframe' + index]
+                , submitID = 'LAY-user-front-submit'//iframe.html的submit的id
+                , submit = layero.find('iframe').contents().find('#' + submitID);
+
+              //监听提交
+              iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                var field = data.field; //获取提交的字段
+                console.log("我是添加的内容" + JSON.stringify(field))
+                //提交 Ajax 成功后，静态更新表格中的数据
+                //$.ajax({});
+                table.reload('LAY-user-front-submit'); //数据刷新
+                layer.close(index); //关闭弹层
+              });
+
+              submit.trigger('click');
+            }
+
+            , success: function (layero, index) {
+
+            }
+
+          });
+        }
+      };
+
+      $('.layui-btn.layuiadmin-btn-useradmin').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+      });
+    });
+  </script>
+</body>
+
+</html>
