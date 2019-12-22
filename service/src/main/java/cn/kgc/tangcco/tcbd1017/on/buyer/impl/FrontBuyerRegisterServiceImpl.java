@@ -24,6 +24,7 @@ public class FrontBuyerRegisterServiceImpl implements FrontBuyerRegisterServiceI
 			e.printStackTrace();
 		}
 	}
+
 	@Override
 	public Map<String, Object> BuyerRegister(Map<String, Object> maps) {
 		Map<String, Object> map = new HashMap<>();
@@ -37,31 +38,51 @@ public class FrontBuyerRegisterServiceImpl implements FrontBuyerRegisterServiceI
 				// 手机号注册
 				if (maps.get("buyer_mobile") != null) {
 					if (bean.select_buyer_mobile(maps) == false) {
+						// 用户表
 						number = bean.insert_Mobile_Byyer(maps);
-						// 账户密码注册
-						if ( maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
-							if (bean.select_buyer_login_account(maps) == false) {
-								number = bean.insert_Account_Password_Byyer(maps);
-								if (number > 0) {
-									map.put("status", "success");
-								}
-							} else {
-								map.put("msg", "该账号已被注册");
-								return map;
-							}
+						// 用户登录表
+						int a1 = bean.insert_Mobile_Boyer_Login(maps);
+						int buyer_id = bean.select_Buyer_Id(maps);
+						maps.put("buyer_id", buyer_id);
+						// 用户信息表
+						int a2 = bean.insert_Boyer_Info(maps);
+						if (number > 0 && a1 > 0 && a2 > 0) {
+							map.put("status", "success");
 						}
 					} else {
 						map.put("msg", "该手机号已被注册");
-						return map;
+					}
+				}
+				// 账户密码注册
+				if (maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
+					if (bean.select_buyer_login_account(maps) == false) {
+						// 用户登录表
+						number = bean.insert_Account_Password_Byyer(maps);
+						// 用户表
+						int a1 = bean.insert_Account_Password(maps);
+						int buyer_id = bean.select_Buyer_Id(maps);
+						maps.put("buyer_id", buyer_id);
+						// 用户信息表
+						int a2 = bean.insert_Boyer_Info(maps);
+						if (number > 0 && a1 > 0 && a2 > 0) {
+							map.put("status", "success");
+						}
+					} else {
+						map.put("msg", "该账号已被注册");
 					}
 				}
 				// 人脸注册
 				if (maps.get("buyer_login_face_token") != null) {
-					number = bean.insert_Mobile_buyer_login_face_token(maps);
-					if (number > 0) {
+					// 用户登录表
+					number = bean.insert_Face(maps);
+					// 用户表
+					int a1 = bean.insert_Account_Password(maps);
+					int buyer_id = bean.select_Buyer_Id(maps);
+					maps.put("buyer_id", buyer_id);
+					// 用户信息表
+					int a2 = bean.insert_Boyer_Info(maps);
+					if (number > 0 && a1 > 0 && a2 > 0) {
 						map.put("status", "success");
-					}else {
-						return map;
 					}
 				}
 			}

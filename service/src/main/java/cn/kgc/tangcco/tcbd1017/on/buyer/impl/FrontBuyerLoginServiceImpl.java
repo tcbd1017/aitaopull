@@ -37,6 +37,8 @@ public class FrontBuyerLoginServiceImpl implements FrontBuyerLoginServiceIns {
 			if (maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
 
 				map = bean.select_Buyer_Login_Account_Token(maps);
+				System.out.println(map.toString());
+				
 
 			}
 			// 人脸登录
@@ -47,6 +49,7 @@ public class FrontBuyerLoginServiceImpl implements FrontBuyerLoginServiceIns {
 			// 手机登录
 			if (maps.get("buyer_mobile") != null) {
 				map = bean.select_Buyer_Login_buyer_mobile(maps);
+				System.out.println(map.toString());
 			}
 			if (map.get("buyer_uuid") != null) {
 				hashmap.put("status", "success");

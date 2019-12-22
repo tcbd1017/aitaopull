@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
@@ -29,6 +30,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		StringBuilder sql = new StringBuilder(" SELECT `0101_buyer`.`buyer_id`,`0101_buyer`.`buyer_uuid`,`0102_buyer_login`.`buyer_login_account`,`010101_buyer_info`.buyer_info_icon_url FROM `0101_buyer` ");
 		sql.append(" INNER JOIN `0102_buyer_login` INNER JOIN  `010101_buyer_info` ON 1=1 AND `buyer_status`='2' AND `buyer_login_status`='2' AND `010101_buyer_info`.buyer_info_status='2' ");
 		sql.append(" AND `0101_buyer`.`buyer_uuid`=`0102_buyer_login`.`buyer_uuid` ");
+		sql.append(" and 0101_buyer.buyer_id = 010101_buyer_info.buyer_id ");
 		// 账户密码登录
 		if (maps.get("buyer_login_account") != null && maps.get("buyer_login_password") != null) {
 			sql.append(" AND `buyer_login_account`=? AND `buyer_login_password`=? ");
@@ -36,7 +38,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 			list.add(maps.get("buyer_login_password"));
 			preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		}
-		//人脸登录
+		//人脸注册
 		if(maps.get("buyer_login_face_token")!=null) {
 			sql.append(" AND `buyer_login_face_token`=? ");
 			list.add(maps.get("buyer_login_face_token"));
@@ -52,6 +54,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 				map.put("buyer_info_icon_url",executeQuery.getString("buyer_info_icon_url"));
 			}
 		}
+		
 		return map;
 	}
 	//手机号登录
@@ -64,6 +67,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		StringBuilder sql = new StringBuilder(" SELECT `0101_buyer`.`buyer_id`,`0101_buyer`.`buyer_uuid`,`0102_buyer_login`.`buyer_login_account`,`010101_buyer_info`.buyer_info_icon_url FROM `0101_buyer` ");
 		sql.append(" INNER JOIN `0102_buyer_login` INNER JOIN  `010101_buyer_info` ON 1=1 AND `buyer_status`='2' AND `buyer_login_status` ='2' ");
 		sql.append(" AND `0101_buyer`.`buyer_uuid`=`0102_buyer_login`.`buyer_uuid` ");
+		sql.append(" and 0101_buyer.buyer_id = 010101_buyer_info.buyer_id ");
 		sql.append(" AND `0101_buyer`.`buyer_mobile`=? ");
 		Object[] param= {maps.get("buyer_mobile")};
 		preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
