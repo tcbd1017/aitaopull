@@ -388,6 +388,144 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 7》
+	 * 大家如果有需要就调用就好了
+	 * 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @param buyer_id 买家id
+	 * @param name 商品名
+	 * @return 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @throws SQLException
+	 */
+	@Override
+	public Map<String, Object> queryDimBuyerShoppingCart(String buyer_id, String name) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectDimBuyerShoppingCart(buyer_id, name);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 8》
+	 * 根据买家id和购物车id删除对应的购物车商品
+	 * @param buyer_id 买家id
+	 * @param shopping_scart_id  购物车id
+	 * @return
+	 */
+	@Override
+	public Map<String, Object> removeShoppingCartByBuyerIdAndShoppingCartId(String buyer_id, String shopping_scart_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Integer>());
+		map.put("status", "failed");
+		try {
+			int count = recordDao.deleteShoppingCartByBuyerIdAndShoppingCartId(buyer_id, shopping_scart_id);
+			if (count !=0) {
+				map.put("status", "success");
+				map.put("data",count);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 9》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回该商品所对应的详细信息
+	 */
+	@Override
+	public Map<String, Object> queryProductDetailsByGoodsId(String goods_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectProductDetailsByGoodsId(goods_id);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 10》
+	 * @param goods_name 商品名称
+	 * @return 根据商品名称（支持模糊查询），查询所对应的商品信息(只要第一条)
+	 */
+	@Override
+	public Map<String, Object> queryDimDetailsByGoodsName(String goods_name) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectDimDetailsByGoodsName(goods_name);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
 
 	
 

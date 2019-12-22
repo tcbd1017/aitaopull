@@ -263,4 +263,89 @@ public class RecordAction extends BaseServlet{
 	}
 	
 	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 7》
+	 * 大家如果有需要就调用就好了      例：传过来的json字符串     {"name":"三","buyer_id":"1"}
+	 * 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @param buyer_id 买家id
+	 * @param name 商品名
+	 * @return 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @throws SQLException
+	 */
+	public void queryDimBuyerShoppingCart(HttpServletRequest request,HttpServletResponse response, String buyer_idAndName) {
+		Map map=null;
+		if (!StringUtils.isEmpty(buyer_idAndName)) {
+			 map = JSON.parseObject(buyer_idAndName,Map.class); 
+			 System.out.println("进入方法");
+			 System.out.println(buyer_idAndName);
+		}
+		
+		System.out.println(map.containsKey("buyer_id"));
+		 map = recordService.queryDimBuyerShoppingCart(map.get("buyer_id").toString(),map.get("name").toString());
+		printJson(response, map);
+		
+	}
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 8》
+	 * 根据买家id和购物车id删除对应的购物车商品       例：传过来的json字符串     {"shopping_scart_id":"2","buyer_id":"1"}
+	 * @param buyer_id 买家id
+	 * @param shopping_scart_id  购物车id
+	 * @return
+	 */
+	public void removeShoppingCartByBuyerIdAndShoppingCartId(HttpServletRequest request,HttpServletResponse response,String shoppingScartIdAndBuyerId) {
+		Map map=null;
+		if (!StringUtils.isEmpty(shoppingScartIdAndBuyerId)) {
+			
+			 map = JSON.parseObject(shoppingScartIdAndBuyerId,Map.class); 
+			 System.out.println("进入方法");
+			 System.out.println(shoppingScartIdAndBuyerId);
+		}
+		
+		System.out.println(map.containsKey("buyer_id"));
+		 map = recordService.removeShoppingCartByBuyerIdAndShoppingCartId(map.get("buyer_id").toString(), map.get("shopping_scart_id").toString());
+		printJson(response, map);
+	}
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 9》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回该商品所对应的详细信息,  例：传过来的json字符串  {"goods_id":"1"}
+	 */
+	public void queryProductDetailsByGoodsId(HttpServletRequest request,HttpServletResponse response, String goods_id) {
+		Map map=null;
+		if (!StringUtils.isEmpty(goods_id)) {
+			 map = JSON.parseObject(goods_id,Map.class); 
+			 System.out.println("进入方法");
+			 System.out.println(goods_id);
+		}
+		
+		System.out.println(map.containsKey("goods_id"));
+		 map = recordService.queryProductDetailsByGoodsId(map.get("goods_id").toString());
+		printJson(response, map);
+		
+		
+	}
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 10》
+	 * @param goods_name 商品名称     例：传过来的json字符串    {"goods_name":"夏"}
+	 * @return 根据商品名称（支持模糊查询），查询所对应的商品信息(只要第一条)
+	 */
+	public void queryDimDetailsByGoodsName(HttpServletRequest request,HttpServletResponse response, String goods_name) {
+		Map map=null;
+		if (!StringUtils.isEmpty(goods_name)) {
+			 map = JSON.parseObject(goods_name,Map.class); 
+			 System.out.println("进入方法");
+			 System.out.println(goods_name);
+		}
+		
+		System.out.println(map.containsKey("goods_name"));
+		 map = recordService.queryDimDetailsByGoodsName(map.get("goods_name").toString());
+		printJson(response, map);
+		
+	}
+	
 }

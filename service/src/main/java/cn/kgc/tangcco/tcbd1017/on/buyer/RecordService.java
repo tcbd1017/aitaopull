@@ -100,5 +100,43 @@ public interface RecordService {
 	 */
 	public Map<String,Object> queryCountShoppingCart(String buyer_id);
 	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 7》
+	 * 大家如果有需要就调用就好了
+	 * 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @param buyer_id 买家id
+	 * @param name 商品名
+	 * @return 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @throws SQLException
+	 */
+	public Map<String,Object> queryDimBuyerShoppingCart(String buyer_id,String name);
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 8》
+	 * 根据买家id和购物车id删除对应的购物车商品
+	 * @param buyer_id 买家id
+	 * @param shopping_scart_id  购物车id
+	 * @return
+	 */
+	public Map<String,Object> removeShoppingCartByBuyerIdAndShoppingCartId(String buyer_id, String shopping_scart_id);
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 9》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回该商品所对应的详细信息
+	 */
+	public Map<String,Object> queryProductDetailsByGoodsId(String goods_id);
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 10》
+	 * @param goods_name 商品名称
+	 * @return 根据商品名称（支持模糊查询），查询所对应的商品信息(只要第一条)
+	 */
+	public Map<String,Object> queryDimDetailsByGoodsName(String goods_name);
+	
+	
 	
 }

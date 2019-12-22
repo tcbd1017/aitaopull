@@ -113,4 +113,54 @@ public interface RecordDao {
 	 */
 	public  List<Map> selectCountShoppingCart(String buyer_id) throws SQLException;
 	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 7》
+	 * 大家如果有需要就调用就好了
+	 * 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @param buyer_id 买家id
+	 * @param name 商品名
+	 * @return 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @throws SQLException
+	 */
+	public  List<Map> selectDimBuyerShoppingCart(String buyer_id,String name) throws SQLException;
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 8》
+	 * 根据买家id和购物车id删除对应的购物车商品
+	 * @param buyer_id 买家id
+	 * @param shopping_scart_id  购物车id
+	 * @return
+	 * @throws SQLException
+	 */
+	public  int deleteShoppingCartByBuyerIdAndShoppingCartId(String buyer_id,String shopping_scart_id) throws SQLException;
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 9》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回该商品所对应的详细信息
+	 * @throws SQLException
+	 */
+	public List<Map> selectProductDetailsByGoodsId(String goods_id) throws SQLException;
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 10》
+	 * @param goods_name 商品名称
+	 * @return 根据商品名称（支持模糊查询），查询所对应的商品信息(只要第一条)
+	 * @throws SQLException
+	 */
+	public List<Map> selectDimDetailsByGoodsName(String goods_name) throws SQLException;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
