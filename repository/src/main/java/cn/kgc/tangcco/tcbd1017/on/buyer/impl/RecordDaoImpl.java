@@ -326,7 +326,8 @@ public class RecordDaoImpl implements RecordDao {
 		List<Map> list=new ArrayList<Map>();
 		try {
 			Connection conn=BaseDBUtils.getConnection();
-			String sql="SELECT COUNT(1) buyerHistory FROM  0103_record r INNER JOIN  0101_buyer b ON r.buyer_id=b.buyer_id WHERE b.buyer_id=? AND buyer_status=2 AND record_status=2"; 
+			String sql="SELECT  COUNT(1) buyerHistory FROM 0203_goods g INNER JOIN 0103_record r ON g.goods_id=r.goods_id INNER JOIN  0101_buyer b ON r.buyer_id=b.buyer_id INNER JOIN 020301_goods_picture_url p ON g.goods_id=p.goods_id WHERE b.buyer_id=? AND buyer_status=2 AND record_status=2 AND goods_status>2  AND goods_picture_url_status=2 ";
+				
 					
 				
 				
@@ -370,7 +371,7 @@ public class RecordDaoImpl implements RecordDao {
 		List<Map> list=new ArrayList<Map>();
 		try {
 			Connection conn=BaseDBUtils.getConnection();
-			String sql="SELECT goods_picture_url,goods_name,goods_price,goods_presentation,shopping_cart_id FROM 020301_goods_picture_url AS gpu INNER JOIN 0108_shopping_cart AS sc  ON gpu.goods_id=sc.goods_id INNER JOIN 0203_goods AS g  ON g.goods_id = sc.goods_id WHERE sc.buyer_id =? AND shopping_cart_status=2 AND goods_picture_url_status=2 AND goods_status>2 ORDER BY shopping_cart_update_time DESC LIMIT 0,2" ; 
+			String sql="SELECT g.goods_id,goods_picture_url,goods_name,goods_price,goods_presentation,shopping_cart_id FROM 020301_goods_picture_url AS gpu INNER JOIN 0108_shopping_cart AS sc  ON gpu.goods_id=sc.goods_id INNER JOIN 0203_goods AS g  ON g.goods_id = sc.goods_id WHERE sc.buyer_id =? AND shopping_cart_status=2 AND goods_picture_url_status=2 AND goods_status>2 ORDER BY shopping_cart_update_time DESC LIMIT 0,2" ; 
 					
 				
 				
@@ -378,12 +379,14 @@ public class RecordDaoImpl implements RecordDao {
 			ResultSet rs=BaseDBUtils.executeQuery(pstmt,buyer_id);
 			while(rs.next()) {
 				Map map=new HashMap();
+				String goods_id=rs.getString("goods_id");
 				String shopping_cart_id=rs.getString("shopping_cart_id");
 				String goods_picture_url=rs.getString("goods_picture_url");
 				String goods_name=rs.getString("goods_name");
 				String goods_price=rs.getString("goods_price");
 				String goods_presentation=rs.getString("goods_presentation");
 				
+				map.put("goods_id", goods_id);
 				map.put("shopping_cart_id",shopping_cart_id);
 				map.put("goods_picture_url",goods_picture_url);
 				map.put("goods_name",goods_name);
@@ -415,7 +418,8 @@ public class RecordDaoImpl implements RecordDao {
 		List<Map> list=new ArrayList<Map>();
 		try {
 			Connection conn=BaseDBUtils.getConnection();
-			String sql="SELECT shopping_cart_id,amount_of_goods,goods_picture_url,goods_name,goods_presentation,goods_width,goods_height,goods_length,goods_weight,goods_price,goods_brand FROM 020301_goods_picture_url AS gpu INNER JOIN 0108_shopping_cart AS sc  ON gpu.goods_id=sc.goods_id INNER JOIN 0203_goods AS g  ON g.goods_id = sc.goods_id WHERE sc.buyer_id = ? AND shopping_cart_status=2 AND goods_picture_url_status=2 AND goods_status>2  ORDER BY shopping_cart_update_time DESC LIMIT ?,5 "; 
+			String sql="SELECT g.goods_id,shopping_cart_id,amount_of_goods,goods_picture_url,goods_name,goods_presentation,goods_width,goods_height,goods_length,goods_weight,goods_price,goods_brand FROM 020301_goods_picture_url AS gpu INNER JOIN 0108_shopping_cart AS sc  ON gpu.goods_id=sc.goods_id INNER JOIN 0203_goods AS g  ON g.goods_id = sc.goods_id WHERE sc.buyer_id = ? AND shopping_cart_status=2 AND goods_picture_url_status=2 AND goods_status>2  ORDER BY shopping_cart_update_time DESC LIMIT ?,5 "; 
+					
 					
 				int dqym=0;
 				int page=Integer.parseInt(pages);
@@ -424,6 +428,7 @@ public class RecordDaoImpl implements RecordDao {
 			ResultSet rs=BaseDBUtils.executeQuery(pstmt,buyer_id,dqym);
 			while(rs.next()) {
 				Map map=new HashMap();
+				String goods_id=rs.getString("goods_id");
 				String shopping_cart_id=rs.getString("shopping_cart_id");
 				String amount_of_goods=rs.getString("amount_of_goods");
 				String goods_picture_url=rs.getString("goods_picture_url");
@@ -436,6 +441,7 @@ public class RecordDaoImpl implements RecordDao {
 				String goods_price=rs.getString("goods_price");
 				String goods_brand=rs.getString("goods_brand");
 				
+				map.put("goods_id", goods_id);
 				map.put("shopping_cart_id",shopping_cart_id);
 				map.put("amount_of_goods",amount_of_goods);
 				map.put("goods_picture_url",goods_picture_url);
@@ -646,13 +652,13 @@ public class RecordDaoImpl implements RecordDao {
 		List<Map> list=new ArrayList<Map>();
 		try {
 			Connection conn=BaseDBUtils.getConnection();
-			String sql="SELECT goods_name,goods_price,goods_brand,goods_type,goods_width,goods_height,goods_length,goods_presentation,goods_weight,goods_picture_url,store_about,store_img,store_name,goods_uuid FROM 0203_goods g INNER JOIN 020301_goods_picture_url gpu ON g.goods_id=gpu.goods_id INNER JOIN 0207_store s ON s.store_id=g.seller_id WHERE goods_name LIKE ? AND goods_status>2 AND goods_picture_url_status=2 AND store_status=2 LIMIT 0,1"; 
-				
-				
+			String sql="SELECT g.goods_id,goods_name,goods_price,goods_brand,goods_type,goods_width,goods_height,goods_length,goods_presentation,goods_weight,goods_picture_url,store_about,store_img,store_name,goods_uuid FROM 0203_goods g INNER JOIN 020301_goods_picture_url gpu ON g.goods_id=gpu.goods_id INNER JOIN 0207_store s ON s.store_id=g.seller_id WHERE goods_name LIKE ? AND goods_status>2 AND goods_picture_url_status=2 AND store_status=2 LIMIT 0,1"; 
+					
 			PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 			ResultSet rs=BaseDBUtils.executeQuery(pstmt,"%"+goods_Name+"%");
 			while(rs.next()) {
 				Map map=new HashMap();
+				String goods_id=rs.getString("goods_id");
 				String goods_name=rs.getString("goods_name");
 				String goods_price=rs.getString("goods_price");
 				String goods_brand=rs.getString("goods_brand");
@@ -668,6 +674,7 @@ public class RecordDaoImpl implements RecordDao {
 				String store_name=rs.getString("store_name");
 				String goods_uuid=rs.getString("goods_uuid");
 				
+				map.put("goods_id",goods_id);
 				map.put("goods_name",goods_name);
 				map.put("goods_price",goods_price);
 				map.put("goods_brand",goods_brand);
@@ -692,6 +699,81 @@ public class RecordDaoImpl implements RecordDao {
 		return list;
 	}
 
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 11》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回同一店铺相关商品的前两条数据
+	 * @throws SQLException
+	 */
+	@Override
+	public List<Map> selectRelatedProductsByGoodsId(String goods_Id) throws SQLException {
+		List<Map> list=new ArrayList<Map>();
+		try {
+			Connection conn=BaseDBUtils.getConnection();
+			String sql="SELECT g.goods_id,goods_name,goods_price,goods_picture_url FROM 0203_goods g INNER JOIN 020301_goods_picture_url gpu ON g.goods_id =gpu.goods_id WHERE seller_id=( SELECT seller_id FROM 0203_goods WHERE goods_id=? ) AND g.goods_id != ? AND goods_status>2 AND goods_picture_url_status=2  LIMIT 0,2"; 
+				
+				
+			PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
+			ResultSet rs=BaseDBUtils.executeQuery(pstmt,goods_Id,goods_Id);
+			while(rs.next()) {
+				Map map=new HashMap();
+				String goods_id=rs.getString("goods_id");
+				String goods_name=rs.getString("goods_name");
+				String goods_price=rs.getString("goods_price");
+				String goods_picture_url=rs.getString("goods_picture_url");
+				
+				map.put("goods_id",goods_id);
+				map.put("goods_name",goods_name);
+				map.put("goods_price",goods_price);
+				map.put("goods_picture_url",goods_picture_url);
+				
+				list.add(map);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 12》
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * @param amount_of_goods 添加商品数量
+	 * @param shopping_cart_create_time 购物车创建时间
+	 * @return 根据买家id、商品id、商品数量、购物车创建时间增加购物车信息
+	 * @throws SQLException
+	 */
+	@Override
+	public int insertAddShoppingCart(String buyer_id, String goods_id, String amount_of_goods,
+			String shopping_cart_create_time) throws SQLException {
+		int count=0;
+		try {
+			Connection conn=BaseDBUtils.getConnection();
+		
+			
+			String sql=" INSERT INTO 0108_shopping_cart VALUES(NULL,?,?,?,?,?,2)";
+			PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
+			count=BaseDBUtils.executeUpdate(pstmt,buyer_id,goods_id,amount_of_goods,shopping_cart_create_time,shopping_cart_create_time);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -702,22 +784,24 @@ public class RecordDaoImpl implements RecordDao {
 	//测试
 //	public static void main(String[] args) {
 //		try {
-//			List<Map> list=new RecordDaoImpl().selectDimDetailsByGoodsName("夏");
-//			for (int i = 0; i < list.size(); i++) {
-//				Map map=list.get(i);
-//				System.out.println(map);
-//			}
+////			List<Map> list=new RecordDaoImpl().selectRelatedProductsByGoodsId("1");
+////			for (int i = 0; i < list.size(); i++) {
+////				Map map=list.get(i);
+////				System.out.println(map);
+////			}
 ////			if(i>0) {
 ////				System.out.println("添加数据成功！！");
 ////			}
 //			
-////			int i=new RecordDaoImpl().deleteShoppingCartByBuyerIdAndShoppingCartId("1", "2");
-////			System.out.println(i);
+//			int i=new RecordDaoImpl().insertAddShoppingCart("19", "66", "5", "2019-12-22");
+//			System.out.println(i);
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
 //			System.out.println("出现异常！！！");
 //		}
 //	}
+
+	
 
 	
 	
