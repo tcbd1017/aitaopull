@@ -38,11 +38,12 @@ public class ShoppingCartDaoTest {
 //	 ShoppingCartDao spd = new ShoppingCartDaoImpl();
     @Test
     public void selectShoppingCartInfoByBuyerIdTest() {
-    	Map<String, Object> map = new HashMap<String, Object>();
+    	String json = "{\"buyer_id\":1,\"goods_name\":\"米\",\"enableFuzzySelect\":0}";
+    	Map map = JSON.parseObject(json, Map.class);
     	map.put("buyer_id", 1);
     	map.put("enableFuzzySelect", 0);
     	map.put("goods_name", "米");
-    	
+    	System.out.println(JSON.toJSON(map));
     	List<Map<String, Object>> list = spd.selectShoppingCartInfoByBuyerId(map);
     	Iterator<Map<String, Object>> it = list.listIterator();
     	int count = spd.getShoppingCartCount();

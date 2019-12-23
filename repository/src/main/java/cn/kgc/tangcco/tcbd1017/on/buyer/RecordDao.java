@@ -26,13 +26,13 @@ public interface RecordDao {
 	 * 
 	 */
 	public  int deleteRecordByRecord_id(String record_id) throws SQLException;
-
 	
 	
 	
 	/**
 	 * 根据传过来的买家id 和商品名称（支持模糊查询）
-	 * 查询所对应的商品
+	 * 返回买家历史记录里所对应的商品图片url等信息
+	 * 
 	 */
 	public  List<Map> selectRecordAllByBuyerIdAndGoodsName(String buyer_Id,String goods_name) throws SQLException;
 	
@@ -48,5 +48,119 @@ public interface RecordDao {
 	
 	
 	
-
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 1》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id返回买家详细信息
+	 * @param buyer_id 买家id
+	 * @return 返回该买家详细信息
+	 * @throws SQLException
+	 */
+	public  List<Map> selectBuyerInfoBybuyer_id(String buyer_id) throws SQLException;
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 2》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id和当前页码（第几页 ）   返回买家历史记录里商品图片url等信息
+	 * @param buyer_id 买家id
+	 * @return 返回该买家历史记录里商品图片url等信息
+	 * @throws SQLException
+	 */
+	public  List<Map> selectGoodsPictureUrlBybuyer_id(String buyer_id,String pageNo) throws SQLException;
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 3》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id获取买家历史记录总条数
+	 * @param buyer_id 买家id
+	 * @return  根据买家id获取(buyerHistory)买家历史记录总条数    和 总页数(totalPages)
+	 * @throws SQLException
+	 */
+	public  List<Map> selectCountBuyerHistory(String buyer_id) throws SQLException;
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 4》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id获取买家购物车前两条数据
+	 * @param buyer_id 买家id
+	 * @return 买家购物车前两条数据
+	 * @throws SQLException
+	 */
+	public  List<Map> selectBuyerShoppingCart(String buyer_id) throws SQLException;
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 5》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id和当前页码获取买家购物车的所有数据 (购物车商品图片、重量、长宽高...等信息)
+	 * 每页显示五条数据
+	 * @param buyer_id 买家id
+	 * @return 买家购物车的所有数据
+	 * @throws SQLException
+	 */
+	public  List<Map> selectAllBuyerShoppingCart(String buyer_id,String pages) throws SQLException;
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 6》
+	 * 大家如果有需要就调用就好了
+	 * 此方法根据买家id获取买家购物车总条数和总页数
+	 * @param buyer_id 买家id
+	 * @return  根据买家id获取(shoppingCart)买家购物车总条数 和 总页数(totalPages 按照一页显示五条数据来计算)
+	 * @throws SQLException
+	 */
+	public  List<Map> selectCountShoppingCart(String buyer_id) throws SQLException;
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 7》
+	 * 大家如果有需要就调用就好了
+	 * 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @param buyer_id 买家id
+	 * @param name 商品名
+	 * @return 根据传过来的买家id和商品名称（支持模糊商品名称）查询购物车中相对应的商品
+	 * @throws SQLException
+	 */
+	public  List<Map> selectDimBuyerShoppingCart(String buyer_id,String name) throws SQLException;
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 8》
+	 * 根据买家id和购物车id删除对应的购物车商品
+	 * @param buyer_id 买家id
+	 * @param shopping_scart_id  购物车id
+	 * @return
+	 * @throws SQLException
+	 */
+	public  int deleteShoppingCartByBuyerIdAndShoppingCartId(String buyer_id,String shopping_scart_id) throws SQLException;
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 9》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回该商品所对应的详细信息
+	 * @throws SQLException
+	 */
+	public List<Map> selectProductDetailsByGoodsId(String goods_id) throws SQLException;
+	
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 10》
+	 * @param goods_name 商品名称
+	 * @return 根据商品名称（支持模糊查询），查询所对应的商品信息(只要第一条)
+	 * @throws SQLException
+	 */
+	public List<Map> selectDimDetailsByGoodsName(String goods_name) throws SQLException;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

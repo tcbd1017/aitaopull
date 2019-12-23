@@ -2,6 +2,7 @@ package cn.kgc.tangcco.tcbd1017.on.buyer;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import cn.kgc.tangcco.tcbd1017.on.pojo.Goods;
 
@@ -13,6 +14,6 @@ public interface GoodsDao {
 
 	public  List<Goods> selectAllGoods() throws SQLException;
 	public   List<Goods> selectByGoodsType(String goodsType) throws SQLException;
-	public   List<Goods> selectVagueByGoods_nameOrGoods_brandOrGoods_presentation(String vague) throws SQLException;
+	public   List<Map> selectVagueByGoods_nameOrGoods_brandOrGoods_presentation(String vague) throws SQLException;
 	
 }

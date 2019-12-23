@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "微软雅黑";
+            font-size: 14px;
+        }
+
+        #l-map {
+            height: 280px;
+            width: 100%;
+        }
+
+
+
+        .tangram-suggestion-main {
+            z-index: 9999999999;
+        }
+    </style>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=Mbr1pllRG9s4yUw2dS8FQW0KZ9FLlMY6"></script>
+    <script src="/static/layui/layui.js"></script>
+    <title>关键字输入提示获取内容反填入表单</title>
+</head>
+
+<body>
+    <div class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">请输入</label>
+            <div class="layui-input-inline">
+                <input type="text" name="dizhi" id="suggestId" lay-verify="dizhi" placeholder="请输入地址" autocomplete="off"
+                    class="layui-input">
+            </div>
+        </div>
+
+
+        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
+        </div>
+        <div id="l-map"></div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    layui.use('form', function () {
+        var $ = layui.$
+            , form = layui.form
+
+        form.verify({
+            //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+            dizhi: [
+                /^[\s\S]*.*[^\s][\s\S]*$/
+                , '地址不能是空'
+            ]
+           
+        });
+    })
+
+
+
+    // 百度地图API功能
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    var map = new BMap.Map("l-map");
+    // 初始化地图,设置城市和地图级别。
+    map.centerAndZoom("北京", 12);
+    //建立一个自动完成的对象
+    var ac = new BMap.Autocomplete({
+        "input": "suggestId",
+        "location": map
+    });
+    //鼠标放在下拉列表上的事件
+    ac.addEventListener("onhighlight", function (e) {
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    //鼠标点击下拉列表后的事件
+    ac.addEventListener("onconfirm", function (e) {
+        var _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+    function setPlace() {
+        //清除地图上所有覆盖物
+        map.clearOverlays();
+
+        function myFun() {
+            //获取第一个智能搜索的结果
+            var pp = local.getResults().getPoi(0).point;
+
+            map.centerAndZoom(pp, 18);
+            //添加标注
+            map.addOverlay(new BMap.Marker(pp));
+        }
+        //智能搜索
+        var local = new BMap.LocalSearch(map, {
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+</script>

@@ -56,6 +56,8 @@ public interface OrderDao {
 		 *  
 		 */
 		public int  SelectByOrderGoodsPageCount(Map<String,Object> map)throws SQLException;
-	
 		
+		public List selectShoppingCartInfoByBuyerIdAddUrl(Map<String, Object> map)throws SQLException;
+	
+		public String selectAddress(int  address)throws SQLException;
 }

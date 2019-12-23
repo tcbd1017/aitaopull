@@ -13,11 +13,11 @@ import java.util.Map;
 public interface SellerOrderDao {
 
 	/**
-	 * 查询该店铺的所有订单信息
-	 * @param map 传入店铺id
-	 * @return   
+	 * 查询该店铺的所有订单的总数
+	 * @param map 模糊查询的条件
+	 * @return   返回查询的
 	 */
-	public abstract List<Map<String, Object>> selectAllOrder(Map<String, Object> map);
+	public abstract int selectOrderCount(Map<String, Object> map);
 	
 	
 	/**

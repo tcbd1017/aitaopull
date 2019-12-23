@@ -20,16 +20,23 @@ public interface FinanceService {
 	/**
 	 * 查看公司收入
 	 */
-	Map<String, Object>queryIncome();
+	Map<String, Object>queryIncome(Map<String, Object>map1);
 	
 	/**
 	 * 查看公司支出
 	 */
-	Map<String, Object>queryExpenditure();
+	Map<String, Object>queryExpenditure(Map<String, Object>map1);
 	
 	/**
 	 *  查看未审核人数总和和详细信息
 	 * 
 	 */
-	Map<String, Object>queryNumberAndDetailed();
+	Map<String, Object>queryNumberAndDetailed(Map<String, Object>map);
+	
+	/**
+	 * 
+	 * 分配任务给员工
+	 */
+	Map<String, Object>modifyPersonInCharge(Map<String, Object>map);
+	
 }

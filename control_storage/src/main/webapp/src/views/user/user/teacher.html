@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>layuiAdmin 网站用户</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <script src="../../../../static/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-block">
+              <input type="text" name="nickname" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-block">
+              <input type="text" name="phone" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+
+        </div>
+
+        <table id="LAY-user-manage" lay-filter="LAY-user-manage"></table>
+        <script type="text/html" id="imgTpl">
+          <img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.headUrl }}>
+        </script>
+        <script type="text/html" id="table-useradmin-webuser">
+          {{# if(d.grade == '暂无数据'){ }}
+        <button id="b" class="layui-btn  layui-btn-normal layui-btn-xs layui-btn-disabled "disabled lay-event="edit"><i
+            class="layui-icon layui-icon-search"></i>编辑</button>
+        {{# } else { }}
+        <button id="b" class="layui-btn  layui-btn-normal layui-btn-xs " lay-event="edit"><i
+          class="layui-icon layui-icon-search"></i>编辑</button>
+        {{# } }}
+        <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="del"><i
+            class="layui-icon layui-icon-edit"></i>成绩录入</a>
+        </script>
+      </div>
+    </div>
+  </div>
+  <!--   -->
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+    layui.use(['form', 'table'], function () {
+      var $ = layui.$
+        , form = layui.form
+        , table = layui.table;
+
+      let user = sessionStorage.getItem("user")
+      let $user = JSON.parse(user);
+      let $url = JSON.parse(sessionStorage.getItem('url'))
+
+
+      //用户管理
+      table.render({
+        elem: '#LAY-user-manage'
+        , url: $url + '/back/user.action?methodName=queryUserAndUserInfoAndWeeklyExam&uuid=' + $user.uuid //模拟接口
+        , cols: [[
+          // { type: 'checkbox', fixed: 'left' }
+          { type: 'numbers', width: 80, title: '序号', sort: true }
+          , { field: 'nickname', title: '姓名', minWidth: 100, align: 'center' }
+          , { field: 'headUrl', title: '头像', width: 100, templet: '#imgTpl' }
+          , {
+            field: 'grade', title: '最近周测成绩', minWidth: 100, align: 'center', templet: function (data) {
+              if (data.grade == '暂无数据') {
+                return "暂无数据"
+              } else {
+                return data.grade + "分"
+              }
+            }
+          }
+          , { field: 'date', title: '周测时间', align: 'center' }
+          , { field: 'phone', title: '手机', align: 'center' }
+          , { title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-useradmin-webuser' }
+        ]]
+        , page: true
+        , limit: 30
+        , height: 'full-220'
+        , text: { none: '无数据' }
+      });
+
+      //监听工具条
+      table.on('tool(LAY-user-manage)', function (obj) {
+        var data = obj.data;
+        if (obj.event === 'del') {
+          layer.prompt({
+            formType: 3
+            , title: '请输入成绩'
+          }, function (value, index) {
+
+
+            if (isPInt(value)) {
+              $.ajax({
+                url: $url + '/back/user.action?methodName=weeklyExam',
+                type: 'post',
+                dataType: 'json',
+                data: { 'uuid': data.uuid, 'grade': value },
+                async: false,
+                success: function (rs) {
+                  switch (rs.status) {
+                    case "success":
+                      layer.msg('已录入');
+                      break;
+                    case "failed":
+                      layer.msg('录入失败');
+                    case "chongfu":
+                      layer.msg('录入失败,数据重复');
+                      break;
+                    default:
+                      break;
+                  }
+                },
+                error: function () {
+                  layer.msg('服务器走丢了', {
+                    icon: 2
+                    , time: 1000,
+                  });
+                }
+
+              })
+            } else {
+              layer.msg('输入数据有误');
+            }
+
+
+
+
+
+            layer.close(index);
+            table.reload('LAY-user-manage');
+
+          });
+        } else if (obj.event === 'edit') {
+          console.log("我是要被修改的主键" + data.uuid)//操作行的主键
+          let uuid = data.uuid
+          layer.open({
+            type: 2
+            , title: '编辑'
+            , content: 'teacherform.html'
+            , maxmin: true
+            , area: ['500px', '565px']
+            , btn: ['确定', '取消']
+            , yes: function (index, layero) {
+              var iframeWindow = window['layui-layer-iframe' + index]
+                , submitID = 'LAY-user-front-submit'
+                , submit = layero.find('iframe').contents().find('#' + submitID);
+
+              //监听提交
+              iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+
+                var field = data.field; //获取提交的字段
+                field.uuid = uuid
+                
+                console.log("我是被修改的内容" + JSON.stringify(field))//修改的内容
+
+                $.ajax({
+                  url: $url + '/back/user.action?methodName=updateWeeklyExam',
+                  type: 'post',
+                  dataType: 'json',
+                  data: field,
+                  async: false,
+                  success: function (rs) {
+                    switch (rs.status) {
+                      case "success":
+                        layer.msg('修改成功', {
+                          icon: 1
+                        });
+                        break;
+                      case "failed":
+                        layer.msg('修改失败', {
+                          icon: 2
+                        });
+                        break;
+
+                      default:
+                        break;
+                    }
+                  },
+                  error: function () {
+                    layer.msg('服务器走丢了', {
+                      icon: 2
+                      , time: 1000,
+                    });
+                  }
+                })
+                //提交 Ajax 成功后，静态更新表格中的数据
+                //$.ajax({});
+                table.reload('LAY-user-manage'); //数据刷新
+                layer.close(index); //关闭弹层
+              });
+
+              submit.trigger('click');
+            }
+            , success: function (layero, index) {
+              var body = layui.layer.getChildFrame('body', index);
+
+              //点击编辑后 ajax查询当前得用户信息, 把值从父页面传入Iframe页面
+              $.ajax({
+                url: $url + '/back/user.action?methodName=showUserByUUID',
+                type: 'post',
+                dataType: 'json',
+                data: { 'uuid': uuid },
+                async: false,//这里必须用同步  不然iframe层的男女显示不出来
+                success: ((rs) => {
+                  body.find("#nickname").val(rs.data.nickname);
+
+                  body.find("#phone").val(rs.data.phone);
+
+                  body.find("#avatar").val(rs.data.headUrl);
+
+                })
+              })
+              $.ajax({
+                url: $url + '/back/statistics.action?methodName=selectWeekGradeByToWeek',
+                type: 'post',
+                dataType: 'json',
+                data: { 'uuid': uuid },
+                async: false,//这里必须用同步  不然iframe层的男女显示不出来
+                success: ((rs) => {
+                  body.find("#test27").val(rs.data.time);
+
+                  body.find("#grade").val(rs.data.grade);
+
+                  
+
+                })
+              })
+            }
+          });
+
+        }
+      });
+
+
+
+      //监听搜索
+      form.on('submit(LAY-user-front-search)', function (data) {
+
+        var field = data.field;
+        console.log("我是搜索内容" + JSON.stringify(field))//搜索的值
+        field.uuid = $user.uuid
+        //执行重载
+        table.reload('LAY-user-manage', {
+          where: field,
+        });
+      });
+
+
+
+      $('.layui-btn.layuiadmin-btn-useradmin').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+      });
+    });
+
+    function isPInt(str) {
+      var g = /^\d+(\.{0,1}\d+){0,1}$/;
+      return g.test(str);
+    }
+  </script>
+</body>
+
+</html>

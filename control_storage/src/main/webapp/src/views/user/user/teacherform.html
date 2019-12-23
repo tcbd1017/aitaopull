@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>layuiAdmin 网站用户 iframe 框</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+</head>
+
+<body>
+
+  <div class="layui-form" lay-filter="layuiadmin-form-useradmin" id="layuiadmin-form-useradmin"
+    style="padding: 20px 0 0 0;">
+    <div class="layui-form-item">
+      <label class="layui-form-label">姓名</label>
+      <div class="layui-input-inline">
+        <input type="text" name="nickname" id="nickname" class="layui-input " readonly=""
+          lay-verify="nickname" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+      </div>
+      <div class="layui-form-mid layui-word-aux">不可修改</div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">周测日期</label>
+        <div class="layui-input-inline">
+          <input type="text" name="date" class="layui-input" lay-verify="test27" id="test27" readonly="" placeholder="请选择日期">
+        </div>
+        <div class="layui-form-mid layui-word-aux">不可修改</div>
+    </div>
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">周测成绩</label>
+      <div class="layui-input-inline">
+        <input type="text" name="grade" id="grade" lay-verify="grade" placeholder="请输入周测成绩" autocomplete="off"
+          class="layui-input">
+      </div>
+    </div>
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">手机号码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="phone" id="phone" lay-verify="phone" class="layui-input " readonly=""
+          placeholder="请输入号码" autocomplete="off" class="layui-input">
+      </div>
+      <div class="layui-form-mid layui-word-aux">不可修改</div>
+    </div>
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">头像</label>
+      <div class="layui-input-inline">
+        <input type="text" name="avatar" id="avatar" lay-verify="avatar" class="layui-input layui-btn-disabled" disabled
+          placeholder="请上传图片" autocomplete="off" class="layui-input">
+      </div>
+
+
+      <button type="button" id="avartatPreview" class="layui-btn layui-btn-primary"><i
+          class="layui-icon">&#xe615;</i></button>
+    </div>
+
+
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="LAY-user-front-submit" id="LAY-user-front-submit" value="确认">
+    </div>
+  </div>
+
+
+  <script>
+
+
+
+    layui.use(['form'], function () {
+      var $ = layui.$
+        , form = layui.form
+        
+
+      let user = sessionStorage.getItem("user")
+      let $user = JSON.parse(user);
+      let $url = JSON.parse(sessionStorage.getItem('url'))
+
+    
+
+
+
+      form.verify({
+        //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+        test27: [
+          /^[\s\S]*.*[^\s][\s\S]*$/
+          , '请选择日期'
+        ],
+        grade: [
+          /^\d+(\.{0,1}\d+){0,1}$/
+          , '输入数据有误'
+        ],
+      });
+
+
+
+      $('#avartatPreview').click(() => {
+        var src = $('#avatar').val();
+        layer.photos({
+          photos: {
+            "title": "查看头像" //相册标题
+            , "data": [{
+              "src": src //原图地址
+            }]
+          }
+          , shade: 0.01
+          , closeBtn: 1
+          , anim: 5
+        });
+      })
+
+
+    })
+
+
+
+
+  </script>
+</body>
+
+</html>

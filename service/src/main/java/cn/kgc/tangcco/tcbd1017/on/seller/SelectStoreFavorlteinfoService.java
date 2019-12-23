@@ -23,6 +23,32 @@ public interface SelectStoreFavorlteinfoService {
 	 * @throws
 	 */
 	public Map<String, Object> findStoreFavorlte(Map<String,Object> map);
-
 	
+	/**
+	 * 
+	 * @author 江岛 
+	 * @Title: findGoodsFavoriteNumbers 
+	 * @Description: TODO(查询某件商品被收藏的总数(按月份查)) 
+	 * @param @param map
+	 * @param @return    设定文件 
+	 * @return Map<String,Object>    返回类型  返回从dao层查询到的数量放在map中返回
+	 *  map.put("date","对象");返回具体数据
+	 *  map.put("status", "failed");查询失败
+	 *  maps.put("status","success");查询成功
+	 *  map.put("msg", "");提示词
+	 *  map.put("code", 0);固定返回值
+	 * @throws
+	 */
+	public abstract Map<String, Object> findGoodsFavoriteNumbers(Map<String, Object> map);
+	/**
+	 * 
+	 * @author 江岛 
+	 * @Title: updateGoods 
+	 * @Description: TODO(根据商品信息上架商品) 
+	 * @param @param map
+	 * @param @return    设定文件 
+	 * @return Map<String,Object>    返回类型 
+	 * @throws
+	 */
+	public Map<String, Object> updateGoods(Map<String,Object> map);
 }

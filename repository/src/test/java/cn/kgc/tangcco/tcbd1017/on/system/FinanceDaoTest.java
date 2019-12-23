@@ -59,26 +59,26 @@ public class FinanceDaoTest {
 		System.out.println(i);
 	}
 	
-	@Test
-	public void test03() throws SQLException {
-		FinanceDao financeDao= new FinanceDaoImpl();
-		List<ShopIncomeInfo>list =new ArrayList<ShopIncomeInfo>();
-		list=financeDao.selectIncome();
-		Iterator<ShopIncomeInfo> it = list.iterator();
-		while (it.hasNext()) {
-			ShopIncomeInfo shopIncomeInfo = (ShopIncomeInfo) it.next();
-			System.out.println(shopIncomeInfo);
-		}
-	}
-	@Test
-	public void test04() throws SQLException {
-		FinanceDao financeDao= new FinanceDaoImpl();
-		List<ShopExpenditureInfo>list =new ArrayList<ShopExpenditureInfo>();
-		list=financeDao.selectExpenditure();
-		Iterator<ShopExpenditureInfo> it = list.iterator();
-		while (it.hasNext()) {
-			ShopExpenditureInfo shopIncomeInfo = (ShopExpenditureInfo) it.next();
-			System.out.println(shopIncomeInfo);
-		}
-	}
+//	@Test
+//	public void test03() throws SQLException {
+//		FinanceDao financeDao= new FinanceDaoImpl();
+//		List<ShopIncomeInfo>list =new ArrayList<ShopIncomeInfo>();
+//		list=financeDao.selectIncome();
+//		Iterator<ShopIncomeInfo> it = list.iterator();
+//		while (it.hasNext()) {
+//			ShopIncomeInfo shopIncomeInfo = (ShopIncomeInfo) it.next();
+//			System.out.println(shopIncomeInfo);
+//		}
+//	}
+//	@Test
+//	public void test04() throws SQLException {
+//		FinanceDao financeDao= new FinanceDaoImpl();
+//		List<ShopExpenditureInfo>list =new ArrayList<ShopExpenditureInfo>();
+//		list=financeDao.selectExpenditure();
+//		Iterator<ShopExpenditureInfo> it = list.iterator();
+//		while (it.hasNext()) {
+//			ShopExpenditureInfo shopIncomeInfo = (ShopExpenditureInfo) it.next();
+//			System.out.println(shopIncomeInfo);
+//		}
+//	}
 }

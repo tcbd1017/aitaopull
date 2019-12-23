@@ -52,11 +52,11 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 		
 		if (map != null&&map.size()>0) {
 			if (!ObjectUtils.isEmpty(map.get("emp_name"))) {
-				sql.append(" ,emp_name = ?,");
+				sql.append(" ,emp_name = ?");
 				list.add(map.get("emp_name"));
 			}
 			if (!ObjectUtils.isEmpty(map.get("emp_mobile"))) {
-				sql.append(" ,emp_mobile =?,");
+				sql.append(" ,emp_mobile =?");
 				list.add(map.get("emp_mobile"));
 			}
 			if (!ObjectUtils.isEmpty(map.get("emp_mail"))) {
@@ -187,5 +187,42 @@ public class PersonnelMattersDaoImpl implements PersonnelMattersDao {
 		return rs;
 		
 	}
+
+//	@Override
+//	public int updateEmpJurisdiction(Map<String, Object> map) throws SQLException {
+//		StringBuilder sql = new StringBuilder();
+//		Emp emp=new Emp();
+//		SelectEmpPower selectEmpPower=new SelectEmpPowerImpl();
+//		emp.setEmp_id((int)map.get("emp_id"));
+//		/**
+//		 * 被修改员工的权限
+//		 */
+//		Map<String, Object>map1=null;
+//		try {
+//			map1=selectEmpPower.selectEmpPower(emp);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		if (map1!=null&&map1.size()>0) {
+//			if ((int)map.get("empPower")==3&&(int)map.get("deptPower")==4) {
+//			sql.append("UPDATE 030101_emp_and_emprole set 030101_emp_and_emprole.emprole_id= ? WHERE 1 = 1 ");
+//			sql.append(" and 030101_emp_and_emprole.emp_id = ? ");
+//			}
+//		}
+//		Object param[]= {map.get("dept_id"),map.get("emp_id")};
+//		Connection conn =null;
+//		PreparedStatement pst=null;
+//		int rs=0;
+//		try {
+//			conn = BaseDBUtils.getConnection();
+//			pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+//			rs = BaseDBUtils.executeUpdate(pst,param);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return rs;
+//	}
 
 }

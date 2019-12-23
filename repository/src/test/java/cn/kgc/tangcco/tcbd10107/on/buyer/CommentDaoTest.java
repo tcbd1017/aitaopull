@@ -1,3 +1,4 @@
+
 package cn.kgc.tangcco.tcbd10107.on.buyer;
 
 import java.sql.SQLException;
@@ -34,7 +35,7 @@ public class CommentDaoTest {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("comment_id", 7);
 		map.put("buyer_id", 4);
-		map.put("order_id", 111);
+		map.put("order_id", 88);
 		map.put("comment_parent_id", 10);
 		map.put("comment_content", "噢噢噢噢哦哦哦哦哦哦哦哦哦哦哦哦");
 		map.put("comment_create_time", "2019-12-13 10:33:45");
@@ -60,6 +61,7 @@ public class CommentDaoTest {
 		map.put("b.buyer_id", 2);
 		map.put("c.order_id", 1);
 		map.put("o.order_id", 1);
+		map.put("o.goods_name", "三星 Galaxy S4 (I9500) 16G版 星空黑 联通3G手机");
 		try {
 			List selectComment = commentDao.selectComment(map);
 			if(selectComment!=null) {

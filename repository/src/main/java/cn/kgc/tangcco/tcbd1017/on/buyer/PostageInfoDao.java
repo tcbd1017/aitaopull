@@ -86,5 +86,10 @@ public interface PostageInfoDao {
 	 * @throws SQLException
 	 */
 	public int updatePostageInfosByStatus(Map<String, Object> map) throws SQLException;
-
+	/**
+	 * 查询收件人信息总记录数
+	 * @return
+	 * @throws SQLException
+	 */
+	public int selectCountPostageInfoByBuyerId(Map<String, Object> map) throws SQLException;
 }
