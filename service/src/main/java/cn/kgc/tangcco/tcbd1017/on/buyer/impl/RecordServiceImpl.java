@@ -526,6 +526,76 @@ public class RecordServiceImpl implements RecordService {
 	}
 
 
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 11》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回同一店铺相关商品的前两条数据
+	 */
+	@Override
+	public Map<String, Object> queryRelatedProductsByGoodsId(String goods_id) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			List<Map> m= recordDao.selectRelatedProductsByGoodsId(goods_id);
+			if (m !=null) {
+				map.put("status", "success");
+				map.put("data",m);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 12》
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * @param amount_of_goods 添加商品数量
+	 * @param shopping_cart_create_time 购物车创建时间
+	 * @return 根据买家id、商品id、商品数量、购物车创建时间增加购物车信息
+	 */
+	@Override
+	public Map<String, Object> addAddShoppingCart(String buyer_id, String goods_id, String amount_of_goods,
+			String shopping_cart_create_time) {
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("msg","");
+		map.put("code",0);
+		map.put("data",new ArrayList<Map>());
+		map.put("status", "failed");
+		try {
+			int count = recordDao.insertAddShoppingCart(buyer_id, goods_id, amount_of_goods, shopping_cart_create_time);
+			if (count !=0) {
+				map.put("status", "success");
+				map.put("data",count);
+			}
+			BaseDBUtils.closeAll();
+			return map;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		return map;
+	}
+
+
 
 	
 

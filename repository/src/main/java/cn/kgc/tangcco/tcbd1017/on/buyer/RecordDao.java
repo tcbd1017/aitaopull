@@ -155,8 +155,25 @@ public interface RecordDao {
 	public List<Map> selectDimDetailsByGoodsName(String goods_name) throws SQLException;
 	
 	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 11》
+	 * @param goods_id 商品id
+	 * @return 根据商品id返回同一店铺相关商品的前两条数据
+	 * @throws SQLException
+	 */
+	public List<Map> selectRelatedProductsByGoodsId(String goods_id) throws SQLException;
 	
 	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 12》
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * @param amount_of_goods 添加商品数量
+	 * @param shopping_cart_create_time 购物车创建时间
+	 * @return 根据买家id、商品id、商品数量、购物车创建时间增加购物车信息
+	 * @throws SQLException
+	 */
+	public  int insertAddShoppingCart(String buyer_id,String goods_id,String amount_of_goods,String shopping_cart_create_time) throws SQLException;
 	
 	
 	
