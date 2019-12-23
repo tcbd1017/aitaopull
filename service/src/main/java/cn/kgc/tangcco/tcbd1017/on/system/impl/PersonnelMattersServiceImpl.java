@@ -60,6 +60,12 @@ public class PersonnelMattersServiceImpl implements PersonnelMattersService {
 		map.put("deptPower", map1.get("deptPower"));
 		if (ObjectUtils.isEmpty(map.get("emp_status"))) {
 			map.put("emp_status", 2);
+			try {
+				BaseDBUtils.commitAndClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		try {
 			BaseDBUtils.startTransaction();
