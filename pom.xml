@@ -167,6 +167,13 @@
 				<version>4.1.1</version>
 			</dependency>
 			<!-- 李昊哲的工具类 -->
+			
+			
+			
+			
+			
+			
+			
 		</dependencies>
 	</dependencyManagement>
 	<build>
