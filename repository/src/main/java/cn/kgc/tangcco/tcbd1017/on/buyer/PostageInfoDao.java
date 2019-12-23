@@ -92,4 +92,19 @@ public interface PostageInfoDao {
 	 * @throws SQLException
 	 */
 	public int selectCountPostageInfoByBuyerId(Map<String, Object> map) throws SQLException;
+	
+	/**
+	 * 根据订单号查商品信息
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	public Map<String, Object>selectOrderByOrderUuid(Map<String, Object> map) throws SQLException;
+	/**
+	 * 根据买家id查询卖家信息
+	 * @param map
+	 * @return
+	 * @throws SQLException
+	 */
+	public Map<String, Object>selectSellerByBuyer_id(Map<String, Object> map) throws SQLException;
 }

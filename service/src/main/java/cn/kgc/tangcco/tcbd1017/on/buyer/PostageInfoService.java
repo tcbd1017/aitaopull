@@ -63,5 +63,17 @@ public interface PostageInfoService {
 	 * @return
 	 */
 	public Map<String, Object> queryAddressesByPid(Map<String, Object> map);
+	/**
+	 * 根据订单号查商品信息
+	 * @param map
+	 * @return
+	 */
+	public Map<String, Object> queryOrderByOrderUuid(Map<String, Object> map);
+	/**
+	 * 根据买家id查询卖家信息
+	 * @param map
+	 * @return
+	 */
+	public Map<String, Object> querySellerByBuyer_id(Map<String, Object> map);
 
 }

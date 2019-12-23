@@ -289,4 +289,56 @@ public class PostageInfoServiceImpl implements PostageInfoService {
 		return info;
 	}
 
+	@Override
+	public Map<String, Object> queryOrderByOrderUuid(Map<String, Object> map) {
+		Map<String, Object> info = new LinkedHashMap<String, Object>();
+		info.put("msg", "");
+		info.put("code", 0);
+		info.put("data", new HashMap<String, Object>());
+		info.put("status", "failed");
+		try {
+			Map<String, Object> order = postageInfoDao.selectOrderByOrderUuid(map);
+			if (order != null) {
+				info.put("data", order);
+				info.put("status", "success");
+			}
+			BaseDBUtils.closeAll();
+			return info;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return info;
+	}
+
+	@Override
+	public Map<String, Object> querySellerByBuyer_id(Map<String, Object> map) {
+		Map<String, Object> info = new LinkedHashMap<String, Object>();
+		info.put("msg", "");
+		info.put("code", 0);
+		info.put("data", new HashMap<String, Object>());
+		info.put("status", "failed");
+		try {
+			Map<String, Object> seller = postageInfoDao.selectSellerByBuyer_id(map);
+			if (seller != null) {
+				info.put("data", seller);
+				info.put("status", "success");
+			}
+			BaseDBUtils.closeAll();
+			return info;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				BaseDBUtils.closeAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return info;
+	}
+
 }

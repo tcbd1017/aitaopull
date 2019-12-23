@@ -15,7 +15,6 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 
 import cn.kgc.tangcco.lihaozhe.commons.alipay.config.AlipayConfig;
-import cn.kgc.tangcco.lihaozhe.commons.alipay.config.IDUtils;
 
 @WebServlet(urlPatterns = "/sendAlipay.action")
 public class SendAlipay extends HttpServlet {
@@ -42,7 +41,7 @@ public class SendAlipay extends HttpServlet {
 		alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
-		String out_trade_no = IDUtils.createID();
+		String out_trade_no = new String(request.getParameter("order_uuid").getBytes("ISO-8859-1"), "UTF-8");
 		// 付款金额，必填
 		String total_amount = new String(request.getParameter("WIDtotal_amount").getBytes("ISO-8859-1"), "UTF-8");
 		// 订单名称，必填

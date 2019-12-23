@@ -1,6 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,21 +16,21 @@ import cn.kgc.tangcco.lihaozhe.commons.aliyun.mms.MmsTry;
 import cn.kgc.tangcco.lihaozhe.commons.face.FaceDetect;
 import cn.kgc.tangcco.lihaozhe.commons.face.FaceSearch;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.TransactionManagementHandler;
-import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
+
 import cn.kgc.tangcco.tcbd1017.on.buyer.FrontBuyerLoginServiceIns;
+import cn.kgc.tangcco.tcbd1017.on.buyer.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.FrontBuyerLoginServiceImpl;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * 刘煜 类描述：买家 登录 Servlet implementation class FrontBuyerLogin
  */
 @WebServlet("/FrontBuyerLogin.action")
 public class FrontBuyerLogin extends BaseServlet {
-	private static final long serialVersionUID = -686172120984958153L;
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7687469582654124350L;
 	static FrontBuyerLoginServiceIns proxy = null;
 	static {
 		proxy = (FrontBuyerLoginServiceIns) new TransactionManagementHandler(new FrontBuyerLoginServiceImpl())

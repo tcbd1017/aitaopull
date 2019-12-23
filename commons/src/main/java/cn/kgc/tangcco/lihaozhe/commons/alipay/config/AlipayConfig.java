@@ -33,7 +33,7 @@ public class AlipayConfig {
 	public static String notify_url = "http://localhost:8080/control_OnlineRetailers/notify_url.jsp";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问8080/control_OnlineRetailers/querypay.action
-	public static String return_url = "http://localhost:5500/oooo.html";
+	public static String return_url = "http://localhost:5500/支付成功.html";
 
 	// 签名方式
 	public static String sign_type = "RSA2";
