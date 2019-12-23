@@ -19,7 +19,7 @@ import cn.kgc.tangcco.tcbd1017.on.system.EmpLoginToEmpService;
 
 /**
  * 
- * @author zhangmiao
+ * @author zhangmiao 
  * @version 2019年12月18日 下午4:29:18
  *
  */
@@ -41,7 +41,7 @@ public class EmpLoginToEmpAction extends BaseServlet {
 		}
 	}
 
-	public Emp empLoginToEmpAction(HttpServletRequest request , HttpServletResponse response , String string) {
+	public void empLoginToEmpAction(HttpServletRequest request , HttpServletResponse response , String string) {
 		Emp emp=null;
 		EmpLogin empLogin= null;
 		int emp_login_id=0;
@@ -57,16 +57,16 @@ public class EmpLoginToEmpAction extends BaseServlet {
 			
 		}else {
 			HttpSession session = request.getSession();
-			if (ObjectUtils.isEmpty(session.getAttribute("emp_uuid"))) {
+			if (!ObjectUtils.isEmpty(session.getAttribute("emp_uuid"))) {
 				emp_uuid = (String)session.getAttribute("emp_uuid");
 			}
-			if (ObjectUtils.isEmpty(session.getAttribute("emp_login_face_token"))) {
+			if (!ObjectUtils.isEmpty(session.getAttribute("emp_login_face_token"))) {
 				emp_login_face_token = (String)session.getAttribute("emp_login_face_token");
 			}
-			if (ObjectUtils.isEmpty(session.getAttribute("emp_login_password"))) {
+			if (!ObjectUtils.isEmpty(session.getAttribute("emp_login_password"))) {
 				emp_login_password = (String)session.getAttribute("emp_login_password");
 			}
-			if (ObjectUtils.isEmpty(session.getAttribute("emp_login_account"))) {
+			if (!ObjectUtils.isEmpty(session.getAttribute("emp_login_account"))) {
 				emp_login_account = (String)session.getAttribute("emp_login_account");
 				
 			}
@@ -75,7 +75,7 @@ public class EmpLoginToEmpAction extends BaseServlet {
 			
 		}
 		emp = eltes.empLoginToEmpService(empLogin);
-		return emp;
+		printJson(response, emp);
 		
 	}
 }
