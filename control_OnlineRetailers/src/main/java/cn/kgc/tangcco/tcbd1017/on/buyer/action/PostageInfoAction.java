@@ -1,6 +1,5 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.action;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.annotation.WebServlet;
@@ -43,7 +42,7 @@ public class PostageInfoAction extends BaseServlet {
 	 * @return
 	 */
 	public void queryPostageInfosByBuyerId(HttpServletRequest request, HttpServletResponse response, String json) {
-		System.out.println("进入queryPostageInfosByBuyerId方法，前端给的值："+json);
+		System.out.println("进入queryPostageInfosByBuyerId方法，前端给的值：" + json);
 		Map map = JSON.parseObject(json, Map.class);
 		Map<String, Object> info = postageInfoService.queryPostageInfosByBuyerId(map);
 		printJson(response, info);
@@ -130,5 +129,39 @@ public class PostageInfoAction extends BaseServlet {
 		Map map = JSON.parseObject(json, Map.class);
 		Map<String, Object> info = postageInfoService.queryAddressesByPid(map);
 		printJson(response, info);
+
+	}
+
+	/**
+	 * 根据订单号查商品信息
+	 * 
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void queryOrderByOrderUuid(HttpServletRequest request, HttpServletResponse response, String json) {
+		System.out.println(json);
+		Map map = JSON.parseObject(json, Map.class);
+		System.out.println(map.get("order_uuid"));
+		Map<String, Object> info = postageInfoService.queryOrderByOrderUuid(map);
+		System.out.println(info.get("data"));
+		printJson(response, info);
+	}
+
+	/**
+	 * 根据买家id查询卖家信息
+	 * 
+	 * @param request
+	 * @param response
+	 * @param json
+	 */
+	public void querySellerByBuyer_id(HttpServletRequest request, HttpServletResponse response, String json) {
+		System.out.println(json);
+		Map map = JSON.parseObject(json, Map.class);
+		System.out.println(map.get("buyer_id"));
+		Map<String, Object> info = postageInfoService.querySellerByBuyer_id(map);
+		System.out.println(info.get("data"));
+		printJson(response, info);
+
 	}
 }

@@ -20,19 +20,19 @@
 
 		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersDaoImpl" id="PersonnelMattersDao"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl" id="PersonnelMattersService"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.PersonnelMattersServiceImpl" id="PersonnelMattersService"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceDaoImpl" id="FinanceDao"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceDaoImpl" id="FinanceDao"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceServiceImpl" id="FinanceService"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.FinanceServiceImpl" id="FinanceService"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.EmpsWithDeptImpl" id="EmpsWithDept"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.EmpsWithDeptImpl" id="EmpsWithDept"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.EmpsWithDeptServiceImpl" id="EmpsWithDeptService"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.EmpsWithDeptServiceImpl" id="EmpsWithDeptService"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.RevenueAndExpenditureImpl" id="RevenueAndExpenditure"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.RevenueAndExpenditureImpl" id="RevenueAndExpenditure"/>
 
-<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.RevenueAndExpenditureImplServiceImpl" id="RevenueAndExpenditureImplService"/>
+		<bean class="cn.kgc.tangcco.tcbd1017.on.system.impl.RevenueAndExpenditureImplServiceImpl" id="RevenueAndExpenditureImplService"/>
 		
 
 		<bean id = "GoodsDao" class = "cn.kgc.tangcco.tcbd1017.on.buyer.impl.GoodsDaoImpl"/>
