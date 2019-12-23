@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>主页</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <script src="/static/js/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            人数
+            <span class="layui-badge layui-bg-blue layuiadmin-badge">总</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p id="zongrenshu1" class="layuiadmin-big-font">0</p>
+            <p>
+              总计人数
+              <span id="zongrenshu2" class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-user"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            班级
+            <span class="layui-badge layui-bg-cyan layuiadmin-badge">总</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+            <p id="classCount1" class="layuiadmin-big-font">0</p>
+            <p>
+              数量
+              <span id="classCount2" class="layuiadmin-span-color">0<i
+                  class="layui-inline layui-icon layui-icon-face-smile-b"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            学生
+            <span class="layui-badge layui-bg-green layuiadmin-badge">总</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+
+            <p id="studentCount1" class="layuiadmin-big-font">0</p>
+            <p>
+              数量
+              <span  id="studentCount2" class="layuiadmin-span-color">0 <i class="layui-inline layui-icon layui-icon-user"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="layui-col-sm6 layui-col-md3">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            老师
+            <span class="layui-badge layui-bg-orange layuiadmin-badge">总</span>
+          </div>
+          <div class="layui-card-body layuiadmin-card-list">
+
+            <p id="teacherCount1" class="layuiadmin-big-font">0</p>
+            <p>
+              数量
+              <span id="teacherCount2" class="layuiadmin-span-color">0<i class="layui-inline layui-icon layui-icon-user"></i></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-col-sm12">
+        <div class="layui-card">
+
+          <div class="layui-card-body">
+
+
+
+
+            <div class="layui-card-header">本周活跃用户列表</div>
+
+            <table class="layui-table layuiadmin-page-table" lay-skin="line">
+              <thead>
+                <tr>
+                  <th>用户名</th>
+                  <th>最后登录时间</th>
+                  <th>IP</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span id="yi" class="first">胡歌</span></td>
+                  <td id="shijianyi"><i class="layui-icon layui-icon-log"> 11:20</i></td>
+                  <td><span id="ipyi">在线</span></td>
+
+                </tr>
+                <tr>
+                  <td><span id="er" class="second">彭于晏</span></td>
+                  <td id="shijianer"><i class="layui-icon layui-icon-log"> 10:40</i></td>
+                  <td><span id="iper">在线</span></td>
+
+                </tr>
+                <tr>
+                  <td><span id="san" class="third">靳东</span></td>
+                  <td id="shijiansan"><i class="layui-icon layui-icon-log"> 01:30</i></td>
+                  <td id="ipsan"><i>离线</i></td>
+
+                </tr>
+                <tr>
+                  <td id="si">吴尊</td>
+                  <td id="shijiansi"><i class="layui-icon layui-icon-log"> 21:18</i></td>
+                  <td id="ipsi"><i>离线</i></td>
+
+                </tr>
+                <tr>
+                  <td id="wu">吴尊</td>
+                  <td id="shijianwu"><i class="layui-icon layui-icon-log"> 21:18</i></td>
+                  <td id="ipwu"><i>离线</i></td>
+
+                </tr>
+                <tr>
+                  <td id="liu">吴尊</td>
+                  <td id="shijianliu"><i class="layui-icon layui-icon-log"> 21:18</i></td>
+                  <td id="ipliu"><i>离线</i></td>
+
+                </tr>
+                <tr>
+                  <td id="qi">吴尊</td>
+                  <td id="shijianqi"><i class="layui-icon layui-icon-log"> 21:18</i></td>
+                  <td id="ipqi"><i>离线</i></td>
+
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+
+  <script src="../../layuiadmin/layui/layui.js"></script>
+  <script>
+    let $url = JSON.parse(sessionStorage.getItem("url"))
+    let $user = JSON.parse(sessionStorage.getItem("user"))
+
+    $(function () {
+      $.ajax({
+        url: $url + "/loginMsg.action?methodName=queryLoginMsg",
+        type: 'post',
+        dataType: "json",
+        success: function (re) {
+          $('#yi').text(re[0].nickname)
+          $('#shijianyi').text(re[0].date)
+          $('#ipyi').text(re[0].ip)
+
+          $('#er').text(re[1].nickname)
+          $('#shijianer').text(re[1].date)
+          $('#iper').text(re[1].ip)
+
+          $('#san').text(re[2].nickname)
+          $('#shijiansan').text(re[2].date)
+          $('#ipsan').text(re[2].ip)
+
+          $('#si').text(re[3].nickname)
+          $('#shijiansi').text(re[3].date)
+          $('#ipsi').text(re[3].ip)
+
+          $('#wu').text(re[4].nickname)
+          $('#shijianwu').text(re[4].date)
+          $('#ipwu').text(re[4].ip)
+
+          $('#liu').text(re[5].nickname)
+          $('#shijianliu').text(re[5].date)
+          $('#ipliu').text(re[5].ip)
+
+          $('#qi').text(re[6].nickname)
+          $('#shijianqi').text(re[6].date)
+          $('#ipqi').text(re[6].ip)
+        }
+      })
+
+
+      $.ajax({
+        url: $url + "/back/statistics.action?methodName=countUser",
+        type: 'post',
+        dataType: "json",
+        data:{'uuid':$user.uuid},
+        success: function (re) {
+          $('#zongrenshu1').text(re.data)
+          $('#zongrenshu2').text(re.data)
+        }
+      })
+
+      $.ajax({
+        url: $url + "/back/statistics.action?methodName=countClass",
+        type: 'post',
+        dataType: "json",
+        success: function (re) {
+          $('#classCount1').text(re.data)
+          $('#classCount2').text(re.data)
+        }
+      })
+
+      $.ajax({
+        url: $url + "/back/statistics.action?methodName=countUserByStudent",
+        type: 'post',
+        dataType: "json",
+        success: function (re) {
+          $('#studentCount1').text(re.data)
+          $('#studentCount2').text(re.data)
+        }
+      })
+
+      $.ajax({
+        url: $url + "/back/statistics.action?methodName=countUserByTeacher",
+        type: 'post',
+        dataType: "json",
+        success: function (re) {
+          $('#teacherCount1').text(re.data)
+          $('#teacherCount2').text(re.data)
+        }
+      })
+
+    })
+
+
+  </script>
+</body>
+
+</html>
