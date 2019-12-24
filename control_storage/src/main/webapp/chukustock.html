@@ -50,9 +50,7 @@
 					<table class="layui-hide" id="test" lay-filter="test"></table>
 				</div>
 
-				<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-					<button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal">入库</button>
-				</div>
+				
 
 				<div style="display: none;width: 1000px;" id="empInfo">
 					<form lay-filter="empInfo" class="layui-form" action="" method="post">
@@ -70,7 +68,6 @@
 								<select name="model_name" id="model_name" lay-verify="required"></select>
 							</div>
 						</div>
-
 						<div class="layui-form-item">
 							<label class="layui-form-label">货物价格</label>
 							<div class="layui-input-inline">
@@ -113,9 +110,8 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script type="text/html" id="toolbarDemo">
 	<div class="layui-btn-container">
-	    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-	    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-	    <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+	    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开始出库</button>
+	   
 	  </div>
 	</script>
 <script type="text/html" id="barDemo">
@@ -139,7 +135,7 @@
 							limit: 30,
 							account: "niuwei"
 						},
-						url: '/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaXunSuoYouChuHuo',
+						url: '/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaXunSuoYouChuHuo',
 						parseData: function(res) { //res 即为原始返回的数据
 							window.console.log(res);
 							// window.console.log(res.data.data[0].brand);
@@ -220,22 +216,24 @@
 								align: 'center',
 								templet: '<div>{{d.type.name}}</div>'
 							}, {
+								field: 'goods',
+								width: 170,
+								title: '剩余库存',
+								align: 'center',
+								templet: '<div>{{d.goods.count}}</div>'
+							},{
 								field: 'chukuFlag',
 								width: 170,
 								title: '状态',
 								align: 'center',
 								templet: '#chukuFlag'
 								/* templet: '<div>{{d.type.name}}</div>' */
-							},{
-								fixed: 'right',
-								title: '操作',
-								toolbar: '#barDemo',
-								width: 150
 							}]
 						],
 						page: true,
 						
 					});
+					
 					//头工具栏事件
 					table.on('toolbar(test)', function(obj) {
 						var checkStatus = table.checkStatus(obj.config.id);
@@ -245,18 +243,19 @@
 								/* layer.alert(JSON.stringify(data));
 								layer.alert('a'); */
 								
-								
 								//给死  张三
-								layer.alert(JSON.stringify(data));
+								
+								let aaa=JSON.stringify(data);
 								$.ajax({
 									 type: 'post',
-									 url:'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=UpdateRuKuZhuangTai',
+									 url:'http://localhost:8080/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=XiuGaiChuKuZhuangTai',
 									 dataType: 'json',
-									 data:{data},
+									 data:{data:aaa},
 									 success:(responseTest)=>{
 										 switch (responseTest.status) {
 										case "success":
-											alert("成功");
+											alert("聚宝盆欢迎您");
+											 window.location.href ="index.html";
 											break;
 
 										default:
@@ -314,7 +313,7 @@
 			     <button type="button" class="layui-btn layui-btn-normal">出库失败</button> 
 			     {{#  } }}  
  {{#  if(d.chukuFlag === 3 ){ }}
-			     <button type="button" class="layui-btn layui-btn-normal">正在等待</button> 
+			     <button type="button" class="layui-btn layui-btn-normal">等待出库</button> 
 			     {{#  } }}  
 				</script>
 

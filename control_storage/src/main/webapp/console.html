@@ -69,7 +69,7 @@
 				</div>
 				<div class="value">
 					<a href="#">
-						<h1 id="count3">5</h1>
+						<h1 id="count3"></h1>
 					</a>
 					<p>以卖仓库数</p>
 				</div>
@@ -95,40 +95,6 @@
 		<div style="padding: 10px;">
 			<div class="layui-row layui-col-space15 "></div>
 		</div>
-		<!-- <form class="layui-form" id="query_form">
-			<div class="layui-form-item">
-
-				<div class="layui-inline"></div>
-				<div class="layui-inline">
-					<label class="layui-form-mid">店铺：</label>
-					<div class="layui-input-inline" style="width: 100px;">
-						<select name="district" id="district" lay-verify="required"><option value=""></option>
-								
-						</select>
-					</div>
-				</div>
-				<div class="layui-inline">
-					<label class="layui-form-mid">仓库:</label>
-					<div class="layui-input-inline" style="width: 100px;">
-						<select name="district" id="district" lay-verify="required"></select>
-					</div>
-				</div>
-				<div class="layui-inline">
-					<label class="layui-form-mid">时间：</label>
-					<div class="layui-input-inline" style="width: 100px;">
-						<input type="text" name="createDate" autocomplete="off"
-							class="layui-input" />
-					</div>
-				</div>
-				<div class="layui-inline">
-					<div class="layui-input-inline">
-						<button class="layui-btn" type="button" function="query">
-							<i class="layui-icon">&#xe615;</i>查询
-						</button>
-					</div>
-				</div>
-			</div>
-		</form> -->
 		<div class="layui-col-md12">
 			<table class="layui-hide" id="test"></table>
 		</div>
@@ -175,14 +141,12 @@ $(function(){
             smooth: true
         }]
     };
-
     myChart.showLoading();
     // 使用刚指定的配置项和数据显示图表。
     // 异步加载数据
     let  url=sessionStorage.getItem("url");
     let aaa=sessionStorage.getItem("showfunction");
 	 window.console.log(aaa)
-    
     $.ajax({
         // 获取文件仅支持get方式
         type: 'post',
@@ -228,6 +192,7 @@ $(function(){
 				 switch (responseText.data.status) {
 				 case "success":
 					 $("#count2").text(responseText.data.selectWeiMaiZongGeShu);
+					 $("#count3").text(300-responseText.data.selectWeiMaiZongGeShu);
 				 	break;
 				 }
 			 }
@@ -272,7 +237,7 @@ $(function(){
                 checkbox: true,
                 elem: '#test',
            //     url: "localhost:8080/warehouse/GoodsAction.action?methodName=SelectAllgoods&account=shouji&shop_id=1",
-               url: 'http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKu',
+               url: 'http://localhost:8080/control_storage/CangKuAction.action?methodName=AllCangKu',
                 page: {
                     prev: '上一页',
                     next: '下一页',
@@ -293,13 +258,13 @@ $(function(){
 		            } */, {
 		                field: 'warehouse_shop_buytime',
 		                
-		                width: '9%',
+		                width: '80',
 		                title: '购买时间',
 		                align: 'center',
 		               
 		            }, {
 		                field: 'warehouse_name',
-		                width: '9%',
+		                width: '80',
 		                title: '仓库类型',
 		                align: 'center'
 		            }, {
@@ -383,7 +348,7 @@ layui.use(['form', 'upload', 'layer'], function () {
 
 //检查项目添加到下拉框中
 $.ajax({
-	url: 'http://localhost:8080/warehouse/ShopAction.action?methodName=chakanShangPuAll',
+	url: 'http://localhost:8080/control_storage/ShopAction.action?methodName=chakanShangPuAll',
 	dataType: 'json',
 	type: 'post',
 	success: function (data) {
@@ -398,6 +363,5 @@ $.ajax({
 	})
 
    });
- //});
 
  </script>

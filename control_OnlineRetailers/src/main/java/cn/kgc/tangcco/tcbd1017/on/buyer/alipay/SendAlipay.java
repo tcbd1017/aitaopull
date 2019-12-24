@@ -14,7 +14,9 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 
-import cn.kgc.tangcco.lihaozhe.commons.alipay.config.AlipayConfig;
+import cn.kgc.tangcco.tcbd1017.lo.commons.alipay.AlipayConfig;
+
+
 
 @WebServlet(urlPatterns = "/sendAlipay.action")
 public class SendAlipay extends HttpServlet {

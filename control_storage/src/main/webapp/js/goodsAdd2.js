@@ -1,6 +1,6 @@
 $(function() {
 	// allCangKu();
-	sessionStorage.setItem("account", "niuwei");
+	sessionStorage.setItem("account", "shouji");
 	sessionStorage.setItem("shop_id", "1");
 	let account = sessionStorage.getItem("account");
 	let shop_id = sessionStorage.getItem("shop_id");
