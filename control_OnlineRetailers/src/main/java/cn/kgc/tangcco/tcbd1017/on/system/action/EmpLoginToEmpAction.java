@@ -53,7 +53,9 @@ public class EmpLoginToEmpAction extends BaseServlet {
 		Date emp_login_create_time=null;
 		Date emp_login_update_time=null;
 		if (string!=null) {
+			System.out.println(string);
 			empLogin = JSON.parseObject(string, EmpLogin.class);
+			System.out.println(empLogin);
 			
 		}else {
 			HttpSession session = request.getSession();
@@ -75,6 +77,7 @@ public class EmpLoginToEmpAction extends BaseServlet {
 			
 		}
 		emp = eltes.empLoginToEmpService(empLogin);
+		
 		printJson(response, emp);
 		
 	}
