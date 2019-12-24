@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>商家登录</title>
+    <link rel='stylesheet' href='css/bootstrap.min.css'>
+    <link rel="stylesheet" href="css/styleshop.css">
+</head>
+
+<body>
+    <div class="login-main">
+        <div class="login-header">
+            <h1 class="logo hide-text"></h1>
+            <h2 class="sub-title">商家登录</h2>
+        </div>
+        <form method="post" role="form" id="form_login" class="login_padding" onsubmit="return false">
+            <div class="login">
+                <div style="position: relative;">
+                    <input id="shop_account" type="text" class="text" placeholder="账号" aria-label="账号">
+                    <div id="wrong-username" class="login-tip"></div>
+                </div>
+                <div style="position: relative;">
+                    <input id="shop_password" type="password" class="text" placeholder="密码" aria-label="密码">
+                    <div id="wrong-password" class="login-tip"></div>
+                </div>
+
+
+                <button id="loginBtn">登录</button>
+                <!-- <div class="form-group">
+                    <a href="javascript:;" type="submit" class="btn btn-danger btn-block btn-login" id="loginBtn">
+                        <i class="fa fa-sign-in "></i> 登录
+                    </a>
+                </div> -->
+                <div class="misc">
+                    <label class="switcher">
+			  <input id="save-user" type="checkbox" />
+			  <div class="switcher__indicator"></div><span>记住我</span>
+			</label>
+                    <span>
+				<a href="javascript:;" data-toggle="modal" data-target="#registerModal">注册</a>&nbsp;|&nbsp;<a href="javascript:;"  data-toggle="modal" data-target="#findPasswordModal">忘记密码</a>
+			</span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--
+<div class="login-footer">
+	<a href="about/about.html">开发日志</a>
+	&nbsp;|&nbsp;
+	<a href="about/platform.html">开放平台</a>
+	&nbsp;|&nbsp;
+	<a href="about/feature.html">架构与功能</a>
+</div>
+-->
+    <canvas id="login-background"></canvas>
+
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="registerModalLabel">注册</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert">
+                        <span class="alert-message">成为Candy的一员</span>
+                    </div>
+                    <h3><span class="label label-info"><i class="fa fa-envelope-o"></i>&nbsp;邮箱</span></h3>
+                    <div class="input-group" style="width:300px">
+                        <input id="register-email" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="支持qq邮箱、163邮箱">
+                        <span class="input-group-addon">.com</span>
+                    </div>
+
+                    <h3 style="margin-top: 15px;"><span class="label label-info"><i class="fa fa-th"></i>&nbsp;验证码</span></h3>
+                    <div class="input-group" style="width:300px;">
+                        <input id="register-code" type="text" class="form-control" placeholder="请输入邮件验证码">
+                        <span class="input-group-btn">
+	           <button id="register-verification" class="btn btn-default" type="button">获取邮箱验证码<i class="fa fa-paper-plane"></i></button>
+	        </span>
+                    </div>
+
+                    <h3 style="margin-top: 15px;"><span class="label label-info"><i class="fa fa-key"></i>&nbsp;密码</span></h3>
+                    <div class="input-group" style="width:300px;">
+                        <input id="register-password" type="password" class="form-control" placeholder="6-16位的密码">
+                    </div>
+
+                    <h3 style="margin-top: 15px;"><span class="label label-info"><i class="fa fa-reddit-alien"></i>&nbsp;昵称</span></h3>
+                    <div class="input-group" style="width:300px;">
+                        <input id="register-nickname" type="text" class="form-control" placeholder="支持数字、下划线、中英文字符">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button id="register-submit" type="button" class="btn btn-primary">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="findPasswordModal" tabindex="-1" role="dialog" aria-labelledby="findPasswordModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="findPasswordModalLabel">找回密码</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-info" role="alert">
+                        <span class="alert-message">只要记得注册邮箱就可以找回密码</span>
+                    </div>
+                    <h3><span class="label label-info"><i class="fa fa-envelope-o"></i>&nbsp;注册邮箱</span></h3>
+                    <div class="input-group" style="width:300px;margin-bottom: 20px;">
+                        <input id="findPassword-email" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-addon">.com</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button id="findPassword-submit" type="button" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='js/jquery.min.js'></script>
+    <script src='js/bootstrap.min.js'></script>
+
+
+
+    <script src="js/index.js"></script>
+    <script src="res/layer/layer.js"></script>
+
+
+
+</body>
+
+</html>
+<script>
+    let $url = "";
+    $.getJSON("res/serverconfig.json", (responseText) => {
+        $url = responseText.protocol + responseText.domain + responseText.port + responseText.context;
+        window.console.log($url)
+    });
+    $(function() {
+        // 登录按钮点击事件调用函数执行动作
+        $("#loginBtn").click(function(event) {
+            // 获取账号
+            let account = $("#shop_account").val();
+            // 获取密码
+            let password = $("#shop_password").val();
+            if ("" == $.trim(account)) {
+                // 当没有录入账号的时候提示用户输入账号
+                //小tips
+                layer.tips('请填写账号！', '#shop_account', {
+                    tips: [2, '#1E9FFF'],
+                    time: 4000
+                });
+                // 账号位置获取焦点
+                $("#shop_account").focus();
+            } else if ("" == $.trim(password)) {
+                // 当没有录入密码的时候提示用户输入账号
+                layer.tips('请填写密码！', '#shop_password', {
+                    tips: [2, '#1E9FFF'],
+                    time: 4000
+                });
+                // 密码位置获取焦点
+                $("#shop_password").focus();
+            } else {
+                if ("" == $.trim($url)) {
+                    // 如果没有获取到被请求的url或者被请求的url为空字符串提示用户
+                    Tip("宝宝病了，不能伺候小主了")
+                        // 结束该方法不提交表单
+                    return;
+                }
+                // 账号、密码、被请求的url都不是空字符串的时候ajax异步提交表单
+                $.ajax({
+                    // 请求方式
+                    type: "post",
+                    // 被请求的url
+                    url: $url + "/ShangJiaAndEmpLoginAction.action?methodName=ShopLogin",
+                    // 返回值的数据类型
+                    dataType: "json",
+                    // 发送的数据 
+                    data: {
+                    	account:account,
+                    	password:password
+                    },
+                    // 发送请求之前执行
+                    beforeSend: () => {
+                        // layui消息提示框
+                        // 第一个参数显示的消息
+                        // icon 显示图标
+                        // shade 遮罩层 透明度 默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+                        layer.msg('正在登录...', {
+                            icon: 16,
+                            shade: [0.8, '#393D49'],
+                        });
+                    },
+                    success: (responseText) => {
+                        // window.console.log(responseText)
+                        switch (responseText.status) {
+                            case "success":
+                                layer.msg('登录成功', {
+                                    icon: 6,
+                                    shade: [0.8, '#393D49'],
+                                });
+                                // 将操作者信息转为json字符串存储在临时存储sessionStorage中
+                                sessionStorage.setItem("showfunction", JSON.stringify(responseText.data));
+                                // 将后端服务器的url存储在存储sessionStorage中
+                                sessionStorage.setItem("url", $url);
+                                // 页面跳转 
+                                window.location.replace("index.html");
+                                break;
+
+                            default:
+                                // 当没有录入密码的时候提示用户输入账号
+                                Tip('账号或者密码错误！');
+                                // 密码位置获取焦点
+                                $("#shop_password").focus();
+                                break;
+                        }
+                    },
+                    error: () => {
+                        Tip("服务器大大病了，不能伺候小主了")
+                    }
+                });
+            }
+
+        });
+    });
+</script>

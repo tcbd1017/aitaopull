@@ -1,3 +1,4 @@
+
 ﻿package cn.kgc.tangcco.tcbd1017.lo.commons.alipay;
 
 import java.io.FileWriter;
@@ -72,4 +73,5 @@ public class AlipayConfig {
         }
     }
 }
+
 

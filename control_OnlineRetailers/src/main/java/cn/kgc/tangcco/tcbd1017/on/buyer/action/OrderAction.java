@@ -1,9 +1,13 @@
 package cn.kgc.tangcco.tcbd1017.on.buyer.action;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -13,7 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import com.alibaba.fastjson.JSON;
@@ -21,6 +30,7 @@ import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.propertis.BaseProperties;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.spring.ClassPathXmlApplicationContext;
+import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
 import cn.kgc.tangcco.tcbd1017.on.buyer.impl.OrderServiceImpl;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Buyer;
 import cn.kgc.tangcco.tcbd1017.on.pojo.Order;
@@ -185,7 +195,7 @@ public class OrderAction extends BaseServlet{
 	public void updateByOrder(HttpServletRequest request , HttpServletResponse response, String string) {
 		//接收值
 				Map map =JSON.parseObject(string,Map.class);
-				
+				System.out.println("接收到的值："+string);
 				
 				//获得修改对象
 				Buyer buyer = new Buyer();
@@ -194,14 +204,22 @@ public class OrderAction extends BaseServlet{
 					buyer.setBuyer_id((int)map.get("buyerId"));
 					map.put("object", buyer);
 				}
+				
+				//解析数组order订单号
+				Order order = new Order();
 				if (map.containsKey("chk_value")) {
-					
-					//String[] string=(String[])JSON.parseObject((String) map.get("chk_value"));
-					
+					order.setOrder_id(Integer.parseInt((map.get("chk_value").toString())));
+					System.out.println("订单号："+order.getOrder_id());
 				}
 				
-				Order order = new Order();
-				order.setOrder_id((int)map.get("orderId"));
+				//解析order，获得修改订单信息
+				if (map.containsKey("buyerId")&&map.containsKey("orderStatus")) {
+					order.setOrder_status(Integer.parseInt(map.get("orderStatus").toString()));
+					System.out.println("要修改的订单状态号："+order.getOrder_status());
+				}
+				
+				
+				
 				//解析order，获得修改订单信息
 				if (map.containsKey("orderId")&&map.containsKey("orderStatus")) {
 					order.setOrder_status((int)map.get("orderStatus"));
@@ -346,10 +364,76 @@ public class OrderAction extends BaseServlet{
 	}
 	
 	/**
-	 *  cookie试验 
+	 *  FTP接口 
 	 * 
 	 */
+	public void upLoad(HttpServletRequest request , HttpServletResponse response) {
+		//文件流
+		InputStream inputStream=null;
+		//获取系统临时储存文件夹的名字
+		String property = System.getProperty("java.io.tmpdir");
+		//如果request域中存在多媒体文件类型
+	if( ServletFileUpload.isMultipartContent(request)) {
+		//文件项工厂对象
+		DiskFileItemFactory factory = new DiskFileItemFactory();    
+		//设置文件的最大值
+		factory.setSizeThreshold(100000000);
+		//当文件大于50m时，以临时文件，储存在系统临时文件夹中；
+		factory.setRepository(new File(property));
 		
+		//创建一个上传文件的实例对象
+		ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
+		//设置上传文件对象；
+		servletFileUpload.setFileSizeMax(100000000);
+		servletFileUpload.setSizeMax(100000000);
+		servletFileUpload.setHeaderEncoding("UTF-8");
+		
+		
+		List<FileItem> list = null;
+	
+		try {
+			//获得上传的文件流
+			 list = servletFileUpload.parseRequest(request);
+			 for (FileItem fileItem : list) {
+				 //获得上传文件的流
+				 inputStream = fileItem.getInputStream();
+				 System.out.println("获得的文件流"+fileItem);
+			}
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+		FTPClient ftpClient = new FTPClient();
+		try {
+				//ftp服务器地址
+				ftpClient.connect("v0.ftp.upyun.com");
+				//ftp服务器授权码,及登陆ftp
+				boolean login = ftpClient.login("tcbd1017/tcbd1017", "UEN2ZQre2befz2wx8CDfzTqS0a5IhjRe");
+				  if(!login){
+		                System.out.println("FTP登陆失败");
+		            }else {
+						//登陆成功
+		            	  //设置缓冲大小
+		                ftpClient.setBufferSize(2048);
+		                ftpClient.setControlEncoding("UTF-8");
+		                ftpClient.setFileType(ftpClient.BINARY_FILE_TYPE);
+		                //上传文件
+		                String generate = BaseUUID.generate();
+		                ftpClient.storeFile(generate+".jpg",inputStream);
+		                //远程URL图片地址；
+		                System.out.println("远程图片访问地址："+"http://tcbd1017.test.upcdn.net/"+generate+".jpg");
+		            	
+				}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		
+	}
 		
 	
 	

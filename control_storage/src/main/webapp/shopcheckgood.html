@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>商家查看货物</title>
-    <link rel="stylesheet" type="text/css" href="res/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="res/css/fs.css" media="all" />
-    <script type="text/javascript" src="res/layui/layui.js"></script>
-    <script type="text/javascript" src="res/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/res/css/fs.css" media="all" />
+    <script type="text/javascript" src="/res/layui/layui.js"></script>
+    <script type="text/javascript" src="/res/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                 <table class="layui-hide" id="test"></table>
             </div>
 
-            <!-- <div class="layui-col-md12">
+            <div class="layui-col-md12">
                 <div class="layui-row grid-demo">
                     <div class="layui-col-md12">
                         <button class="layui-btn" function="top" topUrl="views/datagrid/add.html" topWidth="800px" inputs="city:1" isMaximize="0" topHeight="600px" topTitle="新增demo">
@@ -83,91 +83,59 @@
                         </script>
                     </div>
                 </div>
-            </div> -->
-
-
+            </div>
         </div>
     </div>
 </body>
 
 </html>
-<script src="res/layui/layui.js" charset="utf-8"></script>
+<script src="/res/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use('table', function() {
         var table = layui.table;
 
-        layui.use('table', function() {
-            let table = layui.table;
-            // 声明对象存储查询条件
-            //          let param = {
-            //             methodName: "SelectAllgoods",
-            //             account: "shouji",
-            //             shop_id: "1"
-            //         };
-
-
-
-
-            table.render({
-                // 异步请求时携带的参数
-                //            where: param,
-                checkbox: true,
-                elem: '#test',
-                url: "http://localhost:8080/warehouse/GoodsAction.action?methodName=SelectAllgoods&account=shouji&shop_id=1",
-                page: {
-                    prev: '上一页',
-                    next: '下一页',
-                },
-                limit: 5,
-                limits: [5, 10, 15, 20, 25, 30, 35, 40,
-                    45, 50
-                ],
-                cols: [
-                    [{
-                        field: 'goods_id',
-                        width: '10%',
-                        title: '货物ID',
-                        sort: true,
-                        align: 'center'
-                    }, {
-                        field: 'model.model_name',
-                        width: '18%',
-                        title: '货物名称',
-                        align: 'center'
-                    }, {
-                        field: 'goods_count',
-                        width: '18%',
-                        title: '货物剩余数量',
-                        sort: true,
-                        align: 'center'
-                    }, {
-                        field: 'type.type_name',
-                        width: '18%',
-                        title: '货物类型',
-                        align: 'center'
-                    }, {
-                        field: 'brand.brand_name',
-                        title: '货物品牌',
-                        width: '18%',
-                        // minWidth: 150, //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                        align: 'center'
-                    }, {
-                        field: 'model.model_price',
-                        // width: '18%',
-                        title: '货物价格',
-                        sort: true,
-                        align: 'center'
-                    }, {
-                        field: 'model.model_size',
-                        // width: '18%',
-                        title: '货物大小',
-                        sort: true,
-                        align: 'center'
-                    }]
-                ],
-                page: true
-            });
+        table.render({
+            elem: '#test',
+            url: '/demo/table/user/',
+            cols: [
+                [{
+                    field: 'id',
+                    width: '10%',
+                    title: 'ID',
+                    sort: true,
+                    align: 'center'
+                }, {
+                    field: 'warehouse_typesize',
+                    width: '18%',
+                    title: '仓库类型',
+                    align: 'center'
+                }, {
+                    field: 'warehouse_price',
+                    width: '18%',
+                    title: '仓库价格',
+                    sort: true,
+                    align: 'center'
+                }, {
+                    field: 'shop_name',
+                    width: '18%',
+                    title: '购买店铺名称',
+                    align: 'center'
+                }, {
+                    field: 'warehouse_shop_buytime',
+                    title: '购买日期',
+                    width: '18%',
+                    // minWidth: 150, //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    align: 'center'
+                }, {
+                    field: 'warehouse_shop_buyyear',
+                    // width: '18%',
+                    title: '购买时长',
+                    sort: true,
+                    align: 'center'
+                }]
+            ],
+            page: true
         });
     });
 </script>

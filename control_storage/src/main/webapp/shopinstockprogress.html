@@ -1,152 +1,474 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>商家入货进度查询</title>
-    <link rel="stylesheet" type="text/css" href="/res/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="/res/css/fs.css" media="all" />
-    <script type="text/javascript" src="/res/layui/layui.js"></script>
-    <script type="text/javascript" src="/res/jquery-3.4.1.min.js"></script>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>商家入货进度查询</title>
+		<link rel="stylesheet" type="text/css" href="res/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" type="text/css" href="res/css/fs.css" media="all" />
+		<script type="text/javascript" src="res/layui/layui.js"></script>
+		<script type="text/javascript" src="res/jquery-3.4.1.min.js"></script>
+	</head>
 
-<body>
-    <div class="layui-fluid">
-        <div class="layui-row layui-col-space1">
-            <div class="layui-col-md12">
-                <div class="layui-form-query">
-                    <form class="layui-form" id="query_form">
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">商品类型：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <select name="province" id="province" lay-verify="required"></select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">仓库类型：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <select name="province" id="province" lay-verify="required"></select> </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">仓库uuid：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <input type="text" name="name" autocomplete="off" class="layui-input" />
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">状态：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <select name="province" id="province" lay-verify="required"></select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">订单编号：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <input type="text" name="name" autocomplete="off" class="layui-input" />
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <div class="layui-input-inline">
-                                    <button class="layui-btn" type="button" function="query"><i class="layui-icon">&#xe615;</i>查询</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+	<body>
+	 <fieldset class="layui-elem-field layui-field-title">
+            <legend>购买仓库</legend>
+        </fieldset>
+		<div class="layui-fluid">
+			<div class="layui-row layui-col-space1">
+				<div class="layui-col-md12">
+					<div class="layui-form-query">
+						<form class="layui-form" id="query_form">
+							<div class="layui-form-item">
 
-            <div class="layui-col-md12">
-                <table class="layui-hide" id="test"></table>
-            </div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">仓库类型：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<select name="province" id="warehouse_name" lay-verify="required"></select> </div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">商品类型：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<select name="province" id="typeName" lay-verify="required"></select>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">商品品牌：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<select name="province" id="brandName" lay-verify="required"></select>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">商品型号：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<select name="province" id="modelName" lay-verify="required"></select> </div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">仓库uuid：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<input type="text" name="name" autocomplete="off" class="layui-input" />
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">状态：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<select name="province" id="jianceFlag" lay-verify="required"></select>
+									</div>
+								</div>
+								<div class="layui-inline">
+									<label class="layui-form-mid">订单编号：</label>
+									<div class="layui-input-inline" style="width: 100px;">
+										<input type="text" name="name" autocomplete="off" class="layui-input" />
+									</div>
+								</div>
+								<div class="layui-inline">
+									<div class="layui-input-inline">
+										<button class="layui-btn" type="button" function="query"><i class="layui-icon">&#xe615;</i>查询</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 
-            <div class="layui-col-md12">
-                <div class="layui-row grid-demo">
-                    <div class="layui-col-md12">
-                        <button class="layui-btn" function="top" topUrl="views/datagrid/add.html" topWidth="800px" inputs="city:1" isMaximize="0" topHeight="600px" topTitle="新增demo">
-		                        <i class="layui-icon">&#xe654;</i>新增
-			                </button>
-                        <button class="layui-btn layui-btn-danger" function="submit" method="get" url="/servlet/DEMO1003" isMutiDml="1" isConfirm="1" confirmMsg="是否确定删除选中的数据？" inputs="id:">
-			                    <i class="layui-icon">&#xe640;</i>批量删除
-			                </button>
-                        <button class="layui-btn" function="refresh">
-			                    <i class="layui-icon">&#x1002;</i>刷新
-			                </button>
-                        <button class="layui-btn" function="test">
-			                    <i class="layui-icon">&#xe756;</i>测试
-			                </button>
-                    </div>
-                    <div class="layui-col-md12">
-                        <table id="fsDatagrid" lay-filter="fsDatagrid" class="fsDatagrid" isLoad="1" url="/servlet/DEMO1001" isPage="1" sortType="1" pageSize="10" defaultForm="query_form" height="full-135"></table>
+				<div class="layui-col-md12">
+					<table class="layui-hide" id="test"></table>
+				</div>
 
-                        <div class="fsDatagridCols">
 
-                        </div>
-
-                        <script type="text/html" id="stateTpl">
-                            <input type="checkbox" name="state" lay-skin="switch" disabled lay-text="开启|关闭" {{ d.state==1 ? 'checked' : '' }}>
-                        </script>
-                        <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="top" topUrl="views/datagrid/edit.html" topMode="readonly" topWidth="800px" topHeight="600px" topTitle="查看demo" inputs="id:">查看</a>
-                            <a class="layui-btn layui-btn-xs" lay-event="top" topUrl="views/datagrid/edit.html" topWidth="800px" topHeight="600px" topTitle="编辑demo" inputs="id:">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="/servlet/DEMO1003" isConfirm="1" method="get" confirmMsg="是否确定删除当前记录？" inputs="id:">删除</a>
-                            <a class="layui-btn layui-btn-xs" lay-event="test2">测试</a>
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+			</div>
+		</div>
+	</body>
 
 </html>
-<script src="/res/layui/layui.js" charset="utf-8"></script>
+<script src="res/layui/layui.js" charset="utf-8"></script>
+
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    layui.use('table', function() {
-        var table = layui.table;
+	layui.use('table', function() {
+		var table = layui.table;
 
-        table.render({
-            elem: '#test',
-            url: '/demo/table/user/',
-            cols: [
-                [{
-                    field: 'id',
-                    width: '10%',
-                    title: 'ID',
-                    sort: true,
-                    align: 'center'
-                }, {
-                    field: 'warehouse_typesize',
-                    width: '18%',
-                    title: '仓库类型',
-                    align: 'center'
-                }, {
-                    field: 'warehouse_price',
-                    width: '18%',
-                    title: '仓库价格',
-                    sort: true,
-                    align: 'center'
-                }, {
-                    field: 'shop_name',
-                    width: '18%',
-                    title: '购买店铺名称',
-                    align: 'center'
-                }, {
-                    field: 'warehouse_shop_buytime',
-                    title: '购买日期',
-                    width: '18%',
-                    // minWidth: 150, //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
-                    align: 'center'
-                }, {
-                    field: 'warehouse_shop_buyyear',
-                    // width: '18%',
-                    title: '购买时长',
-                    sort: true,
-                    align: 'center'
-                }]
-            ],
-            page: true
-        });
-    });
+		table.render({
+			elem: '#test',
+			where: {
+				page: 1,
+				limit: 10,
+				account: "shouji",
+				chuku_shangpuuuid:"店铺uuid001"
+			},
+			url: '/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
+			parseData: function(res) { //res 即为原始返回的数据
+				// window.console.log(res);
+				// window.console.log(res.data.data[0].brand);
+				return {
+					"code": 0, //解析接口状态
+					"msg": "", //解析提示文本
+					"count": res.count, //解析数据长度
+					"data": res.data.data //解析数据列表
+				};
+			},
+			cols: [
+				[{
+						field: 'jianceShangpuuuid',
+						width: '200',
+						title: '店铺uuid',
+						sort: true,
+						align: 'center',
+						// templet: '<div>{{d.model.modelPrice}}</div>'
+					},
+					{
+						field: 'jianceCangkuuuid',
+						width: '200',
+						title: '仓库Uuid',
+						align: 'center'
+						// templet: '<div>{{d.data[0].count}}</div>'
+					},{
+						field: 'name',
+						width: '200',
+						title: '商品类型名称',
+						sort: true,
+						align: 'center',
+						templet: '<div>{{d.type.name}}</div>'
+					},{
+						field: 'modelName',
+						width: '200',
+						title: '商品型号',
+						align: 'center',
+						templet: '<div>{{d.model.modelName}}</div>'
+					},{
+						field: 'brandName',
+						width: '150',
+						title: '品牌名称',
+						align: 'center',
+						templet: '<div>{{d.brand.brandName}}</div>'
+					}, {
+						field: 'jiancePrice',
+						width: '200',
+						title: '商品价格',
+						sort: true,
+						align: 'center',
+						// templet: '<div>{{d.model.modelPrice}}</div>'
+					},{
+						field: 'jianceComegoodsrecoredCount',
+						width: '150',
+						title: '入库货物数量',
+						align: 'center',
+						// templet: '<div>{{d.brand.brandName}}</div>'
+					},
+					{
+						field: 'jianceRukujiluuuid',
+						width: '200',
+						title: '入库记录uuid',
+						sort: true,
+						align: 'center',
+						// templet: '<div>{{d.model.modelPrice}}</div>'
+					},
+					 {
+						field: 'modelSize',
+						title: '商品大小',
+						width: '180',
+
+						// minWidth: 150, //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+						align: 'center',
+						templet: '<div>{{d.model.modelSize}}</div>'
+					}, 
+					{
+						field: 'jianceFlag',
+						width: '200',
+						title: '状态',
+						align: 'center',
+						templet: '#jianceFlag1'
+					}
+				]
+			],
+			page: true
+		});
+
+	});
+
+	function setType(params, dom) {
+		layui.use(['jquery', 'form'], function() {
+			let $ = layui.jquery;
+			let form = layui.form;
+			dom.empty();
+			$.each(params, function(index, element) {
+				dom.append(new Option(element.name, element.id));
+			});
+			form.render();
+
+		});
+
+	}
+</script>
+<script type="text/html" id="jianceFlag1">
+	     {{#  if(d.jianceFlag === 1 ){ }}
+     <button type="button" class="layui-btn layui-btn-danger">仓库已满</button>
+     {{#  } }}  
+     {{#  if(d.jianceFlag === 2 ){ }}
+     <button type="button" class="layui-btn layui-btn-normal">等待入库</button> 
+     {{#  } }}  
+	{{#  if(d.jianceFlag === 3 ){ }}
+     <button type="button" class="layui-btn ">入库成功</button>
+     {{#  } }}  
+	</script>
+<script type="text/javascript">
+	$(function() {
+		//获取仓库类型数据  并且  赋值
+		fuzhiCangType(queryCangKuType(), status);
+		//获取商品类型数据  并且  赋值
+		fuzhiShangPinType(queryShangPinType(), status);
+		//获取商品品牌数据  并且  赋值
+		fuzhiShangPinBrand(queryShangPinBrand(), status);
+		//获取商品型号数据  并且  赋值
+		fuzhiShangPinXingHao(queryShangPinXingHao(), status);
+		//获取状态数据  并且  赋值
+		fuzhiJianCeFlag(queryJianCeFlag(), status);
+
+
+
+
+
+	});
+
+	$("#province").click(function() {
+		type();
+	})
+
+	function operator() {
+		let $operator = sessionStorage.getItem("operator");
+		let type = $("#province").val();
+
+
+	}
+
+
+	//仓库类型开始=====================================================================================================
+	/**
+	 * 获取仓库类型数据
+	 * @param {*} pid 
+	 * @param {*} $url 
+	 */
+	function queryCangKuType(pid, $url) {
+		let pcds;
+		$.ajax({
+			type: "post",
+			url: "/warehouse/CangKuAction.action?methodName=ChaXunSuoYouWeiMaiCangKu",
+			async: false,
+			data: {
+				page: 1,
+				limit: 20
+			},
+			dataType: "json",
+			success: function(responseText) {
+				// window.console.log(responseText);
+				pcds = responseText;
+			}
+		});
+		// window.console.log("仓库类型数据拿到了！")
+		return pcds;
+	}
+
+	//仓库类型赋值
+	function fuzhiCangType(data, status) {
+		// window.console.log(data);
+		$("#warehouse_name").html("");
+		var str = "<option>请选择</option>";
+		//转换成json对象
+		// var obj = JSON.parse(data);
+		for (var index in data.data.selectCangKuLeixing.selectCangKuLeixing) {
+			str += " <option id=" + data.data.selectCangKuLeixing.selectCangKuLeixing[index].warehouse_id + ">" + data.data.selectCangKuLeixing
+				.selectCangKuLeixing[index].warehouse_name + "</option>";
+		}
+		$("#warehouse_name").append(str);
+		// window.console.log("仓库类型赋值完成了！")
+	}
+	//仓库类型结束=====================================================================================================
+	//商品类型开始=====================================================================================================
+	/**
+	 * 获取商品类型数据
+	 * @param {*} pid 
+	 * @param {*} $url 
+	 */
+	function queryShangPinType(pid, $url) {
+		let pcds;
+		$.ajax({
+			type: "post",
+			url: "/warehouse/GoodsAction.action?methodName=SelectAllgoods",
+			async: false,
+			data: {
+				page: 1,
+				limit: 20,
+				account: "niuwei"
+			},
+			dataType: "json",
+			success: function(responseText) {
+				// window.console.log(responseText);
+				pcds = responseText;
+			}
+		});
+		// window.console.log("商品类型数据拿到了！")
+		return pcds;
+	}
+	//商品类型赋值
+	function fuzhiShangPinType(data, status) {
+		// window.console.log(data);
+		$("#typeName").html("");
+		var str = "<option>请选择</option>";
+		//转换成json对象
+		// var obj = JSON.parse(data);
+		var list = new Array();
+		for (var index in data.data.allGoods) {
+
+			var item = data.data.allGoods[index].type.name;
+			if (list.indexOf(item) == -1) {
+				list.push(item);
+				str += " <option id=" + data.data.allGoods[index].type.name + ">" + data.data.allGoods[index].type.name +
+					"</option>";
+			}
+		}
+		$("#typeName").append(str);
+		// window.console.log("商品类型赋值完成了！")
+	}
+	//商品类型结束=====================================================================================================
+	//商品品牌开始=====================================================================================================
+	/**
+	 * 获取商品品牌数据
+	 * @param {*} pid 
+	 * @param {*} $url 
+	 */
+	function queryShangPinBrand(pid, $url) {
+		let pcds;
+		$.ajax({
+			type: "post",
+			url: "/warehouse/ShangJiChuKuAction.action?methodName=ChaXunPinPai",
+			async: false,
+			data: {
+
+			},
+			dataType: "json",
+			success: function(responseText) {
+				// window.console.log(responseText);
+				pcds = responseText;
+			}
+		});
+		// window.console.log("商品品牌数据拿到了！")
+		return pcds;
+	}
+
+	//商品品牌赋值
+	function fuzhiShangPinBrand(data, status) {
+		// window.console.log(data);
+		$("#brandName").html("");
+		var str = "<option>请选择</option>";
+		//转换成json对象
+		// var obj = JSON.parse(data);
+		for (var index in data.data) {
+			str += " <option id=" + data.data[index].brandId + ">" + data.data[index].brandName + "</option>";
+		}
+		$("#brandName").append(str);
+		// window.console.log("商品品牌赋值完成了！")
+	}
+	//商品品牌结束=====================================================================================================
+	//商品型号开始=====================================================================================================
+	/**
+	 * 获取商品型号数据
+	 * @param {*} pid 
+	 * @param {*} $url 
+	 */
+	function queryShangPinXingHao(pid, $url) {
+		let pcds;
+		$.ajax({
+			type: "post",
+			url: "/warehouse/ShangJiChuKuAction.action?methodName=ChaXunXingHao",
+			async: false,
+			data: {
+				brand_type_id: 1
+			},
+			dataType: "json",
+			success: function(responseText) {
+				// window.console.log(responseText);
+				pcds = responseText;
+			}
+		});
+		// window.console.log("商品型号数据拿到了！")
+		return pcds;
+	}
+
+	//商品型号赋值
+	function fuzhiShangPinXingHao(data, status) {
+		// window.console.log(data);
+		$("#modelName").html("");
+		var str = "<option>请选择</option>";
+		//转换成json对象
+		// var obj = JSON.parse(data);
+		for (var index in data.data) {
+			// console.log(data.data[index].brandName);
+			// window.console.log(index);
+			// str+=" <li><a href='#'>" + data.data[index].brandName + "</a></li>";
+			// $("#province").append(" <li><a href='#'>" + data.data[index].brandName + "</a></li>");
+			str += " <option id=" + data.data[index].modelId + ">" + data.data[index].modelName + "</option>";
+		}
+		$("#modelName").append(str);
+		// window.console.log("商品型号赋值完成了！")
+	}
+	//商品型号结束=====================================================================================================
+	//状态开始=====================================================================================================
+	/**
+	 * 获取状态数据
+	 * @param {*} pid 
+	 * @param {*} $url 
+	 */
+	function queryJianCeFlag(pid, $url) {
+		let pcds;
+		$.ajax({
+			type: "post",
+			url: "/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe",
+			async: false,
+			data: {
+				page: 1,
+				limit: 20,
+				account: "niuwei"
+			},
+			dataType: "json",
+			success: function(responseText) {
+				// window.console.log(responseText);
+				pcds = responseText;
+			}
+		});
+		// window.console.log("状态数据拿到了！")
+		return pcds;
+	}
+
+	//状态赋值
+	function fuzhiJianCeFlag(data, status) {
+		window.console.log(data);
+		$("#jianceFlag").html("");
+		var str = "<option>请选择</option>";
+		//转换成json对象
+		// var obj = JSON.parse(data);
+		var list = new Array();
+		
+		
+		for (var index in data.data.data) {
+			var item = data.data.data[index].jianceFlag;
+			
+			
+			var flag = null;
+			if (list.indexOf(item) == -1) {
+				list.push(item);
+				if (data.data.data[index].jianceFlag == 1) {
+					flag = "仓库已满";
+				} else if (data.data.data[index].jianceFlag == 2) {
+						flag = "等待入库";
+				} else if (data.data.data[index].jianceFlag == 3) {
+							flag = "入库成功";
+				}
+				str += " <option id=" + data.data.data[index].jianceFlag + ">" + flag + "</option>";
+			}
+			
+		}
+		$("#jianceFlag").append(str);
+		// window.console.log("状态赋值完成了！")
+	}
+	//状态结束=====================================================================================================
 </script>
