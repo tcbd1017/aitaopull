@@ -50,8 +50,8 @@ public class GoodsFavoriteDaoImpl implements GoodsFavoriteDao  {
 	public int judgeGoodsFavorite(Map<String, Object> map)throws SQLException {
 		int result= 0;
 		StringBuilder sql=new StringBuilder(" select goods_favorite_id,buyer_id from 010601_goods_favorite ");
-		sql.append("  where 1 = 1 and goods_id = ? and goods_favorite_status = 2  ");
-		Object[]params= {map.get("goods_id")};
+		sql.append("  where 1 = 1 and goods_id = ? and buyer_id=? and goods_favorite_status = 2  ");
+		Object[]params= {map.get("goods_id"),map.get("buyer_id")};
 		Connection connection = BaseDBUtils.getConnection();
 		PreparedStatement preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		ResultSet resultSet = BaseDBUtils.executeQuery(preparedStatement, params);

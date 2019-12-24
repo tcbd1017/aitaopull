@@ -33,14 +33,15 @@ public class FrontBuyerRegisterDaoImpl implements FrontBuyerRegisterDaoIns {
 		}
 		return rs;
 	}
+
 	@Override
 	public int insert_Account_Password(Map<String, Object> map) throws SQLException {
 		System.out.println("insert_Account_Password");
 		Connection connection = BaseDBUtils.getConnection();
 		StringBuilder sql = new StringBuilder(
-				" insert into 0101_buyer (buyer_uuid,buyer_create_time,buyer_update_time,buyer_status) ");
-		sql.append(" VALUES(?,NOW(),NOW(),2) ");
-		Object[] param = { map.get("buyer_uuid")};
+				" insert into 0101_buyer (buyer_uuid,buyer_name,buyer_create_time,buyer_update_time,buyer_status) ");
+		sql.append(" VALUES(?,?,NOW(),NOW(),2) ");
+		Object[] param = { map.get("buyer_uuid"), uuname() };
 		PreparedStatement preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		int rs = BaseDBUtils.executeUpdate(preparedStatement, param);
 		return rs;
@@ -67,8 +68,8 @@ public class FrontBuyerRegisterDaoImpl implements FrontBuyerRegisterDaoIns {
 		Connection connection = BaseDBUtils.getConnection();
 		StringBuilder sql = new StringBuilder(
 				" INSERT INTO `0101_buyer` (`buyer_id`, `buyer_uuid`, `buyer_name`, `buyer_mobile`, `buyer_mail`, `buyer_create_time`, `buyer_update_time`, `buyer_status`) ");
-		sql.append(" VALUES (NULL,?, null, ?, null, ?, null, '2') ");
-		Object[] param = { map.get("buyer_uuid"), map.get("buyer_mobile"), map.get("buyer_create_time") };
+		sql.append(" VALUES (NULL,?, ?, ?, null, ?, null, '2') ");
+		Object[] param = { map.get("buyer_uuid"), uuname(), map.get("buyer_mobile"), map.get("buyer_create_time") };
 		PreparedStatement preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		int rs = BaseDBUtils.executeUpdate(preparedStatement, param);
 		return rs;
@@ -176,8 +177,5 @@ public class FrontBuyerRegisterDaoImpl implements FrontBuyerRegisterDaoIns {
 		}
 		return false;
 	}
-	
-
-	
 
 }

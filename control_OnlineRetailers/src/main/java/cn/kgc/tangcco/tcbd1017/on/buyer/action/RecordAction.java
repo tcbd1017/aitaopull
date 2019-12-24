@@ -348,4 +348,65 @@ public class RecordAction extends BaseServlet{
 		
 	}
 	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 11》
+	 * @param goods_id 商品id   例：传过来的json字符串  {"goods_id":"1"}
+	 * @return 根据商品id返回同一店铺相关商品的前两条数据
+	 */
+	public void queryRelatedProductsByGoodsId(HttpServletRequest request,HttpServletResponse response, String goods_id) {
+		Map map=null;
+		if (!StringUtils.isEmpty(goods_id)) {
+			 map = JSON.parseObject(goods_id,Map.class); 
+			 System.out.println("进入方法");
+			 System.out.println(goods_id);
+		}
+		
+		System.out.println(map.containsKey("goods_id"));
+		 map = recordService.queryRelatedProductsByGoodsId(map.get("goods_id").toString());
+		printJson(response, map);
+		
+	}
+	
+	
+	/**
+	 * 《肖越根据前台页面需求额外新添加的方法 12》
+	 * @param buyer_id 买家id
+	 * @param goods_id 商品id
+	 * @param amount_of_goods 添加商品数量
+	 * @param shopping_cart_create_time 购物车创建时间
+	 * 例：传过来的json字符串             {"amount_of_goods":"5","goods_id":"73","buyer_id":"19","shopping_cart_create_time":"2019-12-21"}
+	 * @return 根据买家id、商品id、商品数量、购物车创建时间增加购物车信息
+	 */
+	public void addAddShoppingCart(HttpServletRequest request,HttpServletResponse response,String shoppingCartRelatedInformation) {
+		Map map=null;
+		if (!StringUtils.isEmpty(shoppingCartRelatedInformation)) {
+			
+			 map = JSON.parseObject(shoppingCartRelatedInformation,Map.class); 
+			 System.out.println("进入方法");
+			 System.out.println(shoppingCartRelatedInformation);
+		}
+		
+		System.out.println(map.containsKey("buyer_id"));
+		System.out.println(map.containsKey("goods_id"));
+		 map = recordService.addAddShoppingCart(map.get("buyer_id").toString(),map.get("goods_id").toString(),map.get("amount_of_goods").toString(),map.get("shopping_cart_create_time").toString());
+		printJson(response, map);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

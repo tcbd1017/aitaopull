@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+    <title>员工登录</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <script>
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <script src="res/jquery-3.4.1.min.js"></script>
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <!-- Style-CSS -->
+    <link rel="stylesheet" href="css/fontawesome-all.css">
+    <!-- Font-Awesome-Icons-CSS -->
+    <!-- //css files -->
+    <!-- web-fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <!-- //web-fonts -->
+</head>
+
+<body>
+    <!-- bg effect -->
+    <div id="bg">
+        <canvas></canvas>
+        <canvas></canvas>
+        <canvas></canvas>
+    </div>
+    <!-- //bg effect -->
+    <!-- title -->
+    <h1>仓储管理员工登录</h1>
+    <!-- //title -->
+    <!-- content -->
+    <div class="sub-main-w3">
+        <form action="#" method="post" role="form" id="form_emplogin" class="login_padding" onsubmit="return false">
+            <h2>Login Now
+                <i class="fas fa-level-down-alt"></i>
+            </h2>
+            <div class="form-style-agile">
+                <label>
+					<i class="fas fa-user"></i>
+					账号
+				</label>
+                <input id="emp_account" placeholder="请输入账号" name="Name" type="text" required="">
+            </div>
+            <div class="form-style-agile">
+                <label>
+					<i class="fas fa-unlock-alt"></i>
+					密码
+				</label>
+                <input id="emp_password" placeholder="请输入密码" name="Password" type="password" required="">
+            </div>
+            <!-- checkbox -->
+            <div class="wthree-text">
+                <ul>
+                    <!-- <li>
+                        <label class="anim">
+							<input type="checkbox" class="checkbox" required="">
+							<span>Stay Signed In</span>
+						</label>
+                    </li> -->
+                    <li>
+                        <a href="#">忘记密码</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- //checkbox -->
+            <input id="loginBtn" type="submit" value="Log In">
+            <!-- <div class="form-group">
+                <a href="javascript:;" type="submit" class="btn btn-danger btn-block btn-login" id="loginBtn">
+                    <i class="fa fa-sign-in "></i> Log In
+                </a>
+            </div> -->
+        </form>
+    </div>
+    <!-- //content -->
+
+    <!-- copyright -->
+    <!-- <div class="footer">
+        <p>Copyright &copy; 2018.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+    </div> -->
+    <!-- //copyright -->
+    <!-- Jquery -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- //Jquery -->
+    <!-- effect js -->
+    <script src="js/canva_moving_effect.js"></script>
+    <!-- //effect js -->
+    <script src="res/layer/layer.js"></script>
+</body>
+
+</html>
+<script>
+    let $url = "";
+    $.getJSON("res/serverconfig.json", (responseText) => {
+        $url = responseText.protocol + responseText.domain + responseText.port + responseText.context;
+        window.console.log($url)
+    });
+    $(function() {
+        // 登录按钮点击事件调用函数执行动作
+        $("#loginBtn").click(function(event) {
+            // 获取账号
+            let account = $("#emp_account").val();
+            // 获取密码
+            let password = $("#emp_password").val();
+         		
+            if ("" == $.trim($url)) {
+                // 如果没有获取到被请求的url或者被请求的url为空字符串提示用户
+                Tip("宝宝病了，不能伺候小主了")
+                    // 结束该方法不提交表单
+                return;
+            }
+            // 账号、密码、被请求的url都不是空字符串的时候ajax异步提交表单
+            $.ajax({
+                // 请求方式
+                type: "post",
+                // 被请求的url
+                url:$url+"/ShangJiaAndEmpLoginAction.action?methodName=EmpLogin",
+                // 返回值的数据类型
+                dataType: "json",
+                // 发送的数据 
+                data: {
+                	emp_account:account,
+                	emp_password:password
+                },
+                // 发送请求之前执行
+                beforeSend: () => {
+                    // layui消息提示框
+                    // 第一个参数显示的消息
+                    // icon 显示图标
+                    // shade 遮罩层 透明度 默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+                    layer.msg('正在登录...', {
+                        icon: 16,
+                        shade: [0.8, '#393D49'],
+                    });
+                },
+                success: (responseText) => {
+                	alert('ok');
+                    switch (responseText.status) {
+                        case "success":
+                            // window.console.log(responseText)
+                            layer.msg('登录成功', {
+                                icon: 6,
+                                shade: [0.8, '#393D49'],
+                            });
+                            // 将操作者信息转为json字符串存储在临时存储sessionStorage中
+                            sessionStorage.setItem("showfunction", JSON.stringify(responseText.data));
+                            // 将后端服务器的url存储在存储sessionStorage中
+                            sessionStorage.setItem("url", $url);
+                            // 页面跳转 
+                            window.location.replace("index.html");
+                            break;
+                        default:
+                            // 当没有录入密码的时候提示用户输入账号
+                            Tip('账号或者密码错误！');
+                            // 密码位置获取焦点
+                            $("#emp_password").focus();
+                            break;
+                    }
+                },
+                error: () => {
+                    Tip("服务器大大病了，不能伺候小主了")
+                }
+            });
+            // }
+
+        });
+    });
+</script>

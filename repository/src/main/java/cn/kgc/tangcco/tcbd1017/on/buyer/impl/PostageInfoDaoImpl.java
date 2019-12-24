@@ -118,7 +118,7 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		}
 		return addressList;
 	}
-	
+
 	@Override
 	public int insertPostageInfo(Map<String, Object> map) throws SQLException {
 		StringBuffer sql = new StringBuffer(" insert into 010401_postage_info  ");
@@ -195,37 +195,6 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		return count;
 	}
 
-	/**
-	 * 用来处理结果集的工具
-	 * 
-	 * @param rs 用SQL语句查询出的结果集
-	 * @return 包含每个字段值的一个list
-	 */
-	private List<Map<String, Object>> rsToList(ResultSet rs) {
-		List<Map<String, Object>> list = null;
-		if (rs == null) {
-			return list;
-		}
-		try {
-			list = new ArrayList<Map<String, Object>>();
-			// 获取总列数
-			int columnCount = rs.getMetaData().getColumnCount();
-			while (rs.next()) {
-				Map<String, Object> map = new HashMap<String, Object>();
-				// 遍历每一列,拿出列名和数据
-				for (int i = 1; i <= columnCount; i++) {
-					String columnLabel = rs.getMetaData().getColumnLabel(i);
-					Object value = rs.getObject(i);
-					map.put(columnLabel, value);
-				}
-				list.add(map);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
 	@Override
 	public int updatePostageInfosByStatus(Map<String, Object> map) throws SQLException {
 		StringBuffer sql = new StringBuffer(" update  010401_postage_info set ");
@@ -297,5 +266,100 @@ public class PostageInfoDaoImpl implements PostageInfoDao {
 		return count;
 	}
 
-	
+	@Override
+	public Map<String, Object> selectOrderByOrderUuid(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(" SELECT * from 0109_order as o ");
+		sql.append(" INNER JOIN 0109_order_goods as og ");
+		sql.append(" INNER JOIN 0203_goods as g ");
+		sql.append(" INNER JOIN 020301_goods_picture_url as gpu ");
+		sql.append(" INNER JOIN 0201_seller as se ");
+		sql.append(" INNER JOIN 0207_store as st ");
+		sql.append(" INNER JOIN 0101_buyer as b ");
+		sql.append(" INNER JOIN 0104_buyer_and_postage_info as bap ");
+		sql.append(" INNER JOIN 010401_postage_info as p ");
+		sql.append(" on 1=1 ");
+		sql.append(" and o.order_uuid = ? ");
+		sql.append(" and o.order_id = og.order_id ");
+		sql.append(" and g.goods_id = og.goods_id ");
+		sql.append(" and gpu.goods_picture_url_id = g.goods_picture_url_id ");
+		sql.append(" and se.seller_id = og.seller_id ");
+		sql.append(" and st.store_id = se.store_id ");
+		sql.append(" and b.buyer_id = o.buyer_id ");
+		sql.append(" and b.buyer_id = bap.buyer_id ");
+		sql.append(" and p.postage_info_id = bap.postage_info_id ");
+		sql.append(" and p.postage_info_status = 3 ");
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, map.get("order_uuid"));
+		Map<String, Object> info = rsToMap(rs);
+		return info;
+	}
+
+	private Map<String, Object> rsToMap(ResultSet rs) {
+		Map<String, Object> info = null;
+		try {
+			if (rs.first()) {
+				rs.previous();
+				info = new HashMap<String, Object>();
+				// 获取总列数
+				int columnCount = rs.getMetaData().getColumnCount();
+				while (rs.next()) {
+					// 遍历每一列,拿出列名和数据
+					for (int i = 1; i <= columnCount; i++) {
+						String columnLabel = rs.getMetaData().getColumnLabel(i);
+						Object value = rs.getObject(i);
+						info.put(columnLabel, value);
+					}
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return info;
+	}
+
+	/**
+	 * 用来处理结果集的工具
+	 * 
+	 * @param rs 用SQL语句查询出的结果集
+	 * @return 包含每个字段值的一个list
+	 */
+	private List<Map<String, Object>> rsToList(ResultSet rs) {
+		List<Map<String, Object>> list = null;
+		if (rs == null) {
+			return list;
+		}
+		try {
+			list = new ArrayList<Map<String, Object>>();
+			// 获取总列数
+			int columnCount = rs.getMetaData().getColumnCount();
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				// 遍历每一列,拿出列名和数据
+				for (int i = 1; i <= columnCount; i++) {
+					String columnLabel = rs.getMetaData().getColumnLabel(i);
+					Object value = rs.getObject(i);
+					map.put(columnLabel, value);
+				}
+				list.add(map);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Map<String, Object> selectSellerByBuyer_id(Map<String, Object> map) throws SQLException {
+		StringBuffer sql = new StringBuffer(" select * from 0101_buyer as b INNER JOIN 0201_seller as s  ");
+		sql.append(" on 1=1 ");
+		sql.append(" and b.buyer_id = ? ");
+		sql.append(" and b.buyer_id = s.buyer_id ");
+		Connection conn = BaseDBUtils.getConnection();
+		PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+		ResultSet rs = BaseDBUtils.executeQuery(pst, map.get("buyer_id"));
+		Map<String, Object> info = rsToMap(rs);
+		return info;
+	}
 }

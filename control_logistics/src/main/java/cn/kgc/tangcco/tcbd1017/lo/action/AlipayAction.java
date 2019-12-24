@@ -87,7 +87,7 @@ public class AlipayAction extends BaseServlet{
 		Map<String, Object> map =new HashMap<String ,Object > ();
 		map.put("money_uuid", out_trade_no);
 		Map<String, Object> payByMoneyId = ms.payByMoneyId(map);
-		printJson(response, payByMoneyId);
+//		printJson(response, payByMoneyId);
 	}
 	
 }

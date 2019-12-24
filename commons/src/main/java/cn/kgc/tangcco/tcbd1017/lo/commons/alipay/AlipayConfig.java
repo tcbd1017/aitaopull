@@ -14,10 +14,10 @@ public class AlipayConfig {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxWXlpIy6WzhSn7d5fegfUw6fDcWyL4qQUiT59XrxWJNLLPNkK665jPslU3X35G+BpbTMmHp8hOSMh17oj7AxFvBDStzO8NJ6qfH7LlyFqDBU6LPnt+dV+YBUA5wTyDJp0qWJ3gFgOlkPvp8UZ+MnHu7jubFNBo9lj25/if4iFnOg+ANCSfDVuhVhoqq4xrTXd7qRvd81zEEzeocbFt67KidSK4+M92zWb+TdLp/UfjsjQ7APIe2NMgpP0SXggWi80sM/y0SRi3mKVRSWu+luVn41sX/y8t/ZxXdMxq3IcPEk/8AFWLbGgUIatyIXZ5ondWQbxRUlVHV5eYrednPeVQIDAQAB";
 
 	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = "http://localhost:8080/wl/pay.action?methodName=callBack";
+	public static String notify_url = "http://localhost:8080/control_logistics/pay.action?methodName=callBack";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String return_url = "http://localhost:8080/wl/pay.action?methodName=callBack";
+	public static String return_url = "http://localhost:8080/control_logistics/pay.action?methodName=callBack";
 
 	// 签名方式
 	public static String sign_type = "RSA2";

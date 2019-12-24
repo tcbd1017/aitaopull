@@ -20,4 +20,11 @@ public class IDUtils {
 		return System.currentTimeMillis() + String.valueOf(r).substring(1);
 	}
 	
+	
+	
+	public static void main(String[] args) {
+		
+		System.out.println(IDUtils.createID());
+	}
+	
 }
