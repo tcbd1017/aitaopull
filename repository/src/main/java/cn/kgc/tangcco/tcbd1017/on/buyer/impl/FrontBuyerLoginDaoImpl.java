@@ -27,7 +27,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		Map<String, Object> map= new HashMap<>();
 		map.put("buyer_uuid",null);
 		List <Object> list=new ArrayList<>();
-		StringBuilder sql = new StringBuilder(" SELECT `0101_buyer`.`buyer_id`,`0101_buyer`.`buyer_uuid`,`0102_buyer_login`.`buyer_login_account`,`010101_buyer_info`.buyer_info_icon_url FROM `0101_buyer` ");
+		StringBuilder sql = new StringBuilder(" SELECT * FROM `0101_buyer` ");
 		sql.append(" INNER JOIN `0102_buyer_login` INNER JOIN  `010101_buyer_info` ON 1=1 AND `buyer_status`='2' AND `buyer_login_status`='2' AND `010101_buyer_info`.buyer_info_status='2' ");
 		sql.append(" AND `0101_buyer`.`buyer_uuid`=`0102_buyer_login`.`buyer_uuid` ");
 		sql.append(" and 0101_buyer.buyer_id = 010101_buyer_info.buyer_id ");
@@ -45,16 +45,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 			preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		}
 		ResultSet executeQuery = BaseDBUtils.executeQuery(preparedStatement,list.toArray());
-		if(executeQuery.first()) {
-			executeQuery.previous();
-			while (executeQuery.next()) {
-				map.put("buyer_id",executeQuery.getString("buyer_id"));
-				map.put("buyer_uuid", executeQuery.getString("buyer_uuid"));
-				map.put("buyer_login_account", executeQuery.getString("buyer_login_account"));
-				map.put("buyer_info_icon_url",executeQuery.getString("buyer_info_icon_url"));
-			}
-		}
-		
+		map = rsToMap(executeQuery);
 		return map;
 	}
 	//手机号登录
@@ -64,7 +55,7 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		PreparedStatement preparedStatement = null;
 		Map<String, Object> map= new HashMap<>();
 		map.put("buyer_uuid",null);
-		StringBuilder sql = new StringBuilder(" SELECT `0101_buyer`.`buyer_id`,`0101_buyer`.`buyer_uuid`,`0102_buyer_login`.`buyer_login_account`,`010101_buyer_info`.buyer_info_icon_url FROM `0101_buyer` ");
+		StringBuilder sql = new StringBuilder(" SELECT * FROM `0101_buyer` ");
 		sql.append(" INNER JOIN `0102_buyer_login` INNER JOIN  `010101_buyer_info` ON 1=1 AND `buyer_status`='2' AND `buyer_login_status` ='2' ");
 		sql.append(" AND `0101_buyer`.`buyer_uuid`=`0102_buyer_login`.`buyer_uuid` ");
 		sql.append(" and 0101_buyer.buyer_id = 010101_buyer_info.buyer_id ");
@@ -72,16 +63,30 @@ public class FrontBuyerLoginDaoImpl implements FrontBuyerLoginDaoIns {
 		Object[] param= {maps.get("buyer_mobile")};
 		preparedStatement = BaseDBUtils.getPreparedStatement(connection, sql.toString());
 		ResultSet executeQuery = BaseDBUtils.executeQuery(preparedStatement,param);
-		if(executeQuery.first()) {
-			executeQuery.previous();
-			while (executeQuery.next()) {
-				map.put("buyer_id", executeQuery.getString("buyer_id"));
-				map.put("buyer_uuid", executeQuery.getString("buyer_uuid"));
-				map.put("buyer_login_account", executeQuery.getString("buyer_login_account"));
-				map.put("buyer_info_icon_url",executeQuery.getString("buyer_info_icon_url"));
-			}
-		}
+		map = rsToMap(executeQuery);
 		return map;
 	}
-
+	private Map<String, Object> rsToMap(ResultSet rs) {
+		Map<String, Object> info = null;
+		try {
+			if (rs.first()) {
+				rs.previous();
+				info = new HashMap<String, Object>();
+				// 获取总列数
+				int columnCount = rs.getMetaData().getColumnCount();
+				while (rs.next()) {
+					// 遍历每一列,拿出列名和数据
+					for (int i = 1; i <= columnCount; i++) {
+						String columnLabel = rs.getMetaData().getColumnLabel(i);
+						Object value = rs.getObject(i);
+						info.put(columnLabel, value);
+					}
+				}
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return info;
+	}
 }
