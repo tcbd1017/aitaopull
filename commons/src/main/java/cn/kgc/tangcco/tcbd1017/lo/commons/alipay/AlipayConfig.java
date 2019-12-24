@@ -1,5 +1,5 @@
 
-﻿package cn.kgc.tangcco.tcbd1017.lo.commons.alipay;
+package cn.kgc.tangcco.tcbd1017.lo.commons.alipay;
 
 import java.io.FileWriter;
 import java.io.IOException;
