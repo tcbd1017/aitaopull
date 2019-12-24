@@ -8,35 +8,38 @@
     <link rel="stylesheet" type="text/css" href="res/css/fs.css" media="all" />
     <script type="text/javascript" src="res/layui/layui.js"></script>
     <script type="text/javascript" src="res/jquery-3.4.1.min.js"></script>
+    <script src="res/layui/layui.js" charset="utf-8"></script>
+<script src="js/goodsAdd.js" type="text/javascript" charset="utf-8"></script>
     <!-- <script type="text/javascript" src="res/frame/js/fsDict.js?v=1.7.0"></script>
     <script type="text/javascript" src="res/frame/js/fs.js?v=1.7.0"></script>
     <script type="text/javascript" src="res/frame/js/frame.js?v=1.7.0"></script> -->
 </head>
 
 <body>
-    <div class="layui-fluid">
+
+	<h1 align="center">聚宝盆的所有货物</h1>
+
+
+
+    <div class="layui-fluid" >
         <div class="layui-row layui-col-space1">
             <div class="layui-col-md12">
                 <div class="layui-form-query">
-                    <form class="layui-form" id="query_form">
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">货物类型：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <select name="type_name" id="type_name" lay-verify="required"></select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">店铺：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <select name="shop_name" id="shop_name" lay-verify="required"></select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-mid">仓库类型：</label>
-                                <div class="layui-input-inline" style="width: 100px;">
-                                    <select name="warehouse_typesize" id="warehouse_typesize" lay-verify="required"></select> </div>
-                            </div>
+                    <form class="layui-form" id="query_form" >
+                        <div class="layui-form-item" >
+                           <label class="layui-form-label">所有店铺</label>
+            					<div class="layui-input-inline">
+               							 <select name="typename" id="typename" lay-verify="selectChecked">
+            								<option value="">请选择</option>
+            							</select>
+            					</div>
+                           
+                            <label class="layui-form-label">所有仓库</label>
+            					<div class="layui-input-inline">
+               							 <select name="typename" id="cangku" lay-verify="selectChecked">
+            								<option value="">请选择</option>
+            							</select>
+            					</div>
                             <div class="layui-inline">
                                 <div class="layui-input-inline">
                                     <button class="layui-btn" type="button" function="query"><i class="layui-icon">&#xe615;</i>查询</button>
@@ -51,118 +54,80 @@
                 <table class="layui-hide" id="test"></table>
             </div>
 
-            <div class="layui-col-md12">
-                <div class="layui-row grid-demo">
-                    <div class="layui-col-md12">
-                        <button class="layui-btn" function="top" topUrl="views/datagrid/add.html" topWidth="800px" inputs="city:1" isMaximize="0" topHeight="600px" topTitle="新增demo">
-		                        <i class="layui-icon">&#xe654;</i>新增
-			                </button>
-                        <button class="layui-btn layui-btn-danger" function="submit" method="get" url="/servlet/DEMO1003" isMutiDml="1" isConfirm="1" confirmMsg="是否确定删除选中的数据？" inputs="id:">
-			                    <i class="layui-icon">&#xe640;</i>批量删除
-			                </button>
-                        <button class="layui-btn" function="refresh">
-			                    <i class="layui-icon">&#x1002;</i>刷新
-			                </button>
-                        <button class="layui-btn" function="test">
-			                    <i class="layui-icon">&#xe756;</i>测试
-			                </button>
-                    </div>
-                    <!-- <div class="layui-col-md12">
-                        <table id="fsDatagrid" lay-filter="fsDatagrid" class="fsDatagrid" isLoad="1" url="/servlet/DEMO1001" isPage="1" sortType="1" pageSize="10" defaultForm="query_form" height="full-135"></table>
-
-                        <div class="fsDatagridCols">
-
-                        </div>
-
-                        <script type="text/html" id="stateTpl">
-                            <input type="checkbox" name="state" lay-skin="switch" disabled lay-text="开启|关闭" {{ d.state==1 ? 'checked' : '' }}>
-                        </script>
-                        <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="top" topUrl="views/datagrid/edit.html" topMode="readonly" topWidth="800px" topHeight="600px" topTitle="查看demo" inputs="id:">查看</a>
-                            <a class="layui-btn layui-btn-xs" lay-event="top" topUrl="views/datagrid/edit.html" topWidth="800px" topHeight="600px" topTitle="编辑demo" inputs="id:">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="submit" url="/servlet/DEMO1003" isConfirm="1" method="get" confirmMsg="是否确定删除当前记录？" inputs="id:">删除</a>
-                            <a class="layui-btn layui-btn-xs" lay-event="test2">测试</a>
-                        </script>
-                    </div> -->
-                </div>
+          
+               
             </div>
         </div>
     </div>
 
 
-    <script type="text/javascript">
+  <!--  <script type="text/javascript">
         layui.fsButton.test2 = function(elem, data, datagrid) {
             alert("测试自定义按钮2" + JSON.stringify(data));
         }
-    </script>
+    </script> -->
 </body>
 
 </html>
-<script src="res/layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-
 <script>
-    layui.use('table', function() {
-        var table = layui.table;
+	
+$(document).ready(function() {
+    layui.use(['form'], function(){
+        var form = layui.form;
+        //监听 仓库类型下拉框
+        $.ajax({
+                url: "http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKu",
+                type: 'post', //HTTP请求类型
+                dataType: 'json', //服务器返回json格式数据
+                data: {
+             	   limit:20,
+             	   page:1
+                },
+                async: false,
+                success: function(data) {
+					   // window.console.log(data.data)
+					    let a = data.data
+					   // window.console.log(a)
+                    $.each(a, function(index, item) {
+						   // window.console.log(item.warehouseShopWarehousesize) warehouse_name
+                        // $('#warehousesize').append(new Option(item.warehouse_typesize)); // 下拉菜单里添加元素
+						   $('#cangku').append(new Option(item.warehouse_shop_warehouseuuid,item.warehouse_shop_warehouseuuid));
+                    });
+                    layui.form.render("select");
+                }
+         });
+		})
+})
 
-        table.render({
-            elem: '#test',
-            url: '/demo/table/user/',
-            cols: [
-                [{
-                    type: 'checkbox'
-                }, {
-                    field: 'id',
-                    width: '10%',
-                    title: 'ID',
-                    sort: true,
-                    align: 'center'
-                }, {
-                    field: 'type_name',
-                    field: 'model_name',
-                    width: '10%',
-                    title: '货物类别',
-                    align: 'center'
-                }, {
-                    field: 'brand_name',
-                    width: '10%',
-                    title: '货物品牌',
-                    align: 'center'
-                }, {
-                    field: 'model_name',
-                    width: '10%',
-                    title: '货物型号',
-                    align: 'center'
-                }, {
-                    field: 'model_price',
-                    title: '货物价格',
-                    sort: true,
-                    align: 'center'
-                }, {
-                    field: 'goods_count',
-                    width: '10%',
-                    title: '货物数量',
-                    sort: true,
-                    align: 'center'
-                }, {
-                    field: 'comegoodsrecord_time',
-                    width: '10%',
-                    title: '入库时间',
-                    sort: true,
-                    align: 'center'
-                }, {
-                    field: 'warehouse_typesize',
-                    width: '10%',
-                    title: '仓库类型',
-                    align: 'center'
-                }, {
-                    field: 'shop_name',
-                    width: '10%',
-                    title: '所属店铺',
-                    align: 'center'
-                }]
-            ],
-            page: true
-        });
-    });
+
+$(document).ready(function() {
+    	       layui.use(['form'], function(){
+    	           var form = layui.form;
+    	           //监听 仓库类型下拉框
+    	           $.ajax({
+    	                   url: "http://localhost:8080/warehouse/ShopAction.action?methodName=chakanShangPuAll",
+    	                   type: 'post', //HTTP请求类型
+    	                   dataType: 'json', //服务器返回json格式数据
+    	                   data: {
+    	                   },
+    	                   async: false,
+    	                   success: function(data) {
+    						   // window.console.log(data.data)
+    						    let a = data.data
+    						   // window.console.log(a)
+    	                       $.each(a, function(index, item) {
+    							   // window.console.log(item.warehouseShopWarehousesize) warehouse_name
+    	                           // $('#warehousesize').append(new Option(item.warehouse_typesize)); // 下拉菜单里添加元素
+    							   $('#typename').append(new Option(item.shopName,item.shopUuid));
+    	                       });
+    	                       layui.form.render("select");
+    	                   }
+    	            });
+    			})
+    	   })
 </script>
+
+
+
+
+
