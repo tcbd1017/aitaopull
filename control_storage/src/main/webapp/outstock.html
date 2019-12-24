@@ -162,7 +162,7 @@ layui.use('table', function() {
             checkbox: true,
             elem: '#test',
        //     url: "localhost:8080/warehouse/GoodsAction.action?methodName=SelectAllgoods&account=shouji&shop_id=1",
-           url: 'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaChuHuoJiLuBiao',
+           url: 'http://localhost:8080/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaChuHuoJiLuBiao',
             page: {
                 prev: '上一页',
                 next: '下一页',
@@ -257,7 +257,7 @@ layui.use('table', function() {
     });
 });
     
-$.ajax({
+/* $.ajax({
     url: $url + "/CangKuAction.action?methodName=",
     type: 'post', //HTTP请求类型
     dataType: 'json', //服务器返回json格式数据
@@ -275,7 +275,7 @@ $('#warehousesize').append(new Option(item.warehouse_name));
         });
         layui.form.render("select");
     }
-});
+}); */
    
 
 

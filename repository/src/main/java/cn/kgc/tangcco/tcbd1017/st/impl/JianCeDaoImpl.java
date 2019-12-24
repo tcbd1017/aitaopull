@@ -21,6 +21,7 @@ import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
 import cn.kgc.tangcco.tcbd1017.st.pojo.WarehouseShop;
 
 
+
 public class JianCeDaoImpl implements JianCeDao {
 
 	@Override
@@ -126,7 +127,7 @@ public class JianCeDaoImpl implements JianCeDao {
 			list.add(map.get("chuku_shangpuuuid"));
 			if (map.containsKey("cangku") && map.get("cangku")!=null) {
 				if (map.get("cangku") != null) {
-					sql.append(" and chuku_cangkuuuid=? ");
+					sql.append(" and jiance_cangkuuuid=? ");
 					list.add((String) map.get("cangku"));
 				}
 			}
@@ -134,14 +135,14 @@ public class JianCeDaoImpl implements JianCeDao {
 			System.out.println(" asasa " + map.get("flag"));
 			if (map.containsKey("flag") && map.get("flag")!=null) {
 				if (map.get("flag") != null) {
-					sql.append(" and chuku_flag=? ");
+					sql.append(" and jiance_flag=? ");
 					list.add( map.get("flag"));
 					System.out.println(1111111);
 				}
 			}
 			if (map.containsKey("uuid") && map.get("uuid")!=null) {
 				if (map.get("uuid") != null) {
-					sql.append(" and chuku_chukujiluuuid=? ");
+					sql.append(" and jiance_chukujiluuuid=? ");
 					list.add((String) map.get("uuid"));
 				}
 			}

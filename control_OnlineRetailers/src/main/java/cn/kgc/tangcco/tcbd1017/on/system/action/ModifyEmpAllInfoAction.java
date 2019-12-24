@@ -31,8 +31,7 @@ public class ModifyEmpAllInfoAction extends BaseServlet {
 				"ApplicationContext_on.xml");
 		try {
 			meai = (ModifyEmpAllInfo) classPathXmlApplicationContext.getBean(ModifyEmpAllInfo.class.getSimpleName());
-			etes = (EmpLoginToEmpService) classPathXmlApplicationContext
-					.getBean(EmpLoginToEmpService.class.getSimpleName());
+			etes = (EmpLoginToEmpService) classPathXmlApplicationContext.getBean(EmpLoginToEmpService.class.getSimpleName());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -154,7 +154,7 @@ public class GoodsDaoImpl implements GoodsDao {
 		List<Map> list=new ArrayList<Map>();
 		try {
 		Connection conn=BaseDBUtils.getConnection();
-		String sql="SELECT g.goods_id,goods_uuid,goods_create_time,goods_update_time,goods_status,gpu.goods_picture_url_id,goods_name,goods_price,goods_brand,goods_type,goods_width,goods_height,goods_length,goods_presentation,seller_id,storage_id,goods_weight,goods_picture_url FROM 0203_goods g INNER JOIN 020301_goods_picture_url AS gpu ON gpu.goods_id=g.goods_id WHERE goods_name LIKE ? OR goods_brand LIKE ? OR goods_presentation LIKE ? AND goods_status =2 "; 
+		String sql="SELECT g.goods_id,goods_uuid,goods_create_time,goods_update_time,goods_status,gpu.goods_picture_url_id,goods_name,goods_price,goods_brand,goods_type,goods_width,goods_height,goods_length,goods_presentation,seller_id,storage_id,goods_weight,goods_picture_url FROM 0203_goods g INNER JOIN 020301_goods_picture_url AS gpu ON gpu.goods_id=g.goods_id WHERE goods_name LIKE ? OR goods_brand LIKE ? OR goods_presentation LIKE ? AND goods_status >2 "; 
 			
 		PreparedStatement pstmt=BaseDBUtils.getPreparedStatement(conn,sql);
 		ResultSet rs=BaseDBUtils.executeQuery(pstmt,"%"+vague+"%","%"+vague+"%","%"+vague+"%");

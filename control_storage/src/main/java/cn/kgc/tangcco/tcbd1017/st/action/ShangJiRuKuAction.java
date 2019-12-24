@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
-import cn.kgc.tangcco.tcbd1017.st.ShangJiaRuKuService;
 import cn.kgc.tangcco.tcbd1017.st.impl.ShangJiaRuKuServiceImpl;
 import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
 import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
@@ -18,10 +17,9 @@ import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
 import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
 
 
-
 @WebServlet(urlPatterns =  "/ShangJiRuKuAction.action")
 public class ShangJiRuKuAction extends BaseServlet{
-	ShangJiaRuKuService impl = new ShangJiaRuKuServiceImpl();
+	ShangJiaRuKuServiceImpl impl = new ShangJiaRuKuServiceImpl();
 	
 	private static final long serialVersionUID = -763180325875700140L;
 	

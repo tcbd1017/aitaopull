@@ -8,8 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.json.JSON;
+import com.alibaba.fastjson.JSONObject;
+
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.tcbd1017.st.GuanLiYuanRuKuAndChuKu;
@@ -19,6 +19,7 @@ import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
 import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
 import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
 import cn.kgc.tangcco.tcbd1017.st.pojo.RecordMonthAndSum;
+
 
 @WebServlet(urlPatterns = "/GuanLiYuanRuKuAndChuKuAction.action")
 public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
@@ -51,47 +52,80 @@ public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 
 	public void UpdateRuKuZhuangTai(HttpServletRequest request, HttpServletResponse response) {
 		//
-		  Map<String, Object> map = new HashMap<String, Object>();
-		  map.put("goods_w_s_uuid", request.getParameter("goods_w_s_uuid"));
+		
+		String parameter = request.getParameter("data");
+		
+		String substring = parameter.substring(1,parameter.length()-1);
+		System.out.println(substring);
+		
+		JSONObject parseObject = JSONObject.parseObject(substring);
+		JSONObject parseObjecta= (JSONObject) parseObject.get("brand");
+		int s =  Integer.parseInt(parseObjecta.get("brandId").toString());
+		System.out.println("品牌"+s);
+		
+		
+		
+		String jianceCangkuuuid= (String) parseObject.get("jianceCangkuuuid");
+		System.out.println("仓库uuid"+jianceCangkuuuid.toString());
+		
+		
+		int parseInt= (Integer) parseObject.get("jianceComegoodsrecoredCount");
+		//int parseInt = Integer.parseInt(jianceComegoodsrecoredCount);
+		System.out.println("入库数量"+parseInt);
+		
+		int jianceFlag=3;
+		
+		int jiancePrice=(Integer)parseObject.get("jiancePrice");
+		System.out.println(jiancePrice);
+		
+		String jianceRukujiluuuid=(String)parseObject.get("jianceRukujiluuuid");
+		System.out.println(jianceRukujiluuuid);
+		
+		String jianceShangpuuuid=(String)parseObject.get("jianceShangpuuuid");
+		System.out.println(jianceShangpuuuid);
+		
+		JSONObject model= (JSONObject) parseObject.get("model");
+		int modelId =  Integer.parseInt(model.get("modelId").toString());
+		System.out.println(""+modelId);
+		
+		
+		JSONObject type= (JSONObject) parseObject.get("type");
+		int typeId =  Integer.parseInt(type.get("typeId").toString());
+		System.out.println(""+typeId);
+		 Map<String, Object> map = new HashMap<String, Object>();
+		  map.put("goods_w_s_uuid", jianceCangkuuuid);
 		  System.out.println("   sds"+request.getParameter("goods_w_s_uuid"));
-		  map.put("goods_model_id", request.getParameter("goods_model_id"));
-		  map.put("goods_shop_uuid", request.getParameter("goods_shop_uuid"));
-		  map.put("goods_count", request.getParameter("goods_count"));
-		  map.put("goods_type_id", request.getParameter("goods_type_id"));
-		  map.put("goods_brand_id", request.getParameter("goods_brand_id"));
+		  map.put("goods_model_id", modelId);
+		  map.put("goods_shop_uuid", jianceShangpuuuid);
+		  map.put("goods_count", parseInt);
+		  map.put("goods_type_id",typeId);
+		  map.put("goods_brand_id", s);
 		  Goods goods=new Goods();
-		  
 		  Model mo=new Model();
 		  String str = map.get("goods_model_id").toString();
 		  mo.setModelId(Integer.parseInt(str));
-		  
 		  goods.setModel(mo);
 		  goods.setGoodsWSUuid((String)map.get("goods_w_s_uuid"));
 		  map.put("goods",goods);
 		  
-		  map.put("jiance_rukujiluuuid", request.getParameter("jiance_rukujiluuuid"));
+		  map.put("jiance_rukujiluuuid", jianceRukujiluuuid);
 		  Jiance a=new Jiance();
 		  a.setJianceRukujiluuuid((String)map.get("jiance_rukujiluuuid"));
-		  
 		  map.put("jiance",a);
-		  map.put("empid", request.getParameter("empid"));
-		  System.out.println(request.getParameter("empid")+"jjjjjjjjjjjj");
-		  map.put("goods_count", request.getParameter("goods_count"));
-		  map.put("zhuangtai", request.getParameter("zhuangtai"));
+		  map.put("empid", 1);
+		  map.put("zhuangtai", 3);
 		  System.out.println(map.get("zhuangtai"));
 		  Map<String, Object> updateRuKuZhuangTai = guanLiYuanRuKuAndChuKu.UpdateRuKuZhuangTai(map);
-		 
 		  printJson(response, updateRuKuZhuangTai);
-		  
-		 }
-
-	public void ChaKanAllCangKuUUid(HttpServletRequest request, HttpServletResponse response) {
+	}
+	
+		public void ChaKanAllCangKuUUid(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("PageRang", new PageRang(Integer.parseInt(request.getParameter("page")),Integer.parseInt(request.getParameter("limit"))));
-		map.put("warehouse_shop_shop_id", request.getParameter("warehouse_shop_shop_id"));
+		map.put("warehouse_shop_shop_id",1 );
 		Map<String, Object> chaKanAllCangKuUUid = guanLiYuanRuKuAndChuKu.ChaKanAllCangKuUUid(map);
 		printJson(response, chaKanAllCangKuUUid);
-	}
+		}
 
 	public void ChaKanShopJianLue(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> chaKanShopJianLue = guanLiYuanRuKuAndChuKu.ChaKanShopJianLue();
@@ -144,26 +178,63 @@ public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 	}
 
 	public void XiuGaiChuKuZhuangTai(HttpServletRequest request, HttpServletResponse response) {
+		String parameter = request.getParameter("data");
+		String substring = parameter.substring(1,parameter.length()-1);
+		System.out.println(substring);
+		
+		
+		JSONObject parseObject = JSONObject.parseObject(substring);
+		JSONObject parseObjecta= (JSONObject) parseObject.get("brand");
+		int s =  Integer.parseInt(parseObjecta.get("brandId").toString());
+		System.out.println("品牌"+s);
+		
+		String chukuCangkuuuid= (String) parseObject.get("chukuCangkuuuid");
+		System.out.println("仓库uuid"+chukuCangkuuuid);
+		
+		String chukuChukujiluuuid= (String) parseObject.get("chukuChukujiluuuid");
+		System.out.println("出库uuid"+chukuChukujiluuuid);
+		
+		int  chukuFlag=1;
+		
+		int chukuGogoodsrecoredCount= (Integer) parseObject.get("chukuGogoodsrecoredCount");
+		System.out.println("出库数量"+chukuGogoodsrecoredCount);
+		
+		String chukuShangpuuuid= (String) parseObject.get("chukuShangpuuuid");
+		System.out.println("商铺uuid"+chukuShangpuuuid);
+		
+		
+		JSONObject goods1= (JSONObject) parseObject.get("goods");
+		int good =(Integer)goods1.get("count");
+		System.out.println("库存数量"+good);
+		
+		JSONObject model= (JSONObject) parseObject.get("model");
+		int modelId =(Integer)model.get("modelId");
+		System.out.println("类型id"+modelId);
+		
+		JSONObject type= (JSONObject) parseObject.get("type");
+		int typeId =(Integer)type.get("typeId");
+		System.out.println("类别id"+typeId);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("goods_shop_uuid", request.getParameter("goods_shop_uuid"));
-		map.put("goods_count", request.getParameter("goods_count"));
+		map.put("goods_shop_uuid", chukuShangpuuuid);
+		map.put("goods_count", good);
 		
 		Goods goods=new Goods();
 		Model mo=new Model();
-		mo.setModelId(Integer.parseInt(request.getParameter("goods_model_id")));
+		mo.setModelId(modelId);
 		goods.setModel(mo);
-		goods.setGoodsWSUuid(request.getParameter("goods_w_s_uuid"));//仓库uuid
+		goods.setGoodsWSUuid(chukuCangkuuuid);//仓库uuid
+		
 		map.put("goods",goods);
 		
-		map.put("goods_w_s_uuid",request.getParameter("goods_w_s_uuid") );
+		map.put("goods_w_s_uuid", chukuCangkuuuid);
 		
 		
 		Chuku chuku =new Chuku();
-		chuku.setChukuChukujiluuuid(request.getParameter("gogoodsrecord_uuid"));//出库记录
+		chuku.setChukuChukujiluuuid(chukuChukujiluuuid);//出库记录
 		map.put("chuku", chuku);
-		map.put("empid", request.getParameter("empid"));
-//		map.put("gogoodsrecord_w_s_uuid", request.getParameter("goods_w_s_uuid"));
-		map.put("zhuangtai", request.getParameter("zhuangtai"));
+		map.put("empid", 1);
+		map.put("gogoodsrecord_w_s_uuid",chukuCangkuuuid);
+		map.put("zhuangtai", 1);
 		Map<String, Object> xiuGaiChuKuZhuangTai = guanLiYuanRuKuAndChuKu.XiuGaiChuKuZhuangTai(map);
 		printJson(response, xiuGaiChuKuZhuangTai);
 	}

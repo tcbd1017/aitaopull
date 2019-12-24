@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
+import cn.kgc.tangcco.tcbd1017.st.CangKuService;
 import cn.kgc.tangcco.tcbd1017.st.impl.CangKuServiceImpl;
-
 
 
 @WebServlet(urlPatterns = "/CangKuAction.action")
@@ -19,7 +19,7 @@ public class CangKuAction extends BaseServlet {
 
 	private static final long serialVersionUID = -459492159165477325L;
 
-	CangKuServiceImpl CangKuService = new CangKuServiceImpl();
+	CangKuService CangKuService = new CangKuServiceImpl();
 
 	// 查询所有未卖仓库 WarehouseDaoImpl selectCangKuLeixing() 在买卖仓库页面显示（条件 查询 不同类型 的详细信息
 	// 在页面上只显示价格，图片，类型 点击图片 显示，详情）

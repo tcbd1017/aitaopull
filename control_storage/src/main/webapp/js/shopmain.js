@@ -36,7 +36,7 @@ function queryAllGoods() {
 				shop_uuid:'店铺uuid001'
 			},
 			elem: '#test',
-			url: 'http://localhost:8080/warehouse/CangKuAction.action?methodName=ShopChaXunZiJiaCangKu',
+			url: 'http://localhost:8080/control_storage/CangKuAction.action?methodName=ShopChaXunZiJiaCangKu',
 			limit:20,
 			cols: [
 				[{

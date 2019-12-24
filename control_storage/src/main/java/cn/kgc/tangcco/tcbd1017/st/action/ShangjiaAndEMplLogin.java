@@ -14,6 +14,7 @@ import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
 import cn.kgc.tangcco.tcbd1017.st.impl.ShangJiaAndEMpmLoginImpl;
 
+
 @WebServlet(urlPatterns = "/ShangJiaAndEmpLoginAction.action")
 public class ShangjiaAndEMplLogin extends BaseServlet {
 

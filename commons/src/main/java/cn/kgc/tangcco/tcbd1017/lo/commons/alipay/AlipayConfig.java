@@ -1,23 +1,40 @@
-﻿package cn.kgc.tangcco.tcbd1017.lo.commons.alipay;
+
+package cn.kgc.tangcco.tcbd1017.lo.commons.alipay;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
+
+/**
+ * @author Administrator
+ * 类名：AlipayConfig
+ *功能：基础配置类
+ *详细：设置帐户有关信息及返回路径
+ *修改日期：2017-04-05
+ *说明：
+ *以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
+ *该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
+ * 
+ *
+ */
 public class AlipayConfig {
+	
+//↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
 	// 应用ID,您的APPID，收款账号既是您的APPID对应支付宝账号
-	public static String app_id = "2016101200670650";
+	public static String app_id = "2016101700707084";
 	
 	// 商户私钥，您的PKCS8格式RSA2私钥
-    public static String merchant_private_key ="MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC/4/+a4hegUF2ST4/1SnPsDoLvdI7u+8BH03guhgU21VxRfmrZ+ULmJ2qwGG7oyOz7r0+u6ipEkh8nmswnU3GsBocPcbGuMXqRSKLeuQYcB+ArZ9wwhZkmUv8Ta11iOfC5xFBP6LZuhSa9tZ5bXFanIOe5UX14zG2JOe7P5V7h3sOYSSYEp+Aaao6dTeB+ZTfVbWnzToLJczRSJAwdNgl/cG7Q7IH4N8QnOnDqtuXYv17tEm4xqsgRwQeR44XzbvNeH//MJn2iu6YqmcU5RKJ6/4/WGcYA9f1Bcwhqe37p256+SG3qjuAbpNUvVWZKvAA9ZqmWSq50Vbco7ddqG7VbAgMBAAECggEAK4V6o5ZD5YhUsKp67BdG03M3HzhActOGeMPtrh+XbyhVF+akNWvjUHAAMpBYF1P669qHKBTUIVlC16i0RPcYAPw6Bbazpd5y/iCLUBiG2jSvEykrN5YVdiu8zpq7Q1wAzSFJVdZiCg8JCl323KHExYMhC1cALjWvYkBRebV8H54SDuooNremdHjpjVkaIoWWFvvaKGQJC/c0vqiUrDjidO17qRnJaGtCa014Muoeg4j+tRkMbB0HzrT4nIHSJ7dv1/6JQt+qhWQRXByYZXFQhzrefBXkXmYMcNq9VP7UHFg1BiVLDDd6xKL6y6mcMFc85gtD5qcr/k3KpE0e0xzCgQKBgQDibM4FM/ldLrO7aKqnkUAuutjhuwwYS3ZphqT07PRCOqegqhZK2Yzvqe3D0qn7MvJ52I0w4OS1hYF5P24M3r7EDzIRR3Z5foagr31xgpqcUpWTMe57PdQxaFh4BaZj7p2I9NLHUhWOWMMHMZIYMTePoV+Zkd2a33JdEqCMKJ5R/QKBgQDY9G7ha403e5Hu7gwVdC0neZ3htJIHkHIrsV0jgZc58QN9ksO1kPJKUXyQbbYWx0o9BK3/OXakZSxqeSJGfPZS3bM297hT992NDkwynFF2/g5mnTRgu8m0Tl7vd+mdrrLmsZVR+JpEU1EkisbAkDoVuEUrQ+QTNjNjJQx7ecf4NwKBgDQ3t4OHqviMbrLHvqOKYezk9mOIiY+Ix7QqcxxxERu8/y+USjPU3CXhYI4KpVzjMPxcrqMZGmWqdmOJ901MiV4ZywglHPOD9HRWRG3LGvD2MryRhVgyuB7024JCe08MlpQhMgL5sTL00XV1PyYJI7EiHDQEacDvyyYfx5rLO0fZAoGACFKIFlmb1y8EUBgNmp0URllh9xCIMYYW+xoYqo4EERLvwVdp7oMa6ELr9lZfD8yhSmntisbXiELhS0xORknw4QjkIQ2ronz1oL2VqrNYZKomP0V0hultOV9wQNtmuMfE0Riq07QnpstTZ4VzTlu5/q9M5/X4v8vqeLkpG2t2gk0CgYBc+XXWxX8XfpQ19VRVCD7xgdbh80YPGA9fZ+9gRTxluyZY8BF4ZhV21QtR5lRPbeb6QY6a8nTXEWkW7t9iBFKGNDL4kyu6A/73sc75C12lrs8pzt2605E5NCw3R1lprLPXsgP2Fh7OG7WwJCPYKwLbasE69pKmuzSyNI9iN0eHRw==";
+    public static String merchant_private_key = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDJxjvLS3a6SY2sl57sOOk/Vz3Sa4CHySAdwBzj9T5WyXIhHWy/nIbr6XuLarVOr55Um/uHMa/UlpB1wcdb2/mFox4odJlTC4xrkLdYlqbtLIK2LVrjWtAAxytNdiNvSJfkug0xZoRoJB7x4O+w5GLE17ZuZ0TdXUCn1wPCzYWcW2BgKosYEbLmv6SDhKl8/6uSwD9oyJJ70WetR+29ofMbZBvNabgoJft1nRRwKOoYNd0gHalByH0JlS4pGA8EUR1TQeeffgfHK7T/V79zXQn5JLZrASWdgCdGX+v81UrQsHYNIN3Nb5/7Dpn4FK3ROSxIEAWwmZDKwkZvdYVAGjIfAgMBAAECggEAcQszwtDzoqjEy/ZiXjwASbFp/HKoHusKqEBSr1Bd7aeM3oqqu6tJV/CGe/R7warYjNSbFgI7XWJBawf21jsmz700jzvMDt/Aex8n6WT1/pjaXpCIhCoDsPvlAc/3SEimeMnXzF6APgxGngMEptk9kMS9+5q11UOCjsYC4GfevFriqRgmk00mA3WyDc8T1tlaf+Aq4jO8q708UUq565IwOPhE+GFwY2gUNT/Dt2xbJR6HnLM+SM3Hxjc7W37HrSllEFg5Gj3qkn/kAzzr2rplm1a4mCvHVUtKRsS5xe+Hgs3Ii4MuMl3dl22iL2nScJXzhbMzd9GWNmlNKrJ3L1+CwQKBgQDoRJg8CZgMKTb1Ac6jLOeQ0/7Y88aME1qj/RPvTATq0k6hh0Y2xrvHJACNmxLTSZ/Hel9czpZ1ABKLlu1GV85A8qgvMgo3u4+3xWJkY4HdsPLk79GzGte3hhXEZsXXL4YorSdpWQ5q5yxEz4xZDId33Z8ru2h3uM/hb0WHLpPTPwKBgQDeZAV+HbYj7gcmzidhxLJZXH2uMuuuC6LV6PpRaVYq+nDEA9DZ3AL4D/YAdHbhfm25Xj50oz9qARSviMZI4w34NJUqF8UzdbBYNNPKaUJvxKr38Nw+dH/8jiUvGsgtogG/zSXV1QkZbj/1bA0+fTnUhLidlb+RkIKuYG2O53FJIQKBgBpWBMjx8YqXdcLMJKj943fZgdEJux6Q5zsm7Aa7IOebVw0bsItvd0U6QNHNnpHUjEhrCLsWNZsomfG3+El8lUdp/EX1r5DoNICK4gAuBECl2rS4uJdNWN5XVsqBOLeQjO65y3k3ftoCQlO/ENPcBtRBjdXAlzTUAMY3/rM4RcyzAoGBAKwBjqIB1vupQczIzHr5CLzHJcoTRmhCRbrPTLSlFWl+dLOXA/VNDtrQdYPakIxOHg2uj/3kucqCdX5i+oIrY4WjHfAFnJf1oeRHT7wRd7o80cOdfqurrcYoJyhsvYFV+aZgxK/D6xrJRBzNatz3PEBcOvJffWDX9ctrd7F83wkhAoGAcAMZmW34Mv1xsSYtxV67aY2bJagpEDRWOiCFsqMBsveRb+kXntE9TwRupRww5ozZ6hxBnRq/ZtXj8XyX+qMdgZaEAsf2Zf7XeVx1OBG8JQmMSOpSjMWHP4Mv+OOrFcD6BjRp6RuFvVPo1IXiQCTSs+5qLfF2pMM061uTbUZWeb4=";
 	
 	// 支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
-    public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxWXlpIy6WzhSn7d5fegfUw6fDcWyL4qQUiT59XrxWJNLLPNkK665jPslU3X35G+BpbTMmHp8hOSMh17oj7AxFvBDStzO8NJ6qfH7LlyFqDBU6LPnt+dV+YBUA5wTyDJp0qWJ3gFgOlkPvp8UZ+MnHu7jubFNBo9lj25/if4iFnOg+ANCSfDVuhVhoqq4xrTXd7qRvd81zEEzeocbFt67KidSK4+M92zWb+TdLp/UfjsjQ7APIe2NMgpP0SXggWi80sM/y0SRi3mKVRSWu+luVn41sX/y8t/ZxXdMxq3IcPEk/8AFWLbGgUIatyIXZ5ondWQbxRUlVHV5eYrednPeVQIDAQAB";
+    public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4hdsDR81Glw8eXFKKWQ3XXvYIFMU7UlBlHncEzvrDc2c1TW0IxKeVyVq8/6u5m0tCFtwEA5rNbHPOmmtovnnHBQw6KXHvLKvHz/Dud5j82wLJAR9xBC2IE6mdiUvL3HIMsvi7H5yK810lpIQV4wORS49pPYS4uGnyjGDwprlx9zxb/tqDtnS55m4QUiCOiK7IY3MWD7OtxVbxOh9z1NPHArTlxQhnmaNgvF3TRBwgWDLVpHQV0wd81KgC/9BEIhlxFhijL2FEoS6HPRMYDBCJDyhLpHW3gfO/ClaOEcZF8l0pVa/PhwQaTnE0j2MsX9/XE2Y5WjZ5c6RQwfrMTXlnwIDAQAB";
 
-	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String notify_url = "http://localhost:8080/control_logistics/pay.action?methodName=callBack";
+	// 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问 
+	public static String notify_url = "http://localhost:8080/control_OnlineRetailers/notify_url.jsp";
 
-	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String return_url = "http://localhost:8080/control_logistics/pay.action?methodName=callBack";
+	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问8080/control_OnlineRetailers/querypay.action
+	public static String return_url = "http://localhost:8080/wl/pay.action?methodName=callBack";
 
 	// 签名方式
 	public static String sign_type = "RSA2";
@@ -26,11 +43,13 @@ public class AlipayConfig {
 	public static String charset = "utf-8";
 	
 	// 支付宝网关
-	//https://openapi.alipaydev.com/gateway.do
 	public static String gatewayUrl = "https://openapi.alipaydev.com/gateway.do";
 	
 	// 支付宝网关
 	public static String log_path = "C:\\";
+
+
+//↑↑↑↑↑↑↑↑↑↑请在这里配置您的基本信息↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
     /** 
      * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
@@ -54,4 +73,5 @@ public class AlipayConfig {
         }
     }
 }
+
 

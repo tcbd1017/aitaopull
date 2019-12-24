@@ -132,7 +132,4 @@ public class ShangJiChuKuAction extends BaseServlet {
 		  // 响应请求
 		  printJson(response, responseMap);
 		 }
-	
-	
-
 }

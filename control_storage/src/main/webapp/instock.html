@@ -165,7 +165,7 @@
                 checkbox: true,
                 elem: '#test',
            //     url: "localhost:8080/warehouse/GoodsAction.action?methodName=SelectAllgoods&account=shouji&shop_id=1",
-               url: 'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaJinHuoJiLuBiao',
+               url: 'http://localhost:8080/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaJinHuoJiLuBiao',
                 page: {
                     prev: '上一页',
                     next: '下一页',
@@ -251,7 +251,7 @@
     	           var form = layui.form;
     	           //监听 仓库类型下拉框
     	           $.ajax({
-    	                   url: "http://localhost:8080/warehouse/ShopAction.action?methodName=chakanShangPuAll",
+    	                   url: "http://localhost:8080/control_storage/ShopAction.action?methodName=chakanShangPuAll",
     	                   type: 'post', //HTTP请求类型
     	                   dataType: 'json', //服务器返回json格式数据
     	                   data: {
@@ -278,7 +278,7 @@
     	           var form = layui.form;
     	           //监听 仓库类型下拉框
     	           $.ajax({
-    	                   url: "http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKu",
+    	                   url: "http://localhost:8080/control_storage/CangKuAction.action?methodName=AllCangKu",
     	                   type: 'post', //HTTP请求类型
     	                   dataType: 'json', //服务器返回json格式数据
     	                   data: {
