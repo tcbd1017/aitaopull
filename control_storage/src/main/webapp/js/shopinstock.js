@@ -47,7 +47,6 @@ let $url = "";
 						
 			            layui.form.render("select");
 			        },
-					
 			 });
 			 //商品品牌下拉框
 			 // let typeid = $("#typename").val();
@@ -111,15 +110,15 @@ let $url = "";
 			           type: 'post', //HTTP请求类型
 			           dataType: 'json', //服务器返回json格式数据
 			           data: {
-			   				
+			        	   warehouse_shop_shop_id:1
 			           },
-			           async: true,
+			           async: false,
 			           success: function(data) {
-			   			   // window.console.log(data.data)
-			   			    let a = data.data.chakanxiangqingAllCangKu
+			   			   
+			        	   
+			   			   let a = data.data.chakanxiangqingAllCangKu
 			   			   window.console.log(a)
 			               $.each(a, function(index, item) {
-			   				   // window.console.log(item.name)
 			                   $('#wuuid').append(new Option(item.warehouseShopWarehouseuuid)); // 下拉菜单里添加元素
 			               });
 			               layui.form.render("select");

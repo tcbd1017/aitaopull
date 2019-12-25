@@ -1,14 +1,14 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.kgc.tangcco.tcbd1017.st.GoodsDao;
-import cn.kgc.tangcco.tcbd1017.st.GoodsService;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
-
+import cn.kgc.tangcco.dao.GoodsDao;
+import cn.kgc.tangcco.dao.impl.GoodsDaoImpl;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.service.GoodsService;
 
 public class GoodsServiceImpl implements GoodsService{
 	GoodsDao goodsDao = new GoodsDaoImpl();

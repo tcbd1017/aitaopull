@@ -35,7 +35,7 @@ function queryAllGoods(account, shop_id) {
 		table.render({
 			where: dataa,
 			elem: '#test',
-			url: '/control_storage/GoodsAction.action?methodName=SelectAllgoods',
+			url: '/warehouse/GoodsAction.action?methodName=SelectAllgoods',
 			limit:20,
 			cols: [
 				[{
@@ -135,7 +135,7 @@ function queryAllGoodsBy(account, shop_id,type_name,cangku) {
 		table.render({
 			where: dataa,
 			elem: '#test',
-			url: '/control_storage/GoodsAction.action?methodName=SelectAllgoods',
+			url: '/warehouse/GoodsAction.action?methodName=SelectAllgoods',
 			limit:20,
 			cols: [
 				[{

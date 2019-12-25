@@ -20,26 +20,16 @@
 							<div class="layui-form-item">
 
 								<div class="layui-inline">
-									<label class="layui-form-label">时间：</label>
-									<div class="layui-input-inline">
-										<input type="text" class="layui-input" id="test1" placeholder="时间">
-									</div>
-								</div>
-								<div class="layui-inline">
-									<label class="layui-form-mid">店铺：</label>
-									<div class="layui-input-inline" style="width: 100px;">
-										<select name="shop_name" id="shop_name" lay-verify="required"></select>
-									</div>
-								</div>
-								<div class="layui-inline">
 									<label class="layui-form-mid">仓库类型：</label>
-									<div class="layui-input-inline" style="width: 100px;">
-										<select name="warehouse_typesize" id="warehouse_typesize" lay-verify="required"></select>
+									<div class="layui-input-inline" style="width: 150px;">
+										<select name="typename" id="brandname" lay-verify="selectChecked">
+											<option value="">无</option>
+										</select>
 									</div>
 								</div>
 								<div class="layui-inline">
 									<div class="layui-input-inline">
-										<button class="layui-btn" type="button" function="query"><i class="layui-icon">&#xe615;</i>查询</button>
+										<button class="layui-btn" type="button" function="query" id="chaxun"><i class="layui-icon">&#xe615;</i>查询</button>
 									</div>
 								</div>
 							</div>
@@ -107,6 +97,129 @@
 				</div>
 			</div>
 		</div>
+		
+		
+		
+		<script>
+	$(function () {
+			$("#chaxun").on('click', function () {
+				// let shopuuid = $("#typename").val();
+				let warehouseuuid = $("#brandname").val();
+				// alert(warehouseuuid);
+				layui.use('table', function() {
+					var table = layui.table;
+	
+					table.render({
+						elem: '#test',
+						where: {
+							page: 1,
+							limit: 30,
+							account: "niuwei",
+							cangku:warehouseuuid
+						},
+						url: '/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
+						parseData: function(res) { //res 即为原始返回的数据
+							window.console.log(res);
+							// window.console.log(res.data.data[0].brand);
+							return {
+								"code": 0, //解析接口状态
+								"msg": "", //解析提示文本
+								"count": res.count, //解析数据长度
+								"data": res.data.data //解析数据列表
+							};
+						},
+						toolbar: '#toolbarDemo',
+						title: '用户数据表',
+						totalRow: true,
+						cols: [
+							[{
+								type: 'checkbox',
+								fixed: 'left'
+							}, {
+								field: 'jianceShangpuuuid',
+								title: '店铺uuid',
+								width: 150,
+								fixed: 'left',
+								unresize: true,
+								sort: true
+							},  {
+								field: 'brandName',
+								title: '品牌名称',
+								width: 150,
+								edit: 'text',
+								templet: '<div>{{d.brand.brandName}}</div>'
+	
+							}, {
+								field: 'jianceCangkuuuid',
+								title: '仓库Uuid',
+								width: 150,
+								edit: 'text',
+								sort: true
+								/* templet:'<div>{{d.model.modelName}}</div>' */
+							}, {
+								field: 'jianceComegoodsrecoredCount',
+								title: '入库货物数量',
+								width: 150
+							}, {
+								field: 'jiancePrice',
+								title: '商品价格',
+								width: 150,
+								edit: 'text',
+								sort: true
+							}, {
+								field: 'jianceRukujiluuuid',
+								title: '入库记录uuid',
+								width: 150,
+								sort: true
+							}, {
+								field: 'modelName',
+								title: '商品型号',
+								width: 150,
+								edit: 'text',
+								sort: true,
+								templet: '<div>{{d.model.modelName}}</div>'
+							},  {
+								field: 'modelSize',
+								title: '商品大小',
+								width: 150,
+								templet: '<div>{{d.model.modelSize}}</div>'
+							},{
+								field: 'name',
+								width: 170,
+								title: '商品类型',
+								align: 'center',
+								templet: '<div>{{d.type.name}}</div>'
+							}, {
+								field: 'warehouseShopWarehousesize',
+								width: 170,
+								title: '库存容量',
+								align: 'center',
+				
+								 templet: '<div>{{d.ware.warehouseShopWarehousesize}}</div>'
+							},{
+								field: 'warehouseShopDaoqitime',
+								title: '到期时间',
+								width: 150,
+								
+								templet: '<div>{{d.ware.warehouseShopDaoqitime}}</div>',
+								edit: 'text'
+							},{
+								field: 'jianceFlag',
+								width: 150,
+								title: '状态',
+								align: 'center',
+								templet: '#jianceFlag'
+								/* templet: '<div>{{d.type.name}}</div>' */
+							}]
+						],
+						page: true,
+						
+					});
+				})
+			})
+	})
+
+</script>
 	</body>
 
 </html>
@@ -114,9 +227,9 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script type="text/html" id="toolbarDemo">
 	<div class="layui-btn-container">
-	    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-	    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-	    <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+	    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开始入库</button>
+	    <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">仓库异常</button>
+	    
 	  </div>
 	</script>
 <script type="text/html" id="barDemo">
@@ -137,10 +250,10 @@
 						elem: '#test',
 						where: {
 							page: 1,
-							limit: 30,
+							limit: 100,
 							account: "niuwei"
 						},
-						url: '/control_storage/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
+						url: '/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
 						parseData: function(res) { //res 即为原始返回的数据
 							window.console.log(res);
 							// window.console.log(res.data.data[0].brand);
@@ -254,9 +367,10 @@
 								
 								$.ajax({
 									 type: 'post',
-									 url:'http://localhost:8080/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=UpdateRuKuZhuangTai',
+									 url:'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=UpdateRuKuZhuangTai',
 									 dataType: 'json',
-									 data:{data:aaa},
+									 data:{data:aaa,
+										 zhuangtai:3},
 									 success:(responseTest)=>{
 										 switch (responseTest.status) {
 										case "success":
@@ -273,9 +387,30 @@
 								break;
 							case 'getCheckLength':
 								var data = checkStatus.data;
-								layer.msg('选中了：' + data.length + ' 个');
+								/* layer.alert(JSON.stringify(data));
+								layer.alert('a'); */
+								let aaa1=JSON.stringify(data);
+								
+								$.ajax({
+									 type: 'post',
+									 url:'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=UpdateRuKuZhuangTai',
+									 dataType: 'json',
+									 data:{data:aaa1,
+										 zhuangtai:1},
+									 success:(responseTest)=>{
+										 switch (responseTest.status) {
+										case "success":
+											alert("仓库异常不可入库");
+											  window.location.href ="index.html";
+											break;
+
+										default:
+											alert("抱歉");
+											break;
+										}
+									 }
+								});
 								break;
-							case 'isAll':
 								layer.msg(checkStatus.isAll ? '全选' : '未全选');
 								break;
 	
@@ -308,6 +443,69 @@
 						}
 					});
 				});
+	
+	
+	
+	
+	
+	
+	
+	$(document).ready(function() {
+	    	       layui.use(['form'], function(){
+	    	           var form = layui.form;
+	    	           //监听 仓库类型下拉框
+	    	           $.ajax({
+	    	                   url: "http://localhost:8080/warehouse/ShopAction.action?methodName=chakanShangPuAll",
+	    	                   type: 'post', //HTTP请求类型
+	    	                   dataType: 'json', //服务器返回json格式数据
+	    	                   data: {
+	    	                   },
+	    	                   async: false,
+	    	                   success: function(data) {
+	    						   // window.console.log(data.data)
+	    						    let a = data.data
+	    						   // window.console.log(a)
+	    	                       $.each(a, function(index, item) {
+	    							   // window.console.log(item.warehouseShopWarehousesize) warehouse_name
+	    	                           // $('#warehousesize').append(new Option(item.warehouse_typesize)); // 下拉菜单里添加元素
+	    							   $('#typename').append(new Option(item.shopName,item.shopUuid));
+	    	                       });
+	    	                       layui.form.render("select");
+	    	                   }
+	    	            });
+	    			})
+	    	   })
+	    	   
+	    	   
+				$(document).ready(function() {
+	    	       layui.use(['form'], function(){
+	    	           var form = layui.form;
+	    	           //监听 仓库类型下拉框
+	    	           $.ajax({
+	    	                   url: "http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKu",
+	    	                   type: 'post', //HTTP请求类型
+	    	                   dataType: 'json', //服务器返回json格式数据
+	    	                   data: {
+	    	                	   limit:20,
+	    	                	   page:1
+	    	                   },
+	    	                   async: false,
+	    	                   success: function(data) {
+	    						   // window.console.log(data.data)
+	    						    let a = data.data
+	    						   // window.console.log(a)
+	    	                       $.each(a, function(index, item) {
+	    							   // window.console.log(item.warehouseShopWarehousesize) warehouse_name
+	    	                           // $('#warehousesize').append(new Option(item.warehouse_typesize)); // 下拉菜单里添加元素
+	    							   $('#brandname').append(new Option(item.warehouse_shop_warehouseuuid,item.warehouse_shop_warehouseuuid));
+	    	                       });
+	    	                       layui.form.render("select");
+	    	                   }
+	    	            });
+	    			})
+	    	   })
+
+	
 			</script>
 <script type="text/html" id="jianceFlag">
 	     {{#  if(d.jianceFlag === 3 ){ }}
@@ -317,7 +515,7 @@
 			     <button type="button" class="layui-btn layui-btn-normal">正在等待</button> 
 			     {{#  } }}  
  {{#  if(d.jianceFlag === 1 ){ }}
-			     <button type="button" class="layui-btn layui-btn-normal">库已满</button> 
+			     <button type="button" class="layui-btn layui-btn-warm">不可入库</button> 
 			     {{#  } }}  
 				</script>
 

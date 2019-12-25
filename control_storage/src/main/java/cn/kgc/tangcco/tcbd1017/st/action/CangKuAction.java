@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.action;
+package cn.kgc.tangcco.action;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
-import cn.kgc.tangcco.tcbd1017.st.CangKuService;
-import cn.kgc.tangcco.tcbd1017.st.impl.CangKuServiceImpl;
-
+import cn.kgc.tangcco.service.CangKuService;
+import cn.kgc.tangcco.service.impl.CangKuServiceImpl;
 
 @WebServlet(urlPatterns = "/CangKuAction.action")
 public class CangKuAction extends BaseServlet {
@@ -302,10 +301,16 @@ public class CangKuAction extends BaseServlet {
 		// 页码,每页条数
 //		map.put("PageRang", new PageRang(Integer.parseInt(request.getParameter("page")),
 //				Integer.parseInt(request.getParameter("limit"))));
+		
 
+		String parameter = request.getParameter("warehouse_shop_shop_id");
+		map.put("warehouse_shop_shop_id", parameter);
+		System.out.println(parameter);
 		// 调Service
 		Map<String, Object> AllGouMaiCangKuShop = CangKuService.AllGouMaiCangKuShop(map);
-
+		
+		
+		
 		// layui,数据参数格式
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		responseMap.put("code", 0);

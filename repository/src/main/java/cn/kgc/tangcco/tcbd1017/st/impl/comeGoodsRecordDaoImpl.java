@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,22 +12,20 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import cn.hutool.core.date.DateUtil;
-
+import cn.kgc.tangcco.dao.comeGoodsRecordDao;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
-import cn.kgc.tangcco.tcbd1017.st.comeGoodsRecordDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Comegoodsrecord;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Emp;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.RecordMonthAndSum;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Role;
-import cn.kgc.tangcco.tcbd1017.st.pojo.SelectCountByType;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Comegoodsrecord;
+import cn.kgc.tangcco.pojo.Emp;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.RecordMonthAndSum;
+import cn.kgc.tangcco.pojo.Role;
+import cn.kgc.tangcco.pojo.SelectCountByType;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.pojo.Type;
 
 /**
  * @author 作者 :牛伟
@@ -38,7 +36,7 @@ public class comeGoodsRecordDaoImpl implements comeGoodsRecordDao {
 	@Override
 	public Map<String, Object> selectRuKuJiLu(Map<String, Object> map) throws SQLException {
 		Map<String, Object> map2 = new HashMap<String, Object>();
-		StringBuilder sql = new StringBuilder(" select c.comegoodsrecord_id,c.comegoodsrecord_time,c.comegoodsrecord_count,c.comegoodsrecord_w_s_uuid,c.comegoodsrecord_uuid, ");
+		StringBuilder sql = new StringBuilder(" select distinct c.comegoodsrecord_id,c.comegoodsrecord_time,c.comegoodsrecord_count,c.comegoodsrecord_w_s_uuid,c.comegoodsrecord_uuid, ");
 		sql.append(" g.goods_id,g.goods_count,g.goods_flag, ");
 		sql.append(" t.type_id,t.type_name, ");
 		sql.append(" b.brand_id,b.brand_name, ");
@@ -95,33 +93,9 @@ public class comeGoodsRecordDaoImpl implements comeGoodsRecordDao {
 		//	return map2;
 		}
 		// 按入货员查询   传入map(k:"empname",value:"张三")   返回map（k:"list" value:list）
-		else if (map.containsKey("empname") && !StringUtils.isEmpty((String) map.get("empname"))) {
-			sql.append(" and e.emp_name = ? ");
-	//		list.add((String) map.get("empname"));					
-			sql.append(" ORDER BY c.comegoodsrecord_time desc ");
-			
-	//		Object[] param = list.toArray();
-			String param = (String) map.get("empname");
-			System.out.println(param);
-			Connection conn = BaseDBUtils.getConnection();
-			PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString(),
-					(PageRang) map.get("pageRang"));		
-			rs = BaseDBUtils.executeQuery(pst, param);		
-		}
-		
+	
 		// 按年月查
-		else if (map.containsKey("year") && map.containsKey("month") && !StringUtils.isEmpty((String) map.get("year")) && !StringUtils.isEmpty((String) map.get("month"))) {
-			sql.append(" and  Year(comegoodsrecord_time) = ? ");
-			sql.append(" and Month(comegoodsrecord_time) = ? ");
-			list.add((String)map.get("year"));
-			list.add((String)map.get("month"));
-			sql.append(" ORDER BY c.comegoodsrecord_time desc ");
-			Object[] param = list.toArray();
-			Connection conn = BaseDBUtils.getConnection();
-			PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString(),
-					(PageRang) map.get("pageRang"));
-			rs = BaseDBUtils.executeQuery(pst, param);
-		}
+		
 
 		else {
 
@@ -142,17 +116,17 @@ public class comeGoodsRecordDaoImpl implements comeGoodsRecordDao {
 			Shop shop = null;
 			Emp emp = null;
 			Role role = null;
-			
-			if (rs.first()) {
+				
+				
 				// 如果结果集中第一个位置数据则指针前移一位
-				rs.previous();
 				// 遍历结果集
 				while (rs.next()) {
+					System.out.println("qqqqqqqqqqqqqqqqqqqqq");
 					comegoodsrecord = new Comegoodsrecord();
 					comegoodsrecord.setComegoodsrecordId(rs.getInt("comegoodsrecord_id"));
 					comegoodsrecord.setComegoodsrecordTime(rs.getDate("comegoodsrecord_time"));
 					comegoodsrecord.setComegoodsrecordCount(rs.getInt("comegoodsrecord_count"));
-
+					
 					String cangkuuuid = rs.getString("comegoodsrecord_w_s_uuid");
 					
 					type = new Type();
@@ -211,9 +185,10 @@ public class comeGoodsRecordDaoImpl implements comeGoodsRecordDao {
 					comegoodsrecord.setShop(shop);
 				//	list = new ArrayList<Comegoodsrecord>();
 					list1.add(comegoodsrecord);
-				}
+				
 			}
 			map2.put("list", list1);
+			System.out.println("dao                        "+list1.size());
 			return map2;
 	}
 

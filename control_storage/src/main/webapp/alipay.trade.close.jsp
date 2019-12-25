@@ -7,7 +7,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="com.alipay.api.*"%>
 <%@ page import="com.alipay.api.request.*"%>
-<%@ page import="cn.kgc.tangcco.tcbd1017.st.commons.AlipayConfig" %>
+<%@ page import="cn.kgc.tangcco.payutil.AlipayConfig" %>
 <%
 	//获得初始化的AlipayClient
 	AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id, AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key, AlipayConfig.sign_type);

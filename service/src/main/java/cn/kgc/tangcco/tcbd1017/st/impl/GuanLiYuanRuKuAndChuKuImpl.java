@@ -1,22 +1,27 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.dao.impl.ChuKuDaoImpl;
+import cn.kgc.tangcco.dao.impl.GogoodSrecordDaoImpl;
+import cn.kgc.tangcco.dao.impl.GoodsDaoImpl;
+import cn.kgc.tangcco.dao.impl.JianCeDaoImpl;
+import cn.kgc.tangcco.dao.impl.ShopDaoImpl;
+import cn.kgc.tangcco.dao.impl.comeGoodsRecordDaoImpl;
+import cn.kgc.tangcco.dao.impl.warehouse_shopDaoImpl;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.st.GuanLiYuanRuKuAndChuKu;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Chuku;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Comegoodsrecord;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Gogoodsrecord;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
-import cn.kgc.tangcco.tcbd1017.st.pojo.RecordMonthAndSum;
-import cn.kgc.tangcco.tcbd1017.st.pojo.SelectCountByType;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-import cn.kgc.tangcco.tcbd1017.st.pojo.WarehouseShop;
-
-
+import cn.kgc.tangcco.pojo.Chuku;
+import cn.kgc.tangcco.pojo.Comegoodsrecord;
+import cn.kgc.tangcco.pojo.Gogoodsrecord;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.RecordMonthAndSum;
+import cn.kgc.tangcco.pojo.SelectCountByType;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.pojo.WarehouseShop;
+import cn.kgc.tangcco.service.GuanLiYuanRuKuAndChuKu;
 
 public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 
@@ -66,8 +71,16 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 	public Map<String, Object> UpdateRuKuZhuangTai(Map<String, Object> map2) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		if((int)map2.get("zhuangtai")==1) {
+			
+			 int xiuGaiZhuangTaiRuK = jiance.XiuGaiZhuangTaiRuKu(map2);
+			 
+			map.put("status", "success");
+			System.out.println("入库跳出除了状态不做修改");
+			return map;
+		}
 		try {
-			BaseDBUtils.startTransaction();
+			
 			map.put("status", "failed");
 			map.put("data", null);
 			boolean selectHuoWu = goods.selectHuoWu(map2);
@@ -88,7 +101,7 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 
 			} catch (SQLException e) {
 				System.out.println(1);
-				BaseDBUtils.rollbackAndClose();
+				
 				e.printStackTrace();
 			}
 			try {
@@ -98,7 +111,7 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 				}
 
 			} catch (SQLException e) {
-				BaseDBUtils.rollbackAndClose();
+				
 				System.out.println(2);
 				e.printStackTrace();
 			}
@@ -109,7 +122,7 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 				}
 
 			} catch (Exception e) {
-				BaseDBUtils.rollbackAndClose();
+				
 				System.out.println(3);
 				e.printStackTrace();
 			}
@@ -118,10 +131,10 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 			System.out.println(map2.get("zhuangtai"));
 			System.out.println(map2.get("jiance_rukujiluuuid"));
 			try {
-				xiuGaiZhuangTaiRuKu = jiance.XiuGaiZhuangTaiRuKu(map2);
+				xiuGaiZhuangTaiRuKu =  jiance.XiuGaiZhuangTaiRuKu(map2);;
 
 			} catch (Exception e) {
-				BaseDBUtils.rollbackAndClose();
+				
 				System.out.println(4);
 				e.printStackTrace();
 			}
@@ -129,14 +142,9 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 				System.out.println("修改状态成功");
 				map.put("status", "success");
 			}
-			BaseDBUtils.commitAndClose();
+			
 		} catch (SQLException e) {
-			try {
-				BaseDBUtils.rollbackAndClose();
-			} catch (SQLException e1) {
-				System.out.println(5);
-				e1.printStackTrace();
-			}
+			System.out.println("111111111");
 			e.printStackTrace();
 		}
 		return map;
@@ -296,12 +304,22 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 
 	@Override
 	public Map<String, Object> XiuGaiChuKuZhuangTai(Map<String, Object> map2) {
+		
 		Map<String, Object> map = new HashMap<String, Object>();
+		if((int)map2.get("zhuangtai")==2) {
+			int  a= chuku.XiuGaiZhuangTaiChuKu(map2);
+			map.put("status", "success");
+			System.out.println("库存不足，只改状态");
+			return map;
+		}
+		
+		
+		
 		try {
 			BaseDBUtils.startTransaction();
 			map.put("status", "failed");
 			map.put("data", null);
-			try {
+			
 				int addUpdateShengYuCount = goods.jianUpdateShengYuCount(map2);
 				if (addUpdateShengYuCount>0) {
 					System.out.println("修改货物库存成功");
@@ -314,11 +332,7 @@ public class GuanLiYuanRuKuAndChuKuImpl implements GuanLiYuanRuKuAndChuKu {
 				if(updateaddCangKuRongLiang>0) {
 					System.out.println("修改仓库剩余容量成功");
 				}
-			} catch (SQLException e) {
-				System.out.println(1);
-				BaseDBUtils.rollbackAndClose();
-				e.printStackTrace();
-			}
+			
 			int xiuGaiZhuangTaiChuKu = 0;
 			try {
 				xiuGaiZhuangTaiChuKu = chuku.XiuGaiZhuangTaiChuKu(map2);

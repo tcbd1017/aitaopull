@@ -4,7 +4,7 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="com.alipay.api.*"%>
 <%@ page import="com.alipay.api.internal.util.*"%>
-<%@ page import="cn.kgc.tangcco.tcbd1017.st.commons.AlipayConfig" %><%
+<%@ page import="cn.kgc.tangcco.payutil.AlipayConfig" %><%
 /* *
  * 功能：支付宝服务器异步通知页面
  * 日期：2017-03-30

@@ -111,12 +111,11 @@
 <script type="text/html" id="toolbarDemo">
 	<div class="layui-btn-container">
 	    <button class="layui-btn layui-btn-sm" lay-event="getCheckData">开始出库</button>
-	   
+	   <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">库存不足</button>
 	  </div>
 	</script>
 <script type="text/html" id="barDemo">
-	<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-	  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	
 	</script>
 
 
@@ -135,7 +134,7 @@
 							limit: 30,
 							account: "niuwei"
 						},
-						url: '/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaXunSuoYouChuHuo',
+						url: '/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=ChaXunSuoYouChuHuo',
 						parseData: function(res) { //res 即为原始返回的数据
 							window.console.log(res);
 							// window.console.log(res.data.data[0].brand);
@@ -248,13 +247,43 @@
 								let aaa=JSON.stringify(data);
 								$.ajax({
 									 type: 'post',
-									 url:'http://localhost:8080/control_storage/GuanLiYuanRuKuAndChuKuAction.action?methodName=XiuGaiChuKuZhuangTai',
+									 url:'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=XiuGaiChuKuZhuangTai',
 									 dataType: 'json',
-									 data:{data:aaa},
+									 data:{data:aaa,
+										 zhuangtai:1},
 									 success:(responseTest)=>{
 										 switch (responseTest.status) {
 										case "success":
 											alert("聚宝盆欢迎您");
+											 window.location.href ="index.html";
+											break;
+
+										default:
+											break;
+										}
+									 }
+								});
+								
+								
+								break;
+							case 'getCheckLength':
+								var data = checkStatus.data;
+								/* layer.alert(JSON.stringify(data));
+								layer.alert('a'); */
+								
+								//给死  张三
+								
+								let aaa1=JSON.stringify(data);
+								$.ajax({
+									 type: 'post',
+									 url:'http://localhost:8080/warehouse/GuanLiYuanRuKuAndChuKuAction.action?methodName=XiuGaiChuKuZhuangTai',
+									 dataType: 'json',
+									 data:{data:aaa1,
+										 zhuangtai:2},
+									 success:(responseTest)=>{
+										 switch (responseTest.status) {
+										case "success":
+											alert("库存不足");
 											 window.location.href ="index.html";
 											break;
 
@@ -266,10 +295,6 @@
 								});
 								
 								
-								break;
-							case 'getCheckLength':
-								var data = checkStatus.data;
-								layer.msg('选中了：' + data.length + ' 个');
 								break;
 							case 'isAll':
 								layer.msg(checkStatus.isAll ? '全选' : '未全选');
@@ -310,7 +335,7 @@
 			     <button type="button" class="layui-btn ">出库成功</button>
 			     {{#  } }}  
 			     {{#  if(d.chukuFlag === 2 ){ }}
-			     <button type="button" class="layui-btn layui-btn-normal">出库失败</button> 
+			     <button type="button" class="layui-btn layui-btn-warm">库存不足</button> 
 			     {{#  } }}  
  {{#  if(d.chukuFlag === 3 ){ }}
 			     <button type="button" class="layui-btn layui-btn-normal">等待出库</button> 

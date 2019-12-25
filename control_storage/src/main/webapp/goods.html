@@ -98,7 +98,7 @@
 		table.render({
 			where: dataa,
 			elem: '#test',
-			url: '/control_storage/GoodsAction.action?methodName=SelectAllgoods',
+			url: '/warehouse/GoodsAction.action?methodName=SelectAllgoods',
 			limit:20,
 			cols: [
 				[{
@@ -196,7 +196,7 @@
             var form = layui.form;
             //监听 仓库类型下拉框
             $.ajax({
-                url: "http://localhost:8080/control_storage/CangKuAction.action?methodName=AllCangKu",
+                url: "http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKu",
                 type: 'post', //HTTP请求类型
                 dataType: 'json', //服务器返回json格式数据
                 data: {
@@ -226,7 +226,7 @@
             var form = layui.form;
             //监听 仓库类型下拉框
             $.ajax({
-                url: "http://localhost:8080/control_storage/ShopAction.action?methodName=chakanShangPuAll",
+                url: "http://localhost:8080/warehouse/ShopAction.action?methodName=chakanShangPuAll",
                 type: 'post', //HTTP请求类型
                 dataType: 'json', //服务器返回json格式数据
                 data: {

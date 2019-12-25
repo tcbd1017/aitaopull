@@ -12,7 +12,7 @@
 
 	<body>
 	 <fieldset class="layui-elem-field layui-field-title">
-            <legend>购买仓库</legend>
+            <legend>商家入货进度查询</legend>
         </fieldset>
 		<div class="layui-fluid">
 			<div class="layui-row layui-col-space1">
@@ -112,7 +112,7 @@
 				
 				flag: jianceFlag,
 			},
-			url: '/control_storage/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
+			url: '/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
 			parseData: function(res) { //res 即为原始返回的数据
 				// window.console.log(res);
 				// window.console.log(res.data.data[0].brand);
@@ -214,7 +214,7 @@
             var form = layui.form;
             //监听 仓库类型下拉框
             $.ajax({
-                url: "http://localhost:8080/control_storage/CangKuAction.action?methodName=AllCangKu",
+                url: "http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKu",
                 type: 'post', //HTTP请求类型
                 dataType: 'json', //服务器返回json格式数据
                 data: {
@@ -255,7 +255,7 @@
 				account: "shouji",
 				chuku_shangpuuuid:"店铺uuid001"
 			},
-			url: '/control_storage/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
+			url: '/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe',
 			parseData: function(res) { //res 即为原始返回的数据
 				// window.console.log(res);
 				// window.console.log(res.data.data[0].brand);
@@ -411,7 +411,7 @@
 		let pcds;
 		$.ajax({
 			type: "post",
-			url: "/control_storage/CangKuAction.action?methodName=ChaXunSuoYouWeiMaiCangKu",
+			url: "/warehouse/CangKuAction.action?methodName=ChaXunSuoYouWeiMaiCangKu",
 			async: false,
 			data: {
 				page: 1,
@@ -452,7 +452,7 @@
 		  let pcds;
 		  $.ajax({
 		   type: "post",
-		   url: "/control_storage/ShangJiRuKuAction.action?methodName=ChaXunZhuCe",
+		   url: "/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe",
 		   async: false,
 		   data: {
 		    page: 1,
@@ -499,7 +499,7 @@
 		let pcds;
 		$.ajax({
 			type: "post",
-			url: "/control_storage/ShangJiChuKuAction.action?methodName=ChaXunPinPai",
+			url: "/warehouse/ShangJiChuKuAction.action?methodName=ChaXunPinPai",
 			async: false,
 			data: {
 
@@ -538,7 +538,7 @@
 		let pcds;
 		$.ajax({
 			type: "post",
-			url: "/control_storage/ShangJiChuKuAction.action?methodName=ChaXunXingHao",
+			url: "/warehouse/ShangJiChuKuAction.action?methodName=ChaXunXingHao",
 			async: false,
 			data: {
 				brand_type_id: 1
@@ -581,7 +581,7 @@
 		let pcds;
 		$.ajax({
 			type: "post",
-			url: "/control_storage/ShangJiRuKuAction.action?methodName=ChaXunZhuCe",
+			url: "/warehouse/ShangJiRuKuAction.action?methodName=ChaXunZhuCe",
 			async: false,
 			data: {
 				page: 1,

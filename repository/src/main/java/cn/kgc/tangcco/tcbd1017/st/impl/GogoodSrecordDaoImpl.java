@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,21 +12,21 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import cn.hutool.core.date.DateUtil;
+import cn.kgc.tangcco.dao.GogoodSrecordDao;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
-import cn.kgc.tangcco.tcbd1017.st.GogoodSrecordDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Chuku;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Emp;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Gogoodsrecord;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.RecordMonthAndSum;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Role;
-import cn.kgc.tangcco.tcbd1017.st.pojo.SelectCountByType;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Chuku;
+import cn.kgc.tangcco.pojo.Emp;
+import cn.kgc.tangcco.pojo.Gogoodsrecord;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.RecordMonthAndSum;
+import cn.kgc.tangcco.pojo.Role;
+import cn.kgc.tangcco.pojo.SelectCountByType;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.pojo.Type;
 
 /**
  * @author 作者 :牛伟
@@ -38,7 +38,7 @@ public class GogoodSrecordDaoImpl implements GogoodSrecordDao {
 	public Map<String, Object> selectChuKuJiLu(Map<String, Object> map) throws SQLException {
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder(
-				" select gg.gogoodsrecord_id,gg.gogoodsrecord_time,gg.gogoodsrecord_count,gg.gogoodsrecord_w_s_uuid,gg.gogoodsrecord_uuid, ");
+				" select distinct gg.gogoodsrecord_id,gg.gogoodsrecord_time,gg.gogoodsrecord_count,gg.gogoodsrecord_w_s_uuid,gg.gogoodsrecord_uuid, ");
 		sql.append(" g.goods_id,g.goods_count,g.goods_flag, ");
 		sql.append(" t.type_id,t.type_name, ");
 		sql.append(" b.brand_id,b.brand_name, ");
@@ -145,9 +145,7 @@ public class GogoodSrecordDaoImpl implements GogoodSrecordDao {
 		Emp emp = null;
 		Role role = null;
 
-		if (rs.first()) {
-			// 如果结果集中第一个位置数据则指针前移一位
-			rs.previous();
+		
 			// 遍历结果集
 			while (rs.next()) {
 				gogoodsrecord = new Gogoodsrecord();
@@ -211,7 +209,8 @@ public class GogoodSrecordDaoImpl implements GogoodSrecordDao {
 				gogoodsrecord.setShop(shop);
 				// list = new ArrayList<Comegoodsrecord>();
 				list1.add(gogoodsrecord);
-			}
+				System.out.println("dao层                                                 "+list.size());
+			
 		}
 		map2.put("list", list1);
 		return map2;
@@ -268,7 +267,7 @@ public class GogoodSrecordDaoImpl implements GogoodSrecordDao {
 				PreparedStatement pst1 = BaseDBUtils.getPreparedStatement(conn1, sql1.toString());
 				int goodsid = 0;
 				int goods_shop_id = 0;
-				int goods_count = 0;
+				int goods_count = 0; 
 				String goods_w_s_uuid = null;
 				ResultSet rs1 = BaseDBUtils.executeQuery(pst1,param1);
 				System.out.println(rs1.toString());
@@ -284,6 +283,9 @@ public class GogoodSrecordDaoImpl implements GogoodSrecordDao {
 					}
 				}
 				
+				
+				System.out.println("service uuid         "+goods_w_s_uuid);
+				
 				//通过通过货物表中的仓库uuid查询货物id
 				//向出库记录表中插入数据
 				StringBuilder sql = new StringBuilder(" INSERT into gogoodsrecord(gogoodsrecord_time,gogoodsrecord_count,gogoodsrecord_w_s_uuid,gogoodsrecord_uuid,gogoodsrecord_emp_id,gogoodsrecord_shop_id,gogoodsrecord_goods_id) ");
@@ -293,11 +295,12 @@ public class GogoodSrecordDaoImpl implements GogoodSrecordDao {
 				Object[] param = {today,goods_count,goods_w_s_uuid,gogoodsrecord_uuid,map.get("empid"),goods_shop_id,goodsid};
 				Connection conn = BaseDBUtils.getConnection();
 				PreparedStatement pst = BaseDBUtils.getPreparedStatement(conn, sql.toString());
+				System.out.println(param.length);
 				int i = BaseDBUtils.executeUpdate(pst, param);
 				return i;
 			}
-	
-	
+			
+			
 		//记录总条数    传入map()跟查询记录的一样    返回int
 		public int selectGoRecordCount(Map<String, Object> map) throws SQLException {
 			StringBuilder sql = new StringBuilder(" select count(*) as count");

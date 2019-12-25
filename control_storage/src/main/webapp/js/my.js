@@ -3,7 +3,7 @@ $(document).ready(function() {
 		var form = layui.form;
 		//监听 仓库类型下拉框
 		$.ajax({
-			url: "http://localhost:8080/control_storage/CangKuAction.action?methodName=AllCangKuFenLei",
+			url: "http://localhost:8080/warehouse/CangKuAction.action?methodName=AllCangKuFenLei",
 			type: 'post', //HTTP请求类型
 			dataType: 'json', //服务器返回json格式数据
 			data: {},
@@ -22,7 +22,7 @@ $(document).ready(function() {
 		});
 		//商品类型下拉框
 		$.ajax({
-			url: "http://localhost:8080/control_storage/ShangJiChuKuAction.action?methodName=ChaXunLeiXing",
+			url: "http://localhost:8080/warehouse/ShangJiChuKuAction.action?methodName=ChaXunLeiXing",
 			type: 'post', //HTTP请求类型
 			dataType: 'json', //服务器返回json格式数据
 			data: {},
@@ -58,7 +58,7 @@ $(document).ready(function() {
 		// let b =$('#typename').value();
 		// window.console.log(b)
 		$.ajax({
-			url: "http://localhost:8080/control_storage/ShangJiChuKuAction.action?methodName=ChaXunPinPai",
+			url: "http://localhost:8080/warehouse/ShangJiChuKuAction.action?methodName=ChaXunPinPai",
 			type: 'post', //HTTP请求类型
 			dataType: 'json', //服务器返回json格式数据
 			data: {
@@ -76,7 +76,7 @@ $(document).ready(function() {
 			}
 		});
 		$.ajax({
-			url: "http://localhost:8080/control_storage/ShangJiChuKuAction.action?methodName=ChaXunXingHao",
+			url: "http://localhost:8080/warehouse/ShangJiChuKuAction.action?methodName=ChaXunXingHao",
 			type: 'post', //HTTP请求类型
 			dataType: 'json', //服务器返回json格式数据
 			data: {
@@ -162,7 +162,7 @@ layui.use('form', function() {
 			//	checkbox: true,
 				elem: '#test',
 				//    url: "http://localhost:8080/warehouse/GoodsAction.action?methodName=SelectAllgoods&account=shouji&shop_id=1",
-				url: "http://localhost:8080/control_storage/GoodsAction.action?methodName=SelectAllgoods",
+				url: "http://localhost:8080/warehouse/GoodsAction.action?methodName=SelectAllgoods",
 			//	method: 'post',
 				//	   layout:['prev', 'page', 'next],
 				page: {

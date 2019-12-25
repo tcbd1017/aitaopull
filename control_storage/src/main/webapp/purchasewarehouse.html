@@ -132,121 +132,18 @@
 
         // 登录按钮点击事件调用函数执行动作
         $("#button10").click(function(event) {
-        	window.location.href="http://localhost:8080/control_storage/pay.action?methodName=alipay&money=50000&moner_uuid=1335678dfg";
+        	window.location.href="http://localhost:8080/warehouse/pay.action?methodName=alipay&money=50000";
         })
-        	/*    $.ajax({
-                    // 请求方式
-                    type: "post",
-                    // 被请求的url
-                    url: "http://localhost:8080/warehouse/pay.action?methodName=alipay",
-                    // 返回值的数据类型
-                    dataType: "json",
-                    // 发送的数据 
-                    data: {
-                    	"number":"1",
-                    	"warehouse_shop_warehousesize":"100000",
-                    	"warehouse_shop_buyyear":"1",
-                    	"warehouse_shop_shop_id":"1",
-                    	"warehouse_shop_warehouse_id":"1",
-                    	"warehouseresour_id":"1",
-                    	 
-                    	 "money":"50000",
-                    	 "money_uuid":"123456789",
-                    },
-                    success: (responseText) => {
-                     //   // window.console.log(responseText)
-                    //   switch (responseText.status) {
-				//	case "success":
-				//		alert("购买成功")
-				//		break;
 
-				//	default:
-				//		alert("购买失败")
-				//		break;
-				//	}
-                    },
-                    error: () => {
-                        Tip("服务器大大病了，不能伺候小主了"),
-                    },
-                });
-        }); */
- 
-       
         
         // 登录按钮点击事件调用函数执行动作
         $("#button100").click(function(event) {
-                $.ajax({
-                    // 请求方式
-                    type: "post",
-                    // 被请求的url
-                    url: "http://localhost:8080/control_storage/CangKuAction.action?methodName=GouMaiCnagKu",
-                    // 返回值的数据类型
-                    dataType: "json",
-                    // 发送的数据 
-                    data: {
-                    	"number":"1",
-                    	"warehouse_shop_warehousesize":"100000",
-                    	"warehouse_shop_buyyear":"1",
-                    	"warehouse_shop_shop_id":"1",
-                    	"warehouse_shop_warehouse_id":"2",
-                    	"warehouseresour_id":"2",
-                    	
-                    },
-                    success: (responseText) => {
-                        // window.console.log(responseText)
-                       switch (responseText.status) {
-					case "success":
-						alert("购买成功")
-						break;
-					
-					default:
-						alert("购买失败")
-						break;
-					}
-                    },
-                    error: () => {
-                        Tip("服务器大大病了，不能伺候小主了")
-                    },
-                });
+        	window.location.href="http://localhost:8080/warehouse/pay.action?methodName=alipay&money=100000";
         });
-        
-        
         
         
         // 登录按钮点击事件调用函数执行动作
         $("#button1000").click(function(event) {
-                $.ajax({
-                    // 请求方式
-                    type: "post",
-                    // 被请求的url
-                    url: "http://localhost:8080/control_storage/CangKuAction.action?methodName=GouMaiCnagKu",
-                    // 返回值的数据类型
-                    dataType: "json",
-                    // 发送的数据 
-                    data: {
-                    	"number":"1",
-                    	"warehouse_shop_warehousesize":"100000",
-                    	"warehouse_shop_buyyear":"1",
-                    	"warehouse_shop_shop_id":"1",
-                    	"warehouse_shop_warehouse_id":"3",
-                    	"warehouseresour_id":"3",
-                    	
-                    },
-                    success: (responseText) => {
-                        // window.console.log(responseText)
-                       switch (responseText.status) {
-					case "success":
-						alert("购买成功")
-						break;
-					
-					default:
-						alert("购买失败")
-						break;
-					}
-                    },
-                    error: () => {
-                        Tip("服务器大大病了，不能伺候小主了")
-                    },
-                });
+        	window.location.href="http://localhost:8080/warehouse/pay.action?methodName=alipay&money=200000";    
         });
 </script>
