@@ -36,8 +36,12 @@ public class MessageAction extends BaseServlet {
 	protected void liuyan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String xiaoxi = request.getParameter("xiaoxi");
 		String user_uuid = request.getParameter("user_uuid");
-		if (xiaoxi==null&&xiaoxi.length()==0) {
+		if (xiaoxi==null||xiaoxi.length()==0) {
 			System.out.println("没得留言");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
 		Map<String, Object>map=new HashMap<String, Object>();
 		map.put("logistics_text_txt", xiaoxi);
