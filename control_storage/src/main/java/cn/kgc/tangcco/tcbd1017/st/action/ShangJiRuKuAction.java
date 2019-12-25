@@ -10,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
-import cn.kgc.tangcco.tcbd1017.st.impl.ShangJiaRuKuServiceImpl;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.Type;
+import cn.kgc.tangcco.service.impl.ShangJiaRuKuServiceImpl;
 
 @WebServlet(urlPatterns =  "/ShangJiRuKuAction.action")
 public class ShangJiRuKuAction extends BaseServlet{

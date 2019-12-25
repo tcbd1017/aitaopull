@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,15 +12,14 @@ import java.util.Map;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.lang3.StringUtils;
 
+import cn.kgc.tangcco.dao.ShoploginDao;
 import cn.kgc.tangcco.lihaozhe.commons.bianhao.BaseBianHao;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
-import cn.kgc.tangcco.tcbd1017.st.ShoploginDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Emp;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Function;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Role;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-
+import cn.kgc.tangcco.pojo.Emp;
+import cn.kgc.tangcco.pojo.Function;
+import cn.kgc.tangcco.pojo.Role;
+import cn.kgc.tangcco.pojo.Shop;
 
 public class ShoploginDaoImpl implements ShoploginDao {
 	QueryRunner qr = new QueryRunner();

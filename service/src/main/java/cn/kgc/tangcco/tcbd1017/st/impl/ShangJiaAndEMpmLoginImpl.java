@@ -1,12 +1,15 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.kgc.tangcco.tcbd1017.st.ShangJiaAndEMpmLogin;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
+import cn.kgc.tangcco.dao.impl.FunctionDaoImpl;
+import cn.kgc.tangcco.dao.impl.ShopDaoImpl;
+import cn.kgc.tangcco.dao.impl.ShoploginDaoImpl;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.service.ShangJiaAndEMpmLogin;
 
 public class ShangJiaAndEMpmLoginImpl implements ShangJiaAndEMpmLogin{
 	ShoploginDaoImpl in=new ShoploginDaoImpl();

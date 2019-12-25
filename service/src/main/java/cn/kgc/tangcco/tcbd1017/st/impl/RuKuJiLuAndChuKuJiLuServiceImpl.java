@@ -1,10 +1,8 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.util.Map;
 
-import cn.kgc.tangcco.tcbd1017.st.RuKuJiLuAndChuKuJiLuService;
-
-
+import cn.kgc.tangcco.service.RuKuJiLuAndChuKuJiLuService;
 
 public class RuKuJiLuAndChuKuJiLuServiceImpl implements RuKuJiLuAndChuKuJiLuService{
 

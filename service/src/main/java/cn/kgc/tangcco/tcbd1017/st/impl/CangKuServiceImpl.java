@@ -1,17 +1,20 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.dao.warehouseDao;
+import cn.kgc.tangcco.dao.warehouse_shopDao;
+import cn.kgc.tangcco.dao.warehouseresourDao;
+import cn.kgc.tangcco.dao.impl.WarehouseDaoImpl;
+import cn.kgc.tangcco.dao.impl.WarehouseresourDaoImpl;
+import cn.kgc.tangcco.dao.impl.warehouse_shopDaoImpl;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.st.CangKuService;
-import cn.kgc.tangcco.tcbd1017.st.warehouseDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.BingZhuangTuDuiXiang;
-import cn.kgc.tangcco.tcbd1017.st.pojo.WarehouseShop;
-
-
+import cn.kgc.tangcco.pojo.BingZhuangTuDuiXiang;
+import cn.kgc.tangcco.pojo.WarehouseShop;
+import cn.kgc.tangcco.service.CangKuService;
 
 /**
  * @author ZHOUxq<br>
@@ -22,8 +25,8 @@ import cn.kgc.tangcco.tcbd1017.st.pojo.WarehouseShop;
 public class CangKuServiceImpl implements CangKuService {
 	
 	warehouseDao warehouseDaoImpl=new WarehouseDaoImpl();
-	warehouse_shopDaoImpl warehouse_shopDao=new warehouse_shopDaoImpl();
-	WarehouseresourDaoImpl warehouseresourDao= new WarehouseresourDaoImpl();
+	warehouse_shopDao warehouse_shopDao=new warehouse_shopDaoImpl();
+	warehouseresourDao warehouseresourDao= new WarehouseresourDaoImpl();
 	
 	//查询所有未卖仓库
 	//在页面上只显示价格，图片，类型

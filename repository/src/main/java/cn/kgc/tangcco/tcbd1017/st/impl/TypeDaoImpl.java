@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.dao.typeDao;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.st.typeDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
+import cn.kgc.tangcco.pojo.Type;
 
 public class TypeDaoImpl implements typeDao{
 

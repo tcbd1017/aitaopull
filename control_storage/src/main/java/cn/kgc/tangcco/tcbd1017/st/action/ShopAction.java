@@ -7,9 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
-import cn.kgc.tangcco.tcbd1017.st.impl.ShopServiceImpl;
-
+import cn.kgc.tangcco.service.impl.ShopServiceImpl;
 
 @WebServlet(urlPatterns = "/ShopAction.action")
 public class ShopAction extends BaseServlet{

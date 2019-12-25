@@ -1,13 +1,13 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.dao.impl.ShopDaoImpl;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.st.ShopService;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.service.ShopService;
 
 public class ShopServiceImpl implements ShopService{
 	

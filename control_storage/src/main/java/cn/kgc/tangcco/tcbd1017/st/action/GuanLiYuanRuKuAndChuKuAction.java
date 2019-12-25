@@ -12,15 +12,14 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
-import cn.kgc.tangcco.tcbd1017.st.GuanLiYuanRuKuAndChuKu;
-import cn.kgc.tangcco.tcbd1017.st.impl.GuanLiYuanRuKuAndChuKuImpl;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Chuku;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.RecordMonthAndSum;
-
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Chuku;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.RecordMonthAndSum;
+import cn.kgc.tangcco.service.GuanLiYuanRuKuAndChuKu;
+import cn.kgc.tangcco.service.impl.GuanLiYuanRuKuAndChuKuImpl;
 @WebServlet(urlPatterns = "/GuanLiYuanRuKuAndChuKuAction.action")
 public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 	GuanLiYuanRuKuAndChuKu guanLiYuanRuKuAndChuKu = new GuanLiYuanRuKuAndChuKuImpl();
@@ -75,6 +74,10 @@ public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 		
 		int jianceFlag=3;
 		
+		String parameter2 = request.getParameter("zhuangtai");
+		
+		System.out.println(parameter2);
+		
 		int jiancePrice=(Integer)parseObject.get("jiancePrice");
 		System.out.println(jiancePrice);
 		
@@ -113,7 +116,7 @@ public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 		  a.setJianceRukujiluuuid((String)map.get("jiance_rukujiluuuid"));
 		  map.put("jiance",a);
 		  map.put("empid", 1);
-		  map.put("zhuangtai", 3);
+		  map.put("zhuangtai",Integer.parseInt(parameter2));
 		  System.out.println(map.get("zhuangtai"));
 		  Map<String, Object> updateRuKuZhuangTai = guanLiYuanRuKuAndChuKu.UpdateRuKuZhuangTai(map);
 		  printJson(response, updateRuKuZhuangTai);
@@ -195,6 +198,8 @@ public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 		System.out.println("出库uuid"+chukuChukujiluuuid);
 		
 		int  chukuFlag=1;
+		String zt = request.getParameter("zhuangtai");
+		
 		
 		int chukuGogoodsrecoredCount= (Integer) parseObject.get("chukuGogoodsrecoredCount");
 		System.out.println("出库数量"+chukuGogoodsrecoredCount);
@@ -234,7 +239,7 @@ public class GuanLiYuanRuKuAndChuKuAction extends BaseServlet {
 		map.put("chuku", chuku);
 		map.put("empid", 1);
 		map.put("gogoodsrecord_w_s_uuid",chukuCangkuuuid);
-		map.put("zhuangtai", 1);
+		map.put("zhuangtai", Integer.parseInt(zt));
 		Map<String, Object> xiuGaiChuKuZhuangTai = guanLiYuanRuKuAndChuKu.XiuGaiChuKuZhuangTai(map);
 		printJson(response, xiuGaiChuKuZhuangTai);
 	}

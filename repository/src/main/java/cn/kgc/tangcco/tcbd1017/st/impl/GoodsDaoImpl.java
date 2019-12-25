@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,17 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import cn.kgc.tangcco.dao.GoodsDao;
+import cn.kgc.tangcco.dao.Panduan;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
-import cn.kgc.tangcco.tcbd1017.st.GoodsDao;
-import cn.kgc.tangcco.tcbd1017.st.Panduan;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.pojo.Type;
 
 public class GoodsDaoImpl implements GoodsDao {
 
@@ -88,7 +86,6 @@ public class GoodsDaoImpl implements GoodsDao {
 			rs = BaseDBUtils.executeQuery(ps, (PageRang) map.get("PageRang"), array);
 			List<Goods> list = new ArrayList<Goods>();
 			while (rs.next()) {
-
 				Goods good = new Goods();
 				good.setCount(rs.getInt("goods_count"));
 				good.setGoodsId(rs.getInt("goods_id"));
@@ -255,12 +252,11 @@ public class GoodsDaoImpl implements GoodsDao {
 	@Override
 	public int jianUpdateShengYuCount(Map<String, Object> map) throws SQLException {
 		
+		int chaGoodsId = ChaGoodsId(map);
 		JianCeDaoImpl j=new JianCeDaoImpl();
-		int id=j.selectShangPuid((String)map.get("goods_shop_uuid"));
-		
 		StringBuilder sql = new StringBuilder(" update goods set goods_count=goods_count-? ");
-		sql.append(" where goods_id=? ");
-		Object[] params = { map.get("goods_count"), id };
+		sql.append(" where goods_model_id=? ");
+		Object[] params = { map.get("goods_count"), chaGoodsId };
 		Connection conn = BaseDBUtils.getConnection();
 		PreparedStatement ps = BaseDBUtils.getPreparedStatement(conn, sql.toString());
 		int rs = BaseDBUtils.executeUpdate(ps, params);
@@ -269,14 +265,12 @@ public class GoodsDaoImpl implements GoodsDao {
 
 	@Override
 	public int addUpdateShengYuCount(Map<String, Object> map) throws SQLException {
-		
+		int chaGoodsId = ChaGoodsId(map);
 		JianCeDaoImpl j=new JianCeDaoImpl();
-		int id=j.selectShangPuid((String)map.get("goods_shop_uuid"));
-		
-		
 		StringBuilder sql = new StringBuilder(" update goods set goods_count=goods_count+? ");
 		sql.append(" where goods_id=? ");
-		Object[] params = {map.get("goods_count"),id };
+		System.out.println("入库数量"+map.get("goods_count"));
+		Object[] params = {map.get("goods_count"),chaGoodsId };
 		Connection conn = BaseDBUtils.getConnection();
 		PreparedStatement ps = BaseDBUtils.getPreparedStatement(conn, sql.toString());
 		int rs = BaseDBUtils.executeUpdate(ps, params);
@@ -286,7 +280,7 @@ public class GoodsDaoImpl implements GoodsDao {
 	@Override
 	public int ChaXunKuCun(Map<String, Object> map) throws SQLException {
 		int count = 0;
-
+		
 		StringBuilder sql = new StringBuilder(" select goods_count from goods ");
 		sql.append(" where goods.goods_model_id=? and goods_w_s_uuid=? and goods_type_id=? and goods_brand_id=? ");
 		Object[] params = { map.get("goods_model_id"), (String) map.get("goods_w_s_uuid"),

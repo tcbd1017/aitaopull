@@ -8,14 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.kgc.tangcco.dao.impl.ChuKuDaoImpl;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
-import cn.kgc.tangcco.tcbd1017.st.impl.ShangJiChuKuServiceImpl;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Chuku;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Chuku;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.Type;
+import cn.kgc.tangcco.service.ShangJiChuKuService;
+import cn.kgc.tangcco.service.impl.ShangJiChuKuServiceImpl;
 
 @WebServlet(urlPatterns = "/ShangJiChuKuAction.action")
 public class ShangJiChuKuAction extends BaseServlet {

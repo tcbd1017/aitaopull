@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,22 +12,20 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import cn.hutool.core.date.DateUtil;
-
+import cn.kgc.tangcco.dao.comeGoodsRecordDao;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
-import cn.kgc.tangcco.tcbd1017.st.comeGoodsRecordDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Comegoodsrecord;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Emp;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Goods;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.RecordMonthAndSum;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Role;
-import cn.kgc.tangcco.tcbd1017.st.pojo.SelectCountByType;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Shop;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Comegoodsrecord;
+import cn.kgc.tangcco.pojo.Emp;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.RecordMonthAndSum;
+import cn.kgc.tangcco.pojo.Role;
+import cn.kgc.tangcco.pojo.SelectCountByType;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.pojo.Type;
 
 /**
  * @author 作者 :牛伟
@@ -143,10 +141,6 @@ public class comeGoodsRecordDaoImpl implements comeGoodsRecordDao {
 			Emp emp = null;
 			Role role = null;
 			
-			if (rs.first()) {
-				// 如果结果集中第一个位置数据则指针前移一位
-				rs.previous();
-				// 遍历结果集
 				while (rs.next()) {
 					comegoodsrecord = new Comegoodsrecord();
 					comegoodsrecord.setComegoodsrecordId(rs.getInt("comegoodsrecord_id"));
@@ -211,7 +205,7 @@ public class comeGoodsRecordDaoImpl implements comeGoodsRecordDao {
 					comegoodsrecord.setShop(shop);
 				//	list = new ArrayList<Comegoodsrecord>();
 					list1.add(comegoodsrecord);
-				}
+				
 			}
 			map2.put("list", list1);
 			return map2;

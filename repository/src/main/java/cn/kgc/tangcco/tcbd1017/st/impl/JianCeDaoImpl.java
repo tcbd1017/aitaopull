@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,18 +9,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.kgc.tangcco.dao.GoodsDao;
+import cn.kgc.tangcco.dao.JianCeDao;
 import cn.kgc.tangcco.lihaozhe.commons.bianhao.BaseBianHao;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.PageRang;
-import cn.kgc.tangcco.tcbd1017.st.GoodsDao;
-import cn.kgc.tangcco.tcbd1017.st.JianCeDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Jiance;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
-import cn.kgc.tangcco.tcbd1017.st.pojo.WarehouseShop;
-
-
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Chuku;
+import cn.kgc.tangcco.pojo.Goods;
+import cn.kgc.tangcco.pojo.Jiance;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.Shop;
+import cn.kgc.tangcco.pojo.Type;
+import cn.kgc.tangcco.pojo.WarehouseShop;
 
 public class JianCeDaoImpl implements JianCeDao {
 

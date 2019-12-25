@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.st.brandDao;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
 
+
+import cn.kgc.tangcco.dao.brandDao;
+import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Model;
 
 public class BrandDaoImpl implements brandDao{
 

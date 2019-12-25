@@ -1,4 +1,4 @@
-package cn.kgc.tangcco.tcbd1017.st.impl;
+package cn.kgc.tangcco.service.impl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -7,12 +7,17 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import cn.kgc.tangcco.dao.impl.BrandDaoImpl;
+import cn.kgc.tangcco.dao.impl.ChuKuDaoImpl;
+import cn.kgc.tangcco.dao.impl.ModelDaoImpl;
+import cn.kgc.tangcco.dao.impl.TypeDaoImpl;
+import cn.kgc.tangcco.dao.impl.warehouse_shopDaoImpl;
 import cn.kgc.tangcco.lihaozhe.commons.jdbc.BaseDBUtils;
-import cn.kgc.tangcco.tcbd1017.st.ShangJiChuKuService;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Brand;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Chuku;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Model;
-import cn.kgc.tangcco.tcbd1017.st.pojo.Type;
+import cn.kgc.tangcco.pojo.Brand;
+import cn.kgc.tangcco.pojo.Chuku;
+import cn.kgc.tangcco.pojo.Model;
+import cn.kgc.tangcco.pojo.Type;
+import cn.kgc.tangcco.service.ShangJiChuKuService;
 
 public class ShangJiChuKuServiceImpl implements ShangJiChuKuService{
 

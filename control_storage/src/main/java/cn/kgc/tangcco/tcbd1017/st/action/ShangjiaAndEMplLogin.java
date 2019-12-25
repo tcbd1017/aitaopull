@@ -12,8 +12,7 @@ import cn.kgc.tangcco.lihaozhe.commons.cryptography.BaseCryptographyUtils;
 import cn.kgc.tangcco.lihaozhe.commons.propertis.BaseProperties;
 import cn.kgc.tangcco.lihaozhe.commons.servlet.BaseServlet;
 import cn.kgc.tangcco.lihaozhe.commons.uuid.BaseUUID;
-import cn.kgc.tangcco.tcbd1017.st.impl.ShangJiaAndEMpmLoginImpl;
-
+import cn.kgc.tangcco.service.impl.ShangJiaAndEMpmLoginImpl;
 
 @WebServlet(urlPatterns = "/ShangJiaAndEmpLoginAction.action")
 public class ShangjiaAndEMplLogin extends BaseServlet {
