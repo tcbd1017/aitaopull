@@ -48,12 +48,16 @@ public class UserAction extends BaseServlet {
 		String password = request.getParameter("password");
 		String mobile = request.getParameter("mobile");
 		String user_uuid = SuiJi.getRandomNumber(14);
-		Map<String, Object> map = new HashMap<String, Object>();
 		if (
-				password == null && password.length() == 0 
-				&& mobile == null && mobile.length() == 0) {
+				password == null || password.length() == 0 
+				|| mobile == null || mobile.length() == 0) {
 			System.out.println("请输入完整信息");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("password", password);
 		map.put("mobile", mobile);
 		map.put("user_uuid", user_uuid);
@@ -67,9 +71,13 @@ public class UserAction extends BaseServlet {
 			throws ServletException, IOException {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
-		if (account == null && account.length() == 0 
-				&& password == null && password.length() == 0) {
+		if (account == null|| account.length() == 0 
+				|| password == null || password.length() == 0) {
 			System.out.println("请输入完整信息");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("account", account);
@@ -86,9 +94,13 @@ public class UserAction extends BaseServlet {
 		String nickname = request.getParameter("nickname");
 		String password = request.getParameter("password");
 		String user_uuid = request.getParameter("user_uuid");
-		if (nickname == null && nickname.length() == 0 
-				&& password == null && password.length() == 0) {
+		if (nickname == null || nickname.length() == 0 
+				|| password == null || password.length() == 0) {
 			System.out.println("请输入完整信息");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nickname", nickname);

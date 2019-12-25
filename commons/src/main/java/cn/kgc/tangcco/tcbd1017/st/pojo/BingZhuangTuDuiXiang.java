@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author ZHOUxq<br>
+ * @author ZHOUxq<br>;
  * @version v1.0<br>
  * @创建时间：2019年12月18日  上午11:22:02<br>
  * @类描述：	饼状图对象

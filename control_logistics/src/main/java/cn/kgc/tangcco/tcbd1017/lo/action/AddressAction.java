@@ -44,8 +44,12 @@ public class AddressAction extends BaseServlet {
     //根据user_uuid查询自己对应的地址
 	protected void selectAddressByUserId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_uuid=request.getParameter("user_uuid");
-		if(user_uuid==null&&user_uuid.length()==0) {
+		if(user_uuid==null||user_uuid.length()==0) {
 			System.out.println("错误访问");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("user_uuid", user_uuid);
@@ -71,16 +75,20 @@ public class AddressAction extends BaseServlet {
 		String logistics_district_id=request.getParameter("logistics_district_id");
 		String logistics_address=request.getParameter("logistics_address");
 		
-		Map<String, Object> map=new HashMap<String, Object>();
-		if(user_uuid==null&&user_uuid.length()==0
-		&&logistics_address_nickname==null&&logistics_address_nickname.length()==0
-		&&logistics_address_mobile==null&&logistics_address_mobile.length()==0
-		&&logistics_province_id==null&&logistics_province_id.length()==0
-		&&logistics_city_id==null&&logistics_city_id.length()==0
-		&&logistics_district_id==null&&logistics_district_id.length()==0
-		&&logistics_address==null&&logistics_address.length()==0) {
+		if(user_uuid==null||user_uuid.length()==0
+		||logistics_address_nickname==null||logistics_address_nickname.length()==0
+		||logistics_address_mobile==null||logistics_address_mobile.length()==0
+		||logistics_province_id==null||logistics_province_id.length()==0
+		||logistics_city_id==null||logistics_city_id.length()==0
+		||logistics_district_id==null||logistics_district_id.length()==0
+		||logistics_address==null||logistics_address.length()==0) {
 			System.out.println("请输入完整地址");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("user_uuid", user_uuid);
 		map.put("logistics_address_nickname",logistics_address_nickname);
 		map.put("logistics_address_mobile", logistics_address_mobile);
@@ -97,10 +105,15 @@ public class AddressAction extends BaseServlet {
 	protected void deleteAddress(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_uuid=request.getParameter("user_uuid");
 		String logistics_address_uuid=request.getParameter("logistics_address_uuid");
-		if(user_uuid==null&&user_uuid.length()==0
-				&&logistics_address_uuid==null&&logistics_address_uuid.length()==0
+		if(user_uuid==null||user_uuid.length()==0
+				||logistics_address_uuid==null||logistics_address_uuid.length()==0
 				) {
+			
 			System.out.println("错误访问");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
 		
 		Map<String, Object> map=new HashMap<String, Object>();
@@ -124,17 +137,21 @@ public class AddressAction extends BaseServlet {
 		String logistics_district_id=request.getParameter("logistics_district_id");
 		String logistics_address=request.getParameter("logistics_address");
 		
-		Map<String, Object> map=new HashMap<String, Object>();
-		if(user_uuid==null&&user_uuid.length()==0
-				&&logistics_address_uuid==null&&logistics_address_uuid.length()==0
-		&&logistics_address_nickname==null&&logistics_address_nickname.length()==0
-		&&logistics_address_mobile==null&&logistics_address_mobile.length()==0
-		&&logistics_province_id==null&&logistics_province_id.length()==0
-		&&logistics_city_id==null&&logistics_city_id.length()==0
-		&&logistics_district_id==null&&logistics_district_id.length()==0
-		&&logistics_address==null&&logistics_address.length()==0) {
+		if(user_uuid==null||user_uuid.length()==0
+		||logistics_address_uuid==null||logistics_address_uuid.length()==0
+		||logistics_address_nickname==null||logistics_address_nickname.length()==0
+		||logistics_address_mobile==null||logistics_address_mobile.length()==0
+		||logistics_province_id==null||logistics_province_id.length()==0
+		||logistics_city_id==null||logistics_city_id.length()==0
+		||logistics_district_id==null||logistics_district_id.length()==0
+		||logistics_address==null||logistics_address.length()==0) {
 			System.out.println("请输入完整地址");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("user_uuid", user_uuid);
 		map.put("logistics_address_uuid", logistics_address_uuid);
 		map.put("logistics_address_nickname",logistics_address_nickname);

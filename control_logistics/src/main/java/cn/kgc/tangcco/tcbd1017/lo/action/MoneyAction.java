@@ -44,10 +44,14 @@ public class MoneyAction extends BaseServlet {
     //根据user的id查询账单
 	protected void selectBillByUserId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user_uuid=request.getParameter("user_uuid");
-		Map<String, Object> map=new HashMap<String, Object>();
 		if (user_uuid==null||user_uuid.length()==0) {
 			System.out.println("请输入uuid");
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("status", "failed");
+			printJson(response, map);
+			return;
 		}
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("user_uuid", user_uuid);
 		Map<String, Object> selectLogisticsByUserId = moneyServiceImpl.selectLogisticsByUserId(map);
 		if (selectLogisticsByUserId.get("status").toString().equals("success")) {
